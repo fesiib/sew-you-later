@@ -4,7 +4,8 @@ import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseCounter, decreaseCounter } from './reducers/counter';
 
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar';
+import ImageWithText from './components/ImageWithText';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -56,10 +57,7 @@ function App() {
 
         <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image"/>
         
-        <div className="relative inline-block"> {/* Image box with over text */}
-          <img className="w-36 h-36 filter brightness-50 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image"/>
-          <h3 className="text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">1+</h3>
-        </div> 
+        <ImageWithText/>
 
       </div>
     </div>
