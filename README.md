@@ -1,16 +1,9 @@
 # Sew you later!
 
 ## Dependencies
+Install all the dependencies running the following command in the project directory.
 ```
-# Tailwind
-npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
-
-# Craco
-npm install @craco/craco
-
-# For CSS and Icons
-npm install @headlessui/react
-npm install @heroicons/react
+npm install
 ```
 ## Getting Started with Create React App
 
