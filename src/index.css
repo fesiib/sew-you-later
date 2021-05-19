@@ -62,8 +62,7 @@
   }
 
   a {
-    @apply underline;
-    @apply bg-blue-500;
+    @apply text-blue-500;
   }
 
   p {
