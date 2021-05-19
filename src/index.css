@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');
 
 :root {
   /* Color palette */
@@ -85,8 +85,14 @@
   /* input {
     @apply focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md;
   }
-
   .search {
     
   } */
+  
+  .thumbnail {
+    @apply object-cover;
+    @apply relative overflow-hidden shadow-md rounded-2xl;
+    border: solid 1px var(--gray-40);
+  }
+
 }
