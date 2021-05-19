@@ -1,5 +1,17 @@
 # Sew you later!
 
+## Dependencies
+```
+# Tailwind
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+
+# Craco
+npm install @craco/craco
+
+# For CSS and Icons
+npm install @headlessui/react
+npm install @heroicons/react
+```
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
