@@ -28,13 +28,20 @@ function App() {
 
   return (
     <div style={{textAlign: "center"}}>
-      <div><h1>HELLO</h1></div>
+      <div><h1>This is H1. Most probably one line.</h1></div>
       
       <div>
         <button onClick={moveToSignin} className="red">move to sign in</button>
         <button onClick={moveToSignin} className="green">same but green</button>
       </div>
       
+      <form>
+        <label>
+          Name:
+          <input type="text"/>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
       
       <br/>
       
