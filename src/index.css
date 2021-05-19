@@ -91,7 +91,9 @@
   } */
   
   .thumbnail {
-    @apply w-full h-full object-cover;
+    @apply object-cover;
+    @apply relative overflow-hidden shadow-md rounded-2xl;
+    border: solid 1px var(--gray-40);
   }
 
 }
