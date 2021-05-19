@@ -16,23 +16,23 @@ function App() {
     dispatch(decreaseCounter());
   };
 
-  const moveToSingin = () => {
+  const moveToSignin = () => {
     console.log("here");
     window.location = "/signin";
   };
 
   return (
     <div className="App">
-      HELLO  
+      <div>HELLO</div>
       
-      <div onClick = {moveToSingin}> move to signin </div>
+      <button onClick={moveToSignin} class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> move to signin </button>
       
       <br/>
       
       {cnt}
       
-      <div onClick = {_increaseCounter}> +1 </div>
-      <div onClick = {_decreaseCounter}> -1 </div>
+      <div onClick={_increaseCounter}> +1 </div>
+      <div onClick={_decreaseCounter}> -1 </div>
       
     </div>
   );
