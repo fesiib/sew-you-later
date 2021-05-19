@@ -1,7 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {increaseCounter, decreaseCounter } from './reducers/counter';
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 function App() {
   const dispatch = useDispatch();
@@ -22,10 +27,14 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div>HELLO</div>
+    <div style={{textAlign: "center"}}>
+      <div><h1>HELLO</h1></div>
       
-      <button onClick={moveToSignin} class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> move to signin </button>
+      <div>
+        <button onClick={moveToSignin} className="red">move to sign in</button>
+        <button onClick={moveToSignin} className="green">same but green</button>
+      </div>
+      
       
       <br/>
       
