@@ -89,4 +89,9 @@
   .search {
     
   } */
+  
+  .thumbnail {
+    @apply w-full h-full object-cover;
+  }
+
 }
