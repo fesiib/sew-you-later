@@ -1,0 +1,10 @@
+@tailwind components;
+@tailwind utilities;
+
+#label {
+    display: none;
+}
+
+#menuButton:hover > #label { 
+    display: block;
+}
