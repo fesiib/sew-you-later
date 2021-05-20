@@ -95,4 +95,9 @@
     border: solid 1px var(--gray-40);
   }
 
+  .card {
+    @apply rounded-2xl p-3 w-96;
+    border: solid 1px var(--gray-40);
+    background-color: white;
+  }
 }
