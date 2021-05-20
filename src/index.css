@@ -61,6 +61,24 @@
     @apply text-lg;
   }
 
+  .h1 {
+    color: black;
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 40px;
+  }
+
+  .h2 {
+    color: var(--blue-100);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 23px;
+  }
+
+  .h3 {
+    @apply text-lg;
+  }
+
   a {
     @apply text-blue-500;
   }
@@ -96,8 +114,13 @@
   }
 
   .card {
-    @apply rounded-2xl p-3 w-96;
+    @apply rounded-2xl;
     border: solid 1px var(--gray-40);
     background-color: white;
+  }
+
+  /* shitty fix for note taking widget */
+  .fixed-height {
+    height: 305px;
   }
 }

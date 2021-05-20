@@ -8,12 +8,15 @@ const propVars = {
 };
 
 function ReportBrief(props) {
-
     return (
-        <div className="card shadow-lg p-5">
+        <div className="card w-96 p-5 shadow-lg">
             <div className="flex mb-4">
                 <h1 className="w-72 line-clamp-2">{propVars.reportTitle}</h1>
-                <button className="w-16 h-16 rounded-full green text-4xl">&rarr;</button>
+                <button className="w-16 h-16 rounded-full green text-4xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
             </div>
             <div className="mb-4">
                 <h2>{"Posted: " + propVars.reportDate.toLocaleString()}</h2>
@@ -27,7 +30,6 @@ function ReportBrief(props) {
             </div>
         </div>
     );
-
 };
 
 export default ReportBrief;

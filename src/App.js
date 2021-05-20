@@ -7,6 +7,7 @@ import { increaseCounter, decreaseCounter } from './reducers/counter';
 import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import ReportBrief from './components/ReportBrief';
+import ImageNotes from './components/ImageNotes';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -34,33 +35,8 @@ function App() {
     <div>
       <Navbar />
       <div>
-        <div><h1>This is H1. Most probably one line.</h1></div>
-
-        <div>
-          <button onClick={moveToSignin} className="red">move to sign in</button>
-          <button onClick={moveToSignin} className="green">same but green</button>
-        </div>
-
-        <form>
-          <label>
-            Name:
-          <input type="text" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-
-        <br />
-
-        {cnt}
-
-        <div onClick={_increaseCounter}> +1 </div>
-        <div onClick={_decreaseCounter}> -1 </div>
-
-        <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image"/>
-        
-        <ImageWithText/>
         <ReportBrief/>
-        
+        <ImageNotes/>
       </div>
     </div>
   );
