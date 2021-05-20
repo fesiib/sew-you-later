@@ -7,6 +7,7 @@ import { increaseCounter, decreaseCounter } from './reducers/counter';
 import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import Sidebar from './components/Sidebar';
+import FAQ from './components/FAQ';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      <FAQ />
       <div className="w-32">
         <Sidebar />
       </div>
