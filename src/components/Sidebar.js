@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 
 import "./Sidebar.css"
 
