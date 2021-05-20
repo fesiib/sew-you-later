@@ -2,11 +2,19 @@ module.exports = {
     purge: [],
     darkMode: false, // or 'media' or 'class'
     theme: {
-      maxWidth: {
-        'xxs': '16rem',
-        'xxxs': '12rem',
+      extend: {
+        width: {
+          '112': '28rem',
+          '116': '29rem',
+          '120': '30rem',
+          '124': '31rem',
+          '128': '32rem',
+        },
+        maxWidth: {
+          'xxs': '16rem',
+          'xxxs': '12rem',
+        },
       },
-      extend: {},
       fontFamily: {
         'sans': 'Work Sans, Work Sans, sans-serif',
       },
@@ -14,5 +22,7 @@ module.exports = {
     variants: {
       extend: {},
     },
-    plugins: [],
+    plugins: [
+      require('@tailwindcss/line-clamp'),
+    ],
   }
