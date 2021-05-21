@@ -2,7 +2,7 @@ import ImageWithText from './ImageWithText';
 
 const propVars = {
     reportTitle: "Report 1 Lorem ipsum  Lorem ipsum",
-    reportDate: new Date(), //gives the current date
+    reportDate: new Date(), //returns the current date
     reportBody: "Dear Customer, I completed the production of the arms and the pockets. You can check the attached images. Also ... Dear Customer, I completed the production of the arms and the pockets. You can check the attached images.",
     imgLink: "https://v1.tailwindcss.com/img/card-top.jpg"
 };

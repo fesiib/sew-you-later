@@ -9,6 +9,7 @@ import ImageWithText from './components/ImageWithText';
 import ReportBrief from './components/ReportBrief';
 import ImageNotes from './components/ImageNotes';
 import ReportMessage from './components/ReportMessage';
+import ReportImages from './components/ReportImages';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -35,11 +36,13 @@ function App() {
   return (
     <div>
       <Navbar />
-      <div>
+      
+      <div className="w-full flex justify-evenly flex-wrap">
+        <ReportImages/>
         <ReportMessage/>
-        <ReportBrief/>
-        <ImageNotes/>
       </div>
+      <ReportBrief/>
+      <ImageNotes/>
     </div>
   );
 }
