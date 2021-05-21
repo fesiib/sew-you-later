@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import MeasurementMessage from './components/MeasurementMessage';
 import MeasurementTags from './components/MeasurementTags';
+import MeasurementBody from './components/MeasurementBody';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -62,6 +63,7 @@ function App() {
         <ImageWithText/>
         <MeasurementTags/>
         <MeasurementMessage/>
+        <MeasurementBody/>
       </div>
     </div>
   );
