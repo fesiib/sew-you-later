@@ -1,5 +1,5 @@
 import ImageWithText from './ImageWithText';
-// import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar';
 
 const propVars = {
     orderTitle: "T shirt with Pocket",
@@ -38,7 +38,7 @@ function CurOrderItem(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <ProgressBar/> */}
+                    <ProgressBar/>
                     <div className="text-right">
                         Estimated Due: {propVars.estimatedDue}
                     </div>
