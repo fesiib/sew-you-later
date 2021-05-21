@@ -6,9 +6,6 @@ function ImageSearchTopBar(props) {
 
     return (
         <div>
-            <h3 className="font-bold">
-                Search Images
-            </h3>
             <div className="flex mt-4">
                 <div className="my-4 mr-4">
                     <SearchBar/>
