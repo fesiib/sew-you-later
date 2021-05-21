@@ -1,13 +1,14 @@
 import SingleNote from './SingleNote';
 
 const propVars = {
+    imgLink: "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"
     //will get array of singlenotes
 };
 
 function ImageNotes(props) {
     return (
         <div className="max-w-5xl w-full lg:flex card overflow-hidden">
-            <img className="mx-auto lg:mx-0 h-96 w-96" src='https://v1.tailwindcss.com/img/card-top.jpg'/>
+            <img className="mx-auto lg:mx-0 h-96 w-96 object-cover" src={propVars.imgLink}/>
             <div className="flex flex-col w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 pb-0 leading-normal">
                 <div className="flex justify-between">
                     <div className="flex mb-3">
@@ -35,13 +36,13 @@ function ImageNotes(props) {
                         </div>
                     </div>
                 </div>
-                <hr/>
-                <div className="fixed-height overflow-y-scroll">
+                <hr className="border-black"/>
+                {/* single notes will be listed in this div */}
+                <div className="fixed-height overflow-y-scroll pr-3"> 
                     <SingleNote/>
                     <SingleNote/>
                     <SingleNote/>
                 </div>
-                
             </div>
         </div>
     );

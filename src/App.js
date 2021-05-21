@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import ReportBrief from './components/ReportBrief';
 import ImageNotes from './components/ImageNotes';
+import ReportMessage from './components/ReportMessage';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -35,6 +36,7 @@ function App() {
     <div>
       <Navbar />
       <div>
+        <ReportMessage/>
         <ReportBrief/>
         <ImageNotes/>
       </div>
