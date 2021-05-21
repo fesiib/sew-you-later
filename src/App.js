@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import NewOrderItem from './components/NewOrderItem';
 import CurOrderItem from './components/CurOrderItem';
+import ProgressBar from './components/ProgressBar';
+import Notification from './components/Notification';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -58,12 +60,17 @@ function App() {
         <div onClick={_decreaseCounter}> -1 </div>
 
         <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image"/>
-          <ImageWithText/>
+          <Notification position="bottom-right" size="h-6 w-6">
+            <ImageWithText/>
+          </Notification>
           <div className="m-4">
             <NewOrderItem/>
           </div>
         <div className="m-4">
           <CurOrderItem/>
+        </div>
+        <div className="m-4">
+          <ProgressBar/>
         </div>
       </div>
     </div>
