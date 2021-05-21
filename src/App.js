@@ -11,6 +11,7 @@ import CurOrderItem from './components/CurOrderItem';
 import ProgressBar from './components/ProgressBar';
 import Notification from './components/Notification';
 import SortBy from './components/SortBy';
+import SearchBar from './components/SearchBar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -75,6 +76,9 @@ function App() {
         </div>
         <div className="flex justify-center">
           <SortBy options={["Received Date", "A-Z", "Due Date", "Customer", "Location"]}/>
+        </div>
+        <div className="flex justify-center m-4">
+          <SearchBar/>
         </div>
       </div>
     </div>
