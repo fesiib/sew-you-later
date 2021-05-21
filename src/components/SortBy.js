@@ -10,7 +10,7 @@ function SortBy(props) {
 
     return (
         <div className="flex flex-col">
-            <p className="mb-0.5 text-xs">Sort By</p>
+            <p className="mb-0.5 text-xs">Sort By:</p>
             <Menu as="div" className="relative max-w-max text-left">
             {({ open }) => (
                 <>
