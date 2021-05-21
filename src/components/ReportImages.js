@@ -10,8 +10,8 @@ function ReportImages(props) {
     return (
         <div className="card max-w-3xl p-5 flex-grow">
             <h2 className="text-black">Images</h2>
-            <div className="flex flex-wrap">
-                <button className="flex flex-col justify-center thumbnail border border-dashed w-36 h-36 mx-4 mt-5 p-0">
+            <div className="gallery-small">
+                <button className="flex flex-col justify-center thumbnail border border-dashed mx-4 mt-5 p-0">
                     <h2 className="text-gray-400 mx-auto">Upload image</h2>
                     <div className="mx-auto text-gray-400">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,15 +19,15 @@ function ReportImages(props) {
                         </svg>
                     </div>
                 </button>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail w-36 h-36 mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
             </div>
         </div>
     );

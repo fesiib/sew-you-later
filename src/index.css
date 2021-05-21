@@ -123,4 +123,49 @@
   .fixed-height {
     height: 305px;
   }
+
+  /* size classes for gallery images */
+  /* WARNING! THINGS INSIDE GALLERY MIGHT DO RANDOM THINGS, MAKE SURE TO ADD ONLY IMG */
+  /* ASK BAHA BEFORE ANY CHANGES :D */
+  .gallery-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 9rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8
+  }
+  .gallery-small button {
+    @apply h-36 w-36;
+  }
+  .gallery-small img {
+    @apply h-36 w-36;
+  }
+
+  .gallery-medium {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 12rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8
+  }
+  .gallery-medium button {
+    @apply h-48 w-48;
+  }
+  .gallery-medium img {
+    @apply h-48 w-48;
+  }
+
+  .gallery-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8
+  }
+  .gallery-large button {
+    @apply h-60 w-60;
+  }
+  .gallery-large img {
+    @apply h-60 w-60;
+  }
 }
