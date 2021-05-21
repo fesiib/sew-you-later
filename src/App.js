@@ -10,6 +10,7 @@ import NewOrderItem from './components/NewOrderItem';
 import CurOrderItem from './components/CurOrderItem';
 import ProgressBar from './components/ProgressBar';
 import Notification from './components/Notification';
+import SortBy from './components/SortBy';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -71,6 +72,9 @@ function App() {
         </div>
         <div className="m-4">
           <ProgressBar/>
+        </div>
+        <div className="flex justify-center">
+          <SortBy options={["Received Date", "A-Z", "Due Date", "Customer", "Location"]}/>
         </div>
       </div>
     </div>
