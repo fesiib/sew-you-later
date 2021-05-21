@@ -13,6 +13,7 @@ import Notification from './components/Notification';
 import SortBy from './components/SortBy';
 import SearchBar from './components/SearchBar';
 import SizeBar from './components/SizeBar';
+import ImageSearchTopBar from './components/ImageSearchTopBar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -83,6 +84,9 @@ function App() {
         </div>
         <div className="flex justify-center m-4">
           <SizeBar/>
+        </div>
+        <div className="flex justify-center m-4">
+          <ImageSearchTopBar/>
         </div>
       </div>
     </div>
