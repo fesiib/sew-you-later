@@ -14,7 +14,7 @@ const propVars = {
 function CurOrderItem(props) {
 
     return (
-        <Notification position="bottom-right" size="h-9 w-9" data={propVars.hasNotification}>
+        <Notification position="top-left" size="h-9 w-9" data={propVars.hasNotification}>
             <div className="inline-flex bg-white rounded-xl hover:bg-gray-300">
                 <a href="#" className="text-black ml-4 mt-4 mr-4">
                     <div className="flex flex-col cursor-pointer h-36">

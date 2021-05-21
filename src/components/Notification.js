@@ -1,3 +1,5 @@
+import CheckIcon from '@heroicons/react/solid/CheckIcon';
+
 function Notification(props) {
 
     let data = props.data;
@@ -14,9 +16,24 @@ function Notification(props) {
         );
     }
 
-    let posSetup = "left-0 top-0 transform -translate-x-1/2 -translate-y-1/2"; 
-    if(props.position && props.position.includes('bottom-right')) {
-        posSetup = "right-0 bottom-0 transform translate-x-1/2 translate-y-1/2";
+    let typeSetup = "rounded-full notification-red text-center text-white";
+    if(props.type && props.type == "check") {
+        typeSetup = "bg-green-400 text-black";
+        data = <CheckIcon/>;
+    }
+
+    let posSetup = "transform"; 
+    if(props.position && props.position.includes('bottom')) {
+        posSetup = `bottom-0 ${posSetup} translate-y-1/2`;
+    }
+    else {
+        posSetup = `top-0 ${posSetup} -translate-y-1/2`;
+    }
+    if(props.position && props.position.includes('right')) {
+        posSetup = `right-0 ${posSetup} translate-x-1/2`;
+    }
+    else {
+        posSetup = `left-0 ${posSetup} -translate-x-1/2`;
     }
     
     let sizeSetup = "h-6 w-6";
@@ -27,7 +44,7 @@ function Notification(props) {
     return (
         <div className="relative max-w-max"> 
             {props.children}
-            <span className={`absolute ${posSetup} ${sizeSetup} rounded-full notification-red text-center text-white`}>
+            <span className={`absolute ${posSetup} ${sizeSetup} ${typeSetup}`}>
                 {data}
             </span>
         </div>
