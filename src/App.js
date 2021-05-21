@@ -7,6 +7,7 @@ import { increaseCounter, decreaseCounter } from './reducers/counter';
 import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import NewOrderItem from './components/NewOrderItem';
+import CurOrderItem from './components/CurOrderItem';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -61,6 +62,9 @@ function App() {
           <div className="m-4">
             <NewOrderItem/>
           </div>
+        <div className="m-4">
+          <CurOrderItem/>
+        </div>
       </div>
     </div>
   );
