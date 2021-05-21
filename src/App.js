@@ -12,6 +12,7 @@ import ProgressBar from './components/ProgressBar';
 import Notification from './components/Notification';
 import SortBy from './components/SortBy';
 import SearchBar from './components/SearchBar';
+import SizeBar from './components/SizeBar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -79,6 +80,9 @@ function App() {
         </div>
         <div className="flex justify-center m-4">
           <SearchBar/>
+        </div>
+        <div className="flex justify-center m-4">
+          <SizeBar/>
         </div>
       </div>
     </div>
