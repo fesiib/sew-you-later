@@ -5,7 +5,7 @@ const propVars = {
     numOfReports: 4,
 };
 
-function OrderReports(props) {
+function OrderReportsPage(props) {
     var reports = [];
     for(var i = 0; i < propVars.numOfReports; i++)
         reports.push(<ReportBrief/>);
@@ -45,4 +45,4 @@ function OrderReports(props) {
     );
 };
 
-export default OrderReports;
+export default OrderReportsPage;

@@ -7,7 +7,7 @@ import {
 
 import App from "./App";
 import Signin from "./pages/Signin";
-import OrderReports from "./pages/OrderReports";
+import OrderReportsPage from "./pages/OrderReportsPage";
 
 class Routes extends React.Component {
     render() {
@@ -16,7 +16,7 @@ class Routes extends React.Component {
                 <Switch>
                     <Route exact path="/" component={App}/>
                     <Route exact path="/signin" component={Signin}/>
-                    <Route exact path="/order_reports" component={OrderReports}/>
+                    <Route exact path="/order_reports" component={OrderReportsPage}/>
                 </Switch>
             </Router>
         )
