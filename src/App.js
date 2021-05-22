@@ -7,8 +7,7 @@ import { increaseCounter, decreaseCounter } from './reducers/counter';
 import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import Sidebar from './components/Sidebar';
-import FAQ from './components/FAQ';
-import QandA from './components/QandA';
+import FAQButton from './components/FAQButton';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +30,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <FAQ />
+      <FAQButton />
       <div className="w-32">
         <Sidebar />
       </div>
@@ -55,7 +54,6 @@ function App() {
 
         {cnt}
 
-        <QandA />
         <div onClick={_increaseCounter}> +1 </div>
         <div onClick={_decreaseCounter}> -1 </div>
 

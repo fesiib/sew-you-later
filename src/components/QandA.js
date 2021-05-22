@@ -7,7 +7,7 @@ class QandA extends Component {
             <Disclosure className="bg-white">
                 {({ open }) => (
                     <>
-                        <div className="w-auto mr-16 rounded-lg px-4 py-4 bg-white space-y-4">
+                        <div className="w-auto mb-8 rounded-lg px-4 py-4 bg-white space-y-4">
                             <div id="question" className="space-y-2">
                                 <div id="qIcon" className="flex-none w-28 h-8 bg-red-500 text-white font-bold text-lg rounded-lg text-center px-2 py-0.5">
                                     QUESTION
