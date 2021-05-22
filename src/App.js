@@ -8,6 +8,16 @@ import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import Sidebar from './components/Sidebar';
 import FAQButton from './components/FAQButton';
+import OrderDetails from './components/OrderDetails';
+import OrderProgress from './components/OrderProgress';
+import OrderNextStep from './components/OrderNextStep';
+import MeasurementMessage from './components/MeasurementMessage';
+import MeasurementTags from './components/MeasurementTags';
+import MeasurementBody from './components/MeasurementBody';
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +71,15 @@ function App() {
 
         <ImageWithText />
 
+          <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image"/>
+        
+        <ImageWithText/>
+        <OrderNextStep/>
+        <OrderProgress/>
+        <OrderDetails/>
+        <MeasurementTags/>
+        <MeasurementMessage/>
+        <MeasurementBody/>
       </div>
     </div>
   );
