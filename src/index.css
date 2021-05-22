@@ -190,11 +190,4 @@
     grid-gap: 1rem;
     @apply pr-8;
   }
-
-  .gallery-large button {
-    @apply w-96;
-  }
-  .gallery-large img {
-    @apply w-96;
-  }
 }
