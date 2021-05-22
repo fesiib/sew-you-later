@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
 import Sidebar from './components/Sidebar';
 import FAQ from './components/FAQ';
+import QandA from './components/QandA';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
 
         {cnt}
 
+        <QandA />
         <div onClick={_increaseCounter}> +1 </div>
         <div onClick={_decreaseCounter}> -1 </div>
 
