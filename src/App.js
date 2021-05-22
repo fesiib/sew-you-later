@@ -6,6 +6,9 @@ import { increaseCounter, decreaseCounter } from './reducers/counter';
 
 import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
+import MeasurementMessage from './components/MeasurementMessage';
+import MeasurementTags from './components/MeasurementTags';
+import MeasurementBody from './components/MeasurementBody';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -58,7 +61,9 @@ function App() {
         <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image"/>
         
         <ImageWithText/>
-
+        <MeasurementTags/>
+        <MeasurementMessage/>
+        <MeasurementBody/>
       </div>
     </div>
   );
