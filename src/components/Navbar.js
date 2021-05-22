@@ -2,11 +2,12 @@ import { Component } from "react";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import  Notification  from './Notification';
 
 const navigation = [
-    { name: 'New Orders', href: '#', current: true },
-    { name: 'Current Orders', href: '#', current: false },
-    { name: 'Previous Orders', href: '#', current: false },
+    { name: 'New Orders', href: '#', current: true, cntNotifications: 4, },
+    { name: 'Current Orders', href: '#', current: false, cntNotifications: 4 },
+    { name: 'Previous Orders', href: '#', current: false, cntNotifications: 0 }, // this should always have 0 notficiations
 ]
 
 function classNames(...classes) {
@@ -39,18 +40,22 @@ class Navbar extends Component {
                                     <div className="hidden sm:block sm:ml-6">
                                         <div className="flex px-4 space-x-4 ml-20">
                                             {navigation.map((item) => (
-                                                <a
-                                                    key={item.name}
-                                                    href={item.href}
-                                                    className={classNames(
-                                                        item.current ? 'text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
-                                                        'px-3 py-3 rounded-md text-sm text-center'
-                                                    )}
-                                                    style={{ fontSize: "20px" }}
-                                                    aria-current={item.current ? 'page' : undefined}
-                                                >
-                                                    {item.name}
-                                                </a>
+                                                <div className="px-6 py-3">
+                                                    <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
+                                                        <a
+                                                            key={item.name}
+                                                            href={item.href}
+                                                            className={classNames(
+                                                                item.current ? 'bg-indigo-900 text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
+                                                                'rounded-md text-sm'
+                                                            )}
+                                                            style={{ fontSize: "20px" }}
+                                                            aria-current={item.current ? 'page' : undefined}
+                                                        >
+                                                            {item.name}
+                                                        </a>
+                                                    </Notification>
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
@@ -135,17 +140,21 @@ class Navbar extends Component {
                         <Disclosure.Panel className="sm:hidden">
                             <div className="px-2 pt-2 pb-3 space-y-1">
                                 {navigation.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className={classNames(
-                                            item.current ? 'bg-indigo-900 text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
-                                            'block px-3 py-2 rounded-md text-base font-medium'
-                                        )}
-                                        aria-current={item.current ? 'page' : undefined}
-                                    >
-                                        {item.name}
-                                    </a>
+                                    <div className="px-6 py-3">
+                                        <Notification position="bottom-right" size="h-6 w-6" data={item.cntNotifications}>
+                                            <a
+                                                key={item.name}
+                                                href={item.href}
+                                                className={classNames(
+                                                    item.current ? 'bg-indigo-900 text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
+                                                    'block px-3 py-2 rounded-md text-base font-medium'
+                                                )}
+                                                aria-current={item.current ? 'page' : undefined}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        </Notification>
+                                    </div>
                                 ))}
                             </div>
                         </Disclosure.Panel>
