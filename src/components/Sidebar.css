@@ -5,6 +5,10 @@
     display: none;
 }
 
-#menuButton:hover > #label { 
+#sideBar:hover + #menuButton {
+    @apply w-52;
+}
+
+#sideBar:hover #label { 
     display: block;
 }

@@ -31,7 +31,7 @@ function App() {
     <div>
       <Navbar />
       <FAQButton />
-      <div className="w-32">
+      <div className="">
         <Sidebar />
       </div>
       <div className="ml-36 mt-8">
