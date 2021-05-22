@@ -9,6 +9,9 @@ import ImageWithText from './components/ImageWithText';
 import OrderDetails from './components/OrderDetails';
 import OrderProgress from './components/OrderProgress';
 import OrderNextStep from './components/OrderNextStep';
+import MeasurementMessage from './components/MeasurementMessage';
+import MeasurementTags from './components/MeasurementTags';
+import MeasurementBody from './components/MeasurementBody';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -64,7 +67,9 @@ function App() {
         <OrderNextStep/>
         <OrderProgress/>
         <OrderDetails/>
-
+        <MeasurementTags/>
+        <MeasurementMessage/>
+        <MeasurementBody/>
       </div>
     </div>
   );
