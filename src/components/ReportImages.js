@@ -1,3 +1,6 @@
+import PopupWidget from '../components/PopupWidget'; 
+import ImageNotes from './ImageNotes';
+
 const propVars = {
     reportTitle: "Please type a report title.",
     reportBody: "Dear Customer, I completed the production of the arms and the pockets. You can check the attached images. Also ... Dear Customer, I completed the production of the arms and the pockets. You can check the attached images.",
@@ -7,6 +10,17 @@ const propVars = {
 };
 
 function ReportImages(props) {
+    var imgs = [];
+    for(var i = 0; i < 5; i++) {
+        imgs.push(<PopupWidget 
+            popupButton={
+                <img className="thumbnail mx-4 mt-5 cursor-pointer" src={propVars.imgLinks[0]}/>
+            }
+            popupContent={
+                <ImageNotes/>
+            }
+        />)
+    }
     return (
         <div className="card max-w-3xl p-5 flex-grow">
             <h2 className="text-black">Images</h2>
@@ -19,11 +33,7 @@ function ReportImages(props) {
                         </svg>
                     </div>
                 </button>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
+                {imgs}
             </div>
         </div>
     );
