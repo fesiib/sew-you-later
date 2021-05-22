@@ -182,4 +182,19 @@
   .gallery-large img {
     @apply h-60 w-60;
   }
+
+  .order-reports {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 24rem);
+    justify-content: space-between;
+    grid-gap: 1rem;
+    @apply pr-8;
+  }
+
+  .gallery-large button {
+    @apply w-96;
+  }
+  .gallery-large img {
+    @apply w-96;
+  }
 }
