@@ -9,6 +9,7 @@ module.exports = {
           '120': '30rem',
           '124': '31rem',
           '128': '32rem',
+          '18': '4.5rem',
         },
         maxWidth: {
           'xxs': '16rem',
@@ -20,6 +21,8 @@ module.exports = {
       },
     },
     variants: {
+      width: ["responsive", "hover", "focus"],
+      visibility: ["hover", "focus"],
       extend: {},
     },
     plugins: [

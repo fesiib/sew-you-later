@@ -41,7 +41,7 @@ class Navbar extends Component {
                                         <div className="flex px-4 space-x-4 ml-20">
                                             {navigation.map((item) => (
                                                 <div className="px-6 py-3">
-                                                    <Notification position="bottom-right" size="h-6 w-6" data={item.cntNotifications}>
+                                                    <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
                                                         <a
                                                             key={item.name}
                                                             href={item.href}

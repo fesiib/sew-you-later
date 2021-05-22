@@ -61,6 +61,24 @@
     @apply text-lg;
   }
 
+  .h1 {
+    color: black;
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 40px;
+  }
+
+  .h2 {
+    color: var(--blue-100);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 23px;
+  }
+
+  .h3 {
+    @apply text-lg;
+  }
+
   a {
     @apply text-blue-500;
   }
@@ -99,10 +117,20 @@
     border: solid 1px var(--gray-40);
   }
 
+  .card {
+    @apply rounded-2xl;
+    border: solid 1px var(--gray-40);
+    background-color: white;
+  }
+
+  /* shitty fix for note taking widget */
+  .fixed-height {
+    height: 305px;
+  }
+
   /* size classes for gallery images */
   /* WARNING! THINGS INSIDE GALLERY MIGHT DO RANDOM THINGS, MAKE SURE TO ADD ONLY IMG */
   /* ASK BAHA BEFORE ANY CHANGES :D */
-
   .gallery-xsmall {
     display: grid;
     grid-template-columns: repeat(auto-fill, 7rem);
@@ -157,5 +185,13 @@
   }
   .gallery-large img {
     @apply h-60 w-60;
+  }
+
+  .order-reports {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 24rem);
+    justify-content: space-between;
+    grid-gap: 1rem;
+    @apply pr-8;
   }
 }

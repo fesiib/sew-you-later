@@ -1,0 +1,14 @@
+@tailwind components;
+@tailwind utilities;
+
+#label {
+    display: none;
+}
+
+#sideBar:hover + #menuButton {
+    @apply w-52;
+}
+
+#sideBar:hover #label { 
+    display: block;
+}
