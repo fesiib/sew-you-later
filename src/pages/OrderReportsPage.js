@@ -19,21 +19,6 @@ function OrderReportsPage(props) {
             <div className="m-8 mt-6">
                 <div className="flex mb-8">
                     <h1 className="text-black mr-1 my-auto">Order Reports</h1>
-                    <Popup
-                        trigger={<button className="button"> Open Modal </button>}
-                        modal
-                        nested
-                        position="center center"
-                        contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
-                    >
-                        {close => (
-                                <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap">
-                                    <ReportImages/>
-                                    <ReportMessage/>
-                                </div>
-                            )
-                        }
-                    </Popup>
                     <button className="text-black p-0 rounded-full shadow-none my-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

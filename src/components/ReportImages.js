@@ -24,10 +24,6 @@ function ReportImages(props) {
                 <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
                 <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
                 <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
-                <img className="thumbnail mx-4 mt-5" src={propVars.imgLinks[0]}/>
             </div>
         </div>
     );
