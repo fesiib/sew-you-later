@@ -61,6 +61,24 @@
     @apply text-lg;
   }
 
+  .h1 {
+    color: black;
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 40px;
+  }
+
+  .h2 {
+    color: var(--blue-100);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 23px;
+  }
+
+  .h3 {
+    @apply text-lg;
+  }
+
   a {
     @apply text-blue-500;
   }
@@ -82,6 +100,10 @@
     @apply bg-red-400 hover:bg-red-500;
   }
 
+  .notification-red {
+    @apply bg-red-500;
+  }
+
   /* input {
     @apply focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md;
   }
@@ -95,4 +117,81 @@
     border: solid 1px var(--gray-40);
   }
 
+  .card {
+    @apply rounded-2xl;
+    border: solid 1px var(--gray-40);
+    background-color: white;
+  }
+
+  /* shitty fix for note taking widget */
+  .fixed-height {
+    height: 305px;
+  }
+
+  /* size classes for gallery images */
+  /* WARNING! THINGS INSIDE GALLERY MIGHT DO RANDOM THINGS, MAKE SURE TO ADD ONLY IMG */
+  /* ASK BAHA BEFORE ANY CHANGES :D */
+  .gallery-xsmall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 7rem);
+    justify-content: space-between;
+    grid-gap: 1rem;
+    @apply pr-8;
+  }
+  .gallery-xsmall button {
+    @apply h-28 w-28;
+  }
+  .gallery-xsmall img {
+    @apply h-28 w-28;
+  }
+
+  .gallery-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 9rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8;
+  }
+  .gallery-small button {
+    @apply h-36 w-36;
+  }
+  .gallery-small img {
+    @apply h-36 w-36;
+  }
+
+  .gallery-medium {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 12rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8;
+  }
+  .gallery-medium button {
+    @apply h-48 w-48;
+  }
+  .gallery-medium img {
+    @apply h-48 w-48;
+  }
+
+  .gallery-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8;
+  }
+  .gallery-large button {
+    @apply h-60 w-60;
+  }
+  .gallery-large img {
+    @apply h-60 w-60;
+  }
+
+  .order-reports {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 24rem);
+    justify-content: space-between;
+    grid-gap: 1rem;
+    @apply pr-8;
+  }
 }
