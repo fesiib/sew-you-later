@@ -17,7 +17,7 @@ function classNames(...classes) {
 class Navbar extends Component {
     render() {
         return (
-            <Disclosure as="nav" className="bg-indigo-900">
+            <Disclosure as="nav" className="sticky top-0 z-20 bg-indigo-900">
                 {({ open }) => (
                     <>
                         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
