@@ -25,7 +25,7 @@ const propVars = {
 function OrderDetails(props) {
 
     return (
-        <div className="w-2/3 flex flex-col bg-white rounded-xl">
+        <div className="m-10 flex flex-col bg-white rounded-xl">
             <h1 className="mt-10 ml-10 mr-10 text-center"> {propConst.orderDetailsTitle} </h1>
             <div className="flex flex-row m-10">
                 <div className="flex flex-col">
