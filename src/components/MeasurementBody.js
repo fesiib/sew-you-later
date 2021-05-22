@@ -14,6 +14,7 @@ const propConst = {
     backLengthLabel: "Back Length",
     wristLabel: "Wrist",
     sleeveLengthLabel: "Sleeve Length",
+    placeholder: "No Selection"
 };
 
 const SHADOW_LINE_STYLE = {
@@ -60,6 +61,10 @@ const ELLIPSE_STYLE = {
 function MeasurementBody(props) {
     return (
         <div className="card max-w-2xl p-5 bg-white rounded-xl">
+            <h2> Currently Selected: </h2>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-gray-300">
+                {propConst.placeholder}
+            </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
                 {propConst.neckLabel}
             </div>
