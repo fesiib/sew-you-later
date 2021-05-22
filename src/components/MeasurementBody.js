@@ -1,4 +1,41 @@
 const propConst = {
+    neckLabel: "Neck",
+    bustLabel: "Bust",
+    waistLabel: "Waist",
+    hipsLabel: "Hips",
+    thighLabel: "Thigh",
+    kneeLabel: "Knee",
+    calfLabel: "Calf",
+    waistToKneeLabel: "Waist to Knee",
+    ankleLabel: "Ankle",
+    inseamLabel: "Inseam",
+    riseLabel: "Rise",
+    outseamLabel: "Outseam",
+    backLengthLabel: "Back Length",
+    wristLabel: "Wrist",
+    sleeveLengthLabel: "Sleeve Length",
+};
+
+const SHADOW_LINE_STYLE = {
+    stroke: "rgb(0, 0, 0)",
+    strokeWidth: "30px",
+    visibility: "hidden",
+};
+
+const SHADOW_LINE_DASH_STYLE = {
+    stroke: "rgb(0, 0, 0)",
+    strokeDasharray: "20px",
+    strokeWidth: "30px",
+    visibility: "hidden",
+};
+
+const SHADOW_ELLIPSE_STYLE = {
+    paintOrder: "stroke markers",
+    stroke: "rgb(0, 0, 0)",
+    strokeWidth: "30px",
+    fill: "rgba(216, 216, 216, 0)",
+    strokeDasharray: "8px",  
+    visibility: "hidden",
 };
 
 const LINE_STYLE = {
@@ -22,51 +59,51 @@ const ELLIPSE_STYLE = {
 
 function MeasurementBody(props) {
     return (
-        <div className="card max-w-2xl p-5">
+        <div className="card max-w-2xl p-5 bg-white rounded-xl">
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Neck
+                {propConst.neckLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Bust
+                {propConst.bustLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Waist
+                {propConst.waistLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Hips
+                {propConst.hipsLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Thigh
+                {propConst.thighLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Knee
+                {propConst.kneeLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Calf
+                {propConst.calfLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Waist to Knee
+                {propConst.waistToKneeLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Ankle
+                {propConst.ankleLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Inseam
+                {propConst.inseamLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Rise
+                {propConst.riseLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Outseam
+                {propConst.outseamLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Back Length
+                {propConst.backLengthLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Waistband
+                {propConst.wristLabel}
             </div>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                Sleeve Length
+                {propConst.sleeveLengthLabel}
             </div>
             
             
@@ -74,6 +111,90 @@ function MeasurementBody(props) {
             
             <svg version="1.0" width="600px" height="800px" viewBox="0 0 1273.000000 1475.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(100.000000,0)">
+            
+            <g>
+                <title>shadows</title>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
+                    <title>neck</title>
+                </ellipse>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="199.516" cy="441.128" rx="123.063" ry="16.052">
+                    <title>bust</title>
+                </ellipse>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="199.108" cy="635.715" rx="109.814" ry="15.365">
+                    <title>waist</title>
+                </ellipse>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="200.215" cy="766.757" rx="124.502" ry="15.417">
+                    <title>hips</title>
+                </ellipse>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="135.668" cy="880.432" rx="59.492" ry="14.524">
+                    <title>thigh</title>
+                </ellipse>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="265.768" cy="1087.489" rx="39.042" ry="7.629">
+                    <title>knee</title>
+                </ellipse>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="135.407" cy="1207.006" rx="44.595" ry="6.66">
+                    <title>calf</title>
+                </ellipse>
+                <g>
+                    <title>waist-to-knee</title>
+                    <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="635.727" x2="443.429" y2="636.67"/>
+                    <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="1089.408" x2="440.809" y2="1091.502"/>
+                    <g transform="matrix(0.968635, 0, 0, 0.79578, -462.072723, 38.298904)">
+                    <title>line</title>
+                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                    </g>
+                </g>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="763.77" cy="1402.417" rx="35.057" ry="7.472">
+                    <title>ankle</title>
+                </ellipse>
+                <g>
+                    <title>inseam</title>
+                    <line style={SHADOW_LINE_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
+                    <line style={SHADOW_LINE_STYLE} x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
+                    <line style={SHADOW_LINE_STYLE} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
+                </g>
+                <g>
+                    <title>rise</title>
+                    <line style={SHADOW_LINE_STYLE} x1="201.028" y1="825.571" x2="201.16" y2="632.214"/>
+                    <line style={SHADOW_LINE_STYLE} x1="191.084" y1="826.146" x2="210.729" y2="826.146"/>
+                </g>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="719.976" cy="642.827" rx="109.814" ry="15.365">
+                    <title>waist-back</title>
+                </ellipse>
+                <g>
+                    <title>outseam</title>
+                    <g transform="matrix(1.208778, 0, 0, 1.312076, -157.546906, -340.904968)">
+                    <title>line</title>
+                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                    </g>
+                    <line style={SHADOW_LINE_DASH_STYLE} x1="827.495" y1="641.548" x2="962.02" y2="642.491"/>
+                    <line style={SHADOW_LINE_DASH_STYLE} x1="797.906" y1="1400.388" x2="996.157" y2="1401.331"/>
+                </g>
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="717.623" cy="222.857" rx="46.517" ry="10.166">
+                    <title>neck-back</title>
+                </ellipse>
+                <g transform="matrix(1.125301, 0, 0, 0.723075, -348.708466, -322.305695)">
+                    <title>back-length</title>
+                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                </g>
+                
+                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="886.008" cy="749.985" rx="23.857" ry="6.622">
+                    <title>wrist</title>
+                </ellipse>
+                <g transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
+                    <title>sleeve-length</title>
+                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                </g>
+            </g>
+            
             <ellipse style={ELLIPSE_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
                 <title>neck</title>
             </ellipse>
@@ -145,7 +266,7 @@ function MeasurementBody(props) {
             </g>
             
             <ellipse style={ELLIPSE_STYLE} cx="886.008" cy="749.985" rx="23.857" ry="6.622">
-                <title>waistband</title>
+                <title>wrist</title>
             </ellipse>
             <g transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
                 <title>sleeve-length</title>
