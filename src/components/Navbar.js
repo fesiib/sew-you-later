@@ -16,7 +16,7 @@ function classNames(...classes) {
 class Navbar extends Component {
     render() {
         return (
-            <Disclosure as="nav" className="bg-indigo-900">
+            <Disclosure as="nav" className="sticky top-0 z-20 bg-indigo-900">
                 {({ open }) => (
                     <>
                         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -43,8 +43,8 @@ class Navbar extends Component {
                                                     key={item.name}
                                                     href={item.href}
                                                     className={classNames(
-                                                        item.current ? 'bg-indigo-900 text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
-                                                        'px-3 py-3 rounded-md text-sm'
+                                                        item.current ? 'text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
+                                                        'px-3 py-3 rounded-md text-sm text-center'
                                                     )}
                                                     style={{ fontSize: "20px" }}
                                                     aria-current={item.current ? 'page' : undefined}
