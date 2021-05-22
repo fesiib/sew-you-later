@@ -6,6 +6,10 @@ import { increaseCounter, decreaseCounter } from './reducers/counter';
 
 import Navbar from './components/Navbar';
 import ImageWithText from './components/ImageWithText';
+import ReportBrief from './components/ReportBrief';
+import ImageNotes from './components/ImageNotes';
+import ReportMessage from './components/ReportMessage';
+import ReportImages from './components/ReportImages';
 import Sidebar from './components/Sidebar';
 import FAQButton from './components/FAQButton';
 import OrderDetails from './components/OrderDetails';
@@ -40,6 +44,11 @@ function App() {
   return (
     <div>
       <Navbar />
+      
+      <div className="w-full flex justify-evenly flex-wrap">
+        <ReportImages/>
+        <ReportMessage/>
+      </div>
       <FAQButton />
       <div className="">
         <Sidebar />
@@ -81,6 +90,8 @@ function App() {
         <MeasurementMessage/>
         <MeasurementBody/>
       </div>
+      <ReportBrief/>
+      <ImageNotes/>
     </div>
   );
 }
