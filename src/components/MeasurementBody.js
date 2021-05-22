@@ -23,6 +23,55 @@ const ELLIPSE_STYLE = {
 function MeasurementBody(props) {
     return (
         <div className="card max-w-2xl p-5">
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Neck
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Bust
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Waist
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Hips
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Thigh
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Knee
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Calf
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Waist to Knee
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Ankle
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Inseam
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Rise
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Outseam
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Back Length
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Waistband
+            </div>
+            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
+                Sleeve Length
+            </div>
+            
+            
+            
+            
             <svg version="1.0" width="600px" height="800px" viewBox="0 0 1273.000000 1475.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(100.000000,0)">
             <ellipse style={ELLIPSE_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
