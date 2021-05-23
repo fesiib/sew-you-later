@@ -131,6 +131,21 @@
   /* size classes for gallery images */
   /* WARNING! THINGS INSIDE GALLERY MIGHT DO RANDOM THINGS, MAKE SURE TO ADD ONLY IMG */
   /* ASK BAHA BEFORE ANY CHANGES :D */
+
+  .gallery-xxsmall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 5rem);
+    justify-content: space-between;
+    grid-gap: 1rem;
+    @apply pr-8;
+  }
+  .gallery-xxsmall button {
+    @apply h-20 w-20;
+  }
+  .gallery-xxsmall img {
+    @apply h-20 w-20;
+  }
+
   .gallery-xsmall {
     display: grid;
     grid-template-columns: repeat(auto-fill, 7rem);
