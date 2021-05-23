@@ -16,10 +16,10 @@ function OrderMeasurementsPage(props) {
     return (
         <div className="">
             <Navbar className="absolute top-0"/>
-            <div className="flex flex-row justify-center items-center">
-                <div className="absolute left-0">
-                    <Sidebar/>
-                </div>
+            <div className="absolute left-0">
+                <Sidebar/>
+            </div>
+            <div className="ml-18 flex flex-row justify-center items-center">
                 <div className="w-2/5">
                     <MeasurementBody />
                 </div>

@@ -16,10 +16,10 @@ function OrderDetailsPage(props) {
     return (
         <div>
             <Navbar className="top"/>
-            <div className="w-30px absolute left-0">
+            <div className="absolute left-0">
                 <Sidebar/>
             </div>
-            <div className="ml-20 flex flex-row justify-center items-center">
+            <div className="ml-18 flex flex-row justify-center items-center">
                 <div className="flex-col w-3/5">
                     <OrderProgress />
                     <OrderDetails />
