@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import  Notification  from './Notification';
+import Notification from './Notification';
 
 const navigation = [
     { name: 'New Orders', href: '#', current: true, cntNotifications: 4, },
@@ -40,14 +40,14 @@ class Navbar extends Component {
                                     <div className="hidden sm:block sm:ml-6">
                                         <div className="flex px-4 space-x-4 ml-20">
                                             {navigation.map((item) => (
-                                                <div className="px-6 py-3">
+                                                <div className="px-3 py-3">
                                                     <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
                                                         <a
                                                             key={item.name}
                                                             href={item.href}
                                                             className={classNames(
                                                                 item.current ? 'bg-indigo-900 text-white' : 'text-indigo-300 hover:bg-indigo-700 hover:text-white',
-                                                                'rounded-md text-sm'
+                                                                'rounded-md text-sm text-center px-3 py-3'
                                                             )}
                                                             style={{ fontSize: "20px" }}
                                                             aria-current={item.current ? 'page' : undefined}
