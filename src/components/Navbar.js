@@ -4,10 +4,22 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Notification from './Notification';
 
+function checkActiveWindow () {
+    var active_path = window.location.pathname
+    var active_arr = [false, false, false]
+    if (active_path === "/new-orders") active_arr[0] = true
+    else if (active_path === "/current-orders") active_arr[1] = true
+    else if (active_path === "/previous-orders") active_arr[2] = true
+    else return active_arr
+    return active_arr
+}
+
+const activeWindow = checkActiveWindow()
+
 const navigation = [
-    { name: 'New Orders', href: '#', current: true, cntNotifications: 4, },
-    { name: 'Current Orders', href: '#', current: false, cntNotifications: 4 },
-    { name: 'Previous Orders', href: '#', current: false, cntNotifications: 0 }, // this should always have 0 notficiations
+    { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 4, },
+    { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 4 },
+    { name: 'Previous Orders', href: '#', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
 ]
 
 function classNames(...classes) {
