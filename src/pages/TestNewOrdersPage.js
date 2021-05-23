@@ -18,7 +18,8 @@ let propVars = {
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
-    hasNotification: true,
+    unseen: true,
+    referenceImages: ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"],
     id: 0,
 };
 

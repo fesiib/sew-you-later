@@ -24,14 +24,14 @@ function CurOrderItem(props) {
                                 </div>
                             </div>
                         </div>
-                        <ProgressBar/>
+                        <ProgressBar vars={props.vars.progressInfo}/>
                         <div className="text-right">
                             {propConst.estimatedDue} {props.vars.estimatedDue} {/* Make it date-time picker */}
                         </div>
                     </div>
                 </a>
                 <div className="m-4">
-                    <ImageWithText/>
+                    <ImageWithText vars={{referenceImages: props.vars.referenceImages}}/>
                 </div>
             </div>
         </Notification>

@@ -20,13 +20,13 @@ function SizeBar(props) {
 
     return (
         <div className="inline-flex">
-            <div className="cursor-pointer">
+            <div className="cursor-pointer" onClick={() => props.setGallerySize('large')}>
                 {largeIcons}  
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer" onClick={() => props.setGallerySize('medium')}>
                 {mediumIcons}
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer" onClick={() => props.setGallerySize('small')}>
                 {smallIcons}
             </div>
         </div>

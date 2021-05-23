@@ -3,10 +3,12 @@ import {combineReducers} from 'redux';
 
 import counter from "./counter";
 import newOrdersList from './NewOrdersList';
+import curOrdersList from './CurrentOrdersList';
 
 const appReducer = combineReducers({
     counter: counter,
-    newOrdersList,
+    newOrdersList: newOrdersList,
+    curOrdersList: curOrdersList,
 });
 
 const rootReducer = (state, action) => {

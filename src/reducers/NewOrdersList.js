@@ -1,5 +1,5 @@
-const ADD = "ADD";
-const REMOVE = "REMOVE";
+const ADD = "ADD_NEW_ORDER";
+const REMOVE = "REMOVE_NEW_ORDER";
 
 export const addNewOrder = (newOrder) => ({
     type: ADD,
@@ -17,7 +17,7 @@ const initialState = {
 };
 
 const _addNewOrder = (orderArr, newOrder) => {
-    return [...orderArr, {...newOrder}];
+    return [{...newOrder}, ...orderArr];
 };
 
 const _removeNewOrder = (orderArr, id) => {

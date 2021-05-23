@@ -14,6 +14,7 @@ import DiscussionNotesPage from './pages/DiscussionNotesPage';
 import NewOrdersPage from './pages/NewOrdersPage';
 import CurrentOrderspage from './pages/CurrentOrdersPage';
 import TestNewOrdersPage from './pages/TestNewOrdersPage';
+import TestCurrentOrdersPage from './pages/TestCurrentOrdersPage';
 
 class Routes extends React.Component {
     render() {
@@ -29,6 +30,7 @@ class Routes extends React.Component {
                     <Route exact path="/new-orders" component={NewOrdersPage}/>
                     <Route exact path="/current-orders" component={CurrentOrderspage}/>
                     <Route exact path="/test/new-orders" component={TestNewOrdersPage}/>
+                    <Route exact path="/test/current-orders" component={TestCurrentOrdersPage}/>
                 </Switch>
             </Router>
         )

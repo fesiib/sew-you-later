@@ -3,6 +3,7 @@ import Notification from '../components/Notification';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import {Link} from 'react-router-dom';
+import { useState } from 'react';
 
 const propConst = {
     refImagesHeader: "Reference Images",
@@ -18,6 +19,13 @@ const propConst = {
 */
 
 function DiscussionSearchPage(props) {
+
+    const [gallerySize, setGallerySize] = useState('medium');
+
+    const parentOrganizationUpdate = (option) => {
+        console.log(option);
+        /* TODO (when the dataset stuff is ready) */
+    };
 
     return (
 
@@ -52,12 +60,12 @@ function DiscussionSearchPage(props) {
                             {propConst.searchImagesHeader}
                         </h3>
                         <div className="flex justify-between items-center px-4">
-                            <ImageSearchTopBar/>
+                            <ImageSearchTopBar setGallerySize={setGallerySize} parentOrganizationUpdate={parentOrganizationUpdate}/>
                             <Link to="/discussion-notes" className="self-start">                            
                                 <button className="bg-indigo-900 h-10">{propConst.viewNotesButtonText}</button>
                             </Link>
                         </div>
-                        <div style={{height: "calc(100% - 105px)"}} className="gallery-large pt-4 px-8 justify-around overflow-scroll">
+                        <div style={{height: "calc(100% - 105px)"}} className={`gallery-${gallerySize} pt-4 px-8 justify-around overflow-scroll`}>
                             <img className="thumbnail " src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"/>      
                             <Notification type="check" position="top-right">
                                 <img className="thumbnail border-4 border-green-400" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"/>    
