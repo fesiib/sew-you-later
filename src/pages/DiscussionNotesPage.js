@@ -1,15 +1,8 @@
-import ImageSearchTopBar from '../components/ImageSearchTopBar';
 import Notification from '../components/Notification';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 
-/* 
-    Note: The "calc()" values should be changed 
-   if there happens some change on the sizes 
-   of the relevant components! 
-*/
-
-function DiscussionSearchPage(props) {
+function DiscussionNotesPage(props) {
 
     return (
 
@@ -41,4 +34,4 @@ function DiscussionSearchPage(props) {
 
 };
 
-export default DiscussionSearchPage;
+export default DiscussionNotesPage;
