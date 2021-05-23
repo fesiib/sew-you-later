@@ -14,14 +14,16 @@ const propVars = {
 function OrderNextStep(props) {
 
     return (
-        <div className="m-10 grid grid-rows-2 grid-cols-2 bg-white rounded-xl">
-            <h1 className="m-5 col-span-1 row-start-1">{propConst.nextStepTitle}</h1>
-            <div className="m-5 col-span-1 cursor-pointer">
+        <div className="m-10 grid grid-rows-2 grid-cols-3 place-content-evenly bg-white rounded-xl">
+            <div className="m-5 row-span-1 col-span-2 row-start-1 flex flex-row items-center">
+                <h1 className="">{propConst.nextStepTitle}</h1>
+            </div>
+            <div className="m-5 row-span-1 col-span-1 cursor-pointer">
                 <a href="#" className="text-green-500">
                     <ArrowCircleRightIcon className="h-20"/>
                 </a>
             </div>
-            <div className="m-5 col-span-2 row-start-2">
+            <div className="m-5 col-span-3 row-span-1 row-start-2">
                 <h2 className="">{propVars.stepTitle}</h2>
                 <p>{propVars.stepDesc}</p>
             </div>

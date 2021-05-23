@@ -14,6 +14,9 @@ import DiscussionNotesPage from './pages/DiscussionNotesPage';
 import NewOrdersPage from './pages/NewOrdersPage';
 import CurrentOrderspage from './pages/CurrentOrdersPage';
 
+import OrderDetailsPage from './pages/OrderDetailsPage';
+import OrderMeasurementsPage from './pages/OrderMeasurementsPage';
+
 class Routes extends React.Component {
     render() {
         return (
@@ -27,6 +30,9 @@ class Routes extends React.Component {
                     <Route exact path="/discussion-notes" component={DiscussionNotesPage}/>
                     <Route exact path="/new-orders" component={NewOrdersPage}/>
                     <Route exact path="/current-orders" component={CurrentOrderspage}/>
+
+                    <Route exact path="/order-details" component={OrderDetailsPage}/>
+                    <Route exact path="/order-measurements" component={OrderMeasurementsPage}/>
                 </Switch>
             </Router>
         )

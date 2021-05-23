@@ -2,6 +2,8 @@ import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { CalendarIcon } from '@heroicons/react/outline';
 
+import ProgressBar from './ProgressBar';
+
 const propConst = {
     statusTitle: "Status: ",
     deadlineTitle: "Due: ",
@@ -18,7 +20,7 @@ function OrderProgress(props) {
         <div className="m-10 flex flex-col bg-white rounded-xl">
             <div className="m-5">
                 <h2 className="">{propConst.statusTitle + propVars.orderStatus}</h2>
-                {/* <ProgressBar></ProgressBar> */}
+                <ProgressBar/>
             </div>
             <div className="m-5 flex justify-end">
                 <a href="#" className="flex flex-row justify-end items-center font-bold text-green-500">

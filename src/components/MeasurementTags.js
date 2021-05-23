@@ -14,11 +14,23 @@ const propConst = {
     options: [
         { value: 'chocolate', label: 'Chocolate'},
         { value: 'strawberry', label: 'Strawberry'},
-        { value: 'vanilla', label: 'Vanilla'}
+        { value: 'vanilla', label: 'Vanilla'},
+        { value: '1', label: 'Vanilla'},
+        { value: '2', label: 'Vanilla'},
+        { value: '4', label: 'Vanilla'},
+        { value: '3', label: 'Vanilla'},
+        { value: '5', label: 'Vanilla'},
+        { value: '6', label: 'Vanilla'},
     ],
     animatedComponents: makeAnimated(),
     styles: {
-        control: styles => ({ ...styles, backgroundColor: 'white' }),
+        control: styles => ({ 
+            ...styles,
+            backgroundColor: 'white', 
+            minHeight: '10em',
+            display: 'flex',
+            alignItems: 'flex-start',
+        }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
             const color = chroma(colorSelected);
             return {
@@ -74,7 +86,7 @@ function MeasurementTags(props) {
             closeMenuOnSelect={false}
             placeholder={propConst.measurementTagsPlaceholder}
             isMulti
-            className="card max-w-xl p-5 shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"
+            className="max-w-xl m-10"
             noOptionsMessage={propConst.measurementTagsNoOptions}
             components={propConst.animatedComponents}
             styles={propConst.styles}

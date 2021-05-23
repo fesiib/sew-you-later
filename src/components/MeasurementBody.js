@@ -60,7 +60,7 @@ const ELLIPSE_STYLE = {
 
 function MeasurementBody(props) {
     return (
-        <div className="card max-w-2xl m-10 p-10 bg-white rounded-xl">
+        <div className="card min-w-min max-w-max m-10 p-10 bg-white rounded-xl">
             <h2> Currently Selected: </h2>
             <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-gray-300">
                 {propConst.placeholder}

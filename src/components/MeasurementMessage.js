@@ -4,8 +4,8 @@ const propVars = {
 
 function MeasurementMessage(props) {
     return (
-        <div className="card max-w-xl m-10">
-            <textarea placeholder={propVars.measurementNotesPlaceholder} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
+        <div className="card max-w-2xl m-10">
+            <textarea placeholder={propVars.measurementNotesPlaceholder} rows="15" className="resize-none rounded py-1 px-3 mt-3 w-full text-black"/>
         </div>
     );
 };
