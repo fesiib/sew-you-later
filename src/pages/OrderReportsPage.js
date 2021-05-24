@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addReport } from '../reducers/orderReports';
+import { addReport, sendDraftReport } from '../reducers/orderReports';
+import { sendDraftImages } from '../reducers/reportImages';
+import { sendDraftNotes } from '../reducers/imageNotes';
 import Popup from 'reactjs-popup';
 
 
@@ -30,6 +32,21 @@ function OrderReportsPage(props) {
             if(e.target.className.includes("back"))
                 close();
     };
+
+    const _submitReport = () => {
+        console.log("alla alla");
+        if(reports.length == 1) {
+            dispatch(sendDraftReport(0));
+            dispatch(sendDraftImages(0));
+            dispatch(sendDraftNotes(0));
+        }
+        else {
+            let setId = reports[reports.length - 2].id + 1;
+            dispatch(sendDraftReport(setId));
+            dispatch(sendDraftImages(setId));
+            dispatch(sendDraftNotes(setId));
+        }
+    }
     
     return (
         <div>
@@ -63,6 +80,9 @@ function OrderReportsPage(props) {
                                             <ReportImages reportId={-1}/>
                                             <ReportMessage reportId={-1}/>
                                         </div>
+                                    </div>
+                                    <div className="fixed bottom-8 right-8">
+                                        <button onClick={() => {_submitReport();close();}} className="green h-16">Send to the customer</button>
                                     </div>
                                 </div>
                             )

@@ -2,6 +2,7 @@ const ADD_NOTE = "ADD_NOTE";
 const DELETE_NOTE = "DELETE_NOTE"
 const UPDATE_DRAFT_NOTE_TITLE = "UPDATE_DRAFT_NOTE_TITLE";
 const UPDATE_DRAFT_NOTE_BODY = "UPDATE_DRAFT_NOTE_BODY";
+const SEND_DRAFT_NOTES = "SEND_DRAFT_NOTES";
 
 export function addNote(title, body, parentId, reportId) {
     return {
@@ -39,6 +40,13 @@ export function updateDraftNoteBody(id, body) {
             id: id,
             body: body,
         }
+    }
+};
+
+export function sendDraftNotes(id) {
+    return {
+        type: SEND_DRAFT_NOTES,
+        payload: id,
     }
 };
 
@@ -80,6 +88,17 @@ export default function imageNotes(state = initialState, action) {
                         return {
                             ...note,
                             body: action.payload.body
+                        };
+                    return note;
+                }
+            )
+        }
+        case SEND_DRAFT_NOTES: {
+            return state.map(note => {
+                    if(note.reportId === -1)
+                        return {
+                            ...note,
+                            reportId: action.payload
                         };
                     return note;
                 }
