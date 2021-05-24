@@ -90,8 +90,8 @@ function App() {
         <MeasurementMessage/>
         <MeasurementBody/>
       </div>
-      <ReportBrief/>
-      <ImageNotes/>
+      {/* <ReportBrief/>
+      <ImageNotes/> */}
     </div>
   );
 }

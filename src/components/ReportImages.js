@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import PopupWidget from '../components/PopupWidget'; 
 import ImageNotes from './ImageNotes';
 
@@ -9,23 +10,31 @@ const propVars = {
     ]
 };
 
-function ReportImages(props) {
-    var imgs = [];
-    for(var i = 0; i < 5; i++) {
-        imgs.push(<PopupWidget 
-            popupButton={
-                <img className="thumbnail mx-4 mt-5 cursor-pointer" src={propVars.imgLinks[0]}/>
-            }
-            popupContent={
-                <ImageNotes/>
-            }
-        />)
+function ReportImages({reportId}) {
+    const report = useSelector(state => state.orderReports.find((report) => report.id === reportId));
+    const images = useSelector(state => state.reportImages.filter((image) => image.parentReportId === reportId));
+    const dispatch = useDispatch();
+
+    const renderedImages = images.map(image => {
+        return <PopupWidget 
+                    popupButton={
+                        <img className="thumbnail mx-4 mt-5 cursor-pointer" src={image.src}/>
+                    }
+                    popupContent={
+                        <ImageNotes imageId={image.id}/>
+                    }
+                />
+    });
+
+    function uploadImage() {
+        
     }
+
     return (
         <div className="card max-w-3xl p-5 flex-grow">
             <h2 className="text-black">Images</h2>
             <div className="gallery-small">
-                <button className="flex flex-col justify-center thumbnail border border-dashed mx-4 mt-5 p-0">
+                <button onClick={uploadImage} className="flex flex-col justify-center thumbnail border border-dashed mx-4 mt-5 p-0">
                     <h2 className="text-gray-400 mx-auto">Upload image</h2>
                     <div className="mx-auto text-gray-400">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -33,7 +42,7 @@ function ReportImages(props) {
                         </svg>
                     </div>
                 </button>
-                {imgs}
+                {renderedImages}
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ const propVars = {
     imgLink: "https://v1.tailwindcss.com/img/card-top.jpg"
 };
 
-function ReportBrief(props) {
+function ReportBrief({id, report}) {
     function modalClick(e, close) {
         if(typeof e.target.className.includes === "function")
             if(e.target.className.includes("back"))
@@ -19,7 +19,7 @@ function ReportBrief(props) {
     return (
         <div className="card w-96 p-5 shadow-lg">
             <div className="flex mb-4">
-                <h1 className="w-72 line-clamp-2">{propVars.reportTitle}</h1>
+                <h1 className="w-72 line-clamp-2">{report.title}</h1>
                 <PopupWidget 
                     popupButton={
                         <button className="w-16 h-16 rounded-full green text-4xl">
@@ -30,17 +30,17 @@ function ReportBrief(props) {
                     }
                     popupContent={
                         <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                            <ReportImages/>
-                            <ReportMessage/>
+                            <ReportImages reportId={id}/>
+                            <ReportMessage reportId={id}/>
                         </div>
                     }
                 />
             </div>
             <div className="mb-4">
-                <h2>{"Posted: " + propVars.reportDate.toLocaleString()}</h2>
+                <h2>{"Posted: " + report.postDate}</h2>
             </div>
             <div className="mb-4 h-32">
-                <p className="line-clamp-5">{propVars.reportBody}</p>
+                <p className="line-clamp-5">{report.description}</p>
             </div> 
             <div className="flex justify-evenly">
                 <img className="thumbnail w-36 h-36" src={propVars.imgLink}/>
