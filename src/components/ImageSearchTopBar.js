@@ -19,7 +19,7 @@ function ImageSearchTopBar(props) {
             </div>
             <div className="flex justify-between">
                 <div className="flex">
-                    <span>
+                    <span className="z-10">
                         <SortBy options={["Relevance", "A-Z"]} parentUpdate={props.parentOrganizationUpdate} />
                     </span>
                     <span className="m-2">
