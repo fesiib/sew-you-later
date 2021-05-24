@@ -48,7 +48,7 @@ function ReportMessage({reportId}) {
                 }
                     
                 else {
-                    if(report !== undefined && editable == false) {
+                    if(report !== undefined && editable === false) {
                         editable = true;
                         setTitle(report.title);
                         setBody(report.body);

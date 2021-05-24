@@ -29,6 +29,7 @@ function ReportImages({reportId}) {
 
     const renderedImages = images.map(image => {
         return <Popup
+                    key={image.id} 
                     trigger={
                         <img className="thumbnail mx-4 mt-5 cursor-pointer" src={image.src}/>
                     }
@@ -40,7 +41,7 @@ function ReportImages({reportId}) {
                     {close => (
                             <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
                                 <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                                    <ImageNotes imageId={image.id} imageSrc={image.src} closePopup={close}/>
+                                    <ImageNotes imageId={image.id} imageSrc={image.src} reportId={reportId} closePopup={close}/>
                                 </div>
                             </div>
                         )

@@ -1,13 +1,16 @@
 const ADD_NOTE = "ADD_NOTE";
 const DELETE_NOTE = "DELETE_NOTE"
+const UPDATE_DRAFT_NOTE_TITLE = "UPDATE_DRAFT_NOTE_TITLE";
+const UPDATE_DRAFT_NOTE_BODY = "UPDATE_DRAFT_NOTE_BODY";
 
-export function addNote(title, body, parentId) {
+export function addNote(title, body, parentId, reportId) {
     return {
         type: ADD_NOTE,
         payload: {
             title: title,
             body: body,
-            parentImageId: parentId
+            parentImageId: parentId,
+            reportId: reportId,
         }
     }
 };
@@ -16,6 +19,26 @@ export function deleteNote(id) {
     return {
         type: DELETE_NOTE,
         payload: id
+    }
+};
+
+export function updateDraftNoteTitle(id, title) {
+    return {
+        type: UPDATE_DRAFT_NOTE_TITLE,
+        payload: {
+            id: id,
+            title: title,
+        }
+    }
+};
+
+export function updateDraftNoteBody(id, body) {
+    return {
+        type: UPDATE_DRAFT_NOTE_BODY,
+        payload: {
+            id: id,
+            body: body,
+        }
     }
 };
 
@@ -39,6 +62,28 @@ export default function imageNotes(state = initialState, action) {
 
         case DELETE_NOTE: {
             return state.filter((note) => note.id !== action.payload);
+        }
+        case UPDATE_DRAFT_NOTE_TITLE: {
+            return state.map(note => {
+                    if(note.id == action.payload.id)
+                        return {
+                            ...note,
+                            title: action.payload.title
+                        };
+                    return note;
+                }
+            )
+        }
+        case UPDATE_DRAFT_NOTE_BODY: {
+            return state.map(note => {
+                    if(note.id == action.payload.id)
+                        return {
+                            ...note,
+                            body: action.payload.body
+                        };
+                    return note;
+                }
+            )
         }
         default:
             return state;

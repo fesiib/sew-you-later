@@ -1,11 +1,19 @@
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addNote } from '../reducers/imageNotes';
+
+
 import SingleNote from './SingleNote';
 
-const propVars = {
-    imgLink: "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"
-    //will get array of singlenotes
-};
 
-function ImageNotes({imageId, imageSrc, closePopup}) {
+function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
+    const notes = useSelector(state => state.imageNotes.filter((note) => note.parentImageId === imageId));
+    const dispatch = useDispatch();
+
+    const renderedNotes = notes.map(note => {
+        return <SingleNote key={note.id} id={note.id} reportId={reportId} imageId={imageId}/>
+    });
+
     return (
         <div className="max-w-5xl w-full lg:flex card overflow-hidden">
             <img className="mx-auto lg:mx-0 h-96 w-96 object-cover" src={imageSrc}/>
@@ -13,7 +21,7 @@ function ImageNotes({imageId, imageSrc, closePopup}) {
                 <div className="flex justify-between">
                     <div className="flex mb-3">
                         <h2 className="text-black mr-1 my-auto">Notes</h2>
-                        <button className="text-black p-0 rounded-full shadow-none my-auto">
+                        <button onClick={() => dispatch(addNote("", "", imageId, reportId))} className="text-black p-0 rounded-full shadow-none my-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -39,9 +47,7 @@ function ImageNotes({imageId, imageSrc, closePopup}) {
                 <hr className="border-black"/>
                 {/* single notes will be listed in this div */}
                 <div className="fixed-height overflow-y-scroll pr-3"> 
-                    <SingleNote/>
-                    <SingleNote/>
-                    <SingleNote/>
+                    {renderedNotes}
                 </div>
             </div>
         </div>
