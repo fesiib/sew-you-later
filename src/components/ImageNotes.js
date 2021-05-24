@@ -5,7 +5,7 @@ const propVars = {
     //will get array of singlenotes
 };
 
-function ImageNotes({imageId, imageSrc}) {
+function ImageNotes({imageId, imageSrc, closePopup}) {
     return (
         <div className="max-w-5xl w-full lg:flex card overflow-hidden">
             <img className="mx-auto lg:mx-0 h-96 w-96 object-cover" src={imageSrc}/>
@@ -28,7 +28,7 @@ function ImageNotes({imageId, imageSrc}) {
                             </button>
                         </div>
                         <div>
-                            <button className="text-black p-0 mx-2 shadow-none">
+                            <button onClick={closePopup} className="text-black p-0 mx-2 shadow-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
