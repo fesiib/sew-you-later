@@ -37,7 +37,7 @@ function DiscussionSearchPage(props) {
         <div className="h-screen w-screen">
             <Navbar />
             <Sidebar />
-            <div className="h-5/6 ml-18 mt-8">
+            <div className="h-5/6 ml-20 mt-8">
                 <div className="inline-flex w-full h-5/6">
                     <div className="flex flex-col w-1/6 h-full border-r border-black">
                         <h3 className="ml-4 mb-4 px-4 font-bold">
