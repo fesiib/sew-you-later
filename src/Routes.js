@@ -13,6 +13,8 @@ import DiscussionSearchPage from './pages/DiscussionSearchPage';
 import DiscussionNotesPage from './pages/DiscussionNotesPage';
 import NewOrdersPage from './pages/NewOrdersPage';
 import CurrentOrderspage from './pages/CurrentOrdersPage';
+import TestNewOrdersPage from './pages/TestNewOrdersPage';
+import TestCurrentOrdersPage from './pages/TestCurrentOrdersPage';
 
 import OrderDetailsPage from './pages/OrderDetailsPage';
 import OrderMeasurementsPage from './pages/OrderMeasurementsPage';
@@ -30,7 +32,8 @@ class Routes extends React.Component {
                     <Route exact path="/discussion-notes" component={DiscussionNotesPage}/>
                     <Route exact path="/new-orders" component={NewOrdersPage}/>
                     <Route exact path="/current-orders" component={CurrentOrderspage}/>
-
+                    <Route exact path="/test/new-orders" component={TestNewOrdersPage}/>
+                    <Route exact path="/test/current-orders" component={TestCurrentOrdersPage}/>
                     <Route exact path="/order-details" component={OrderDetailsPage}/>
                     <Route exact path="/order-measurements" component={OrderMeasurementsPage}/>
                 </Switch>

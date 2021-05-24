@@ -1,6 +1,11 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+
+const propConst = {
+    desc: "Sort By:",
+
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -8,15 +13,25 @@ function classNames(...classes) {
 
 function SortBy(props) {
 
+    const [chosenOption, setChosenOption] = useState(props.options[0]);
+
+    const chooseOption = (option) => {
+        setChosenOption(option);
+        props.parentUpdate(option);
+        // and call some functions regarding the organization stuff
+        // it may make sense to call a function from props
+        // that are passed from the parent page (such as discussion or order list pages)
+    };
+    
     return (
         <div className="flex flex-col z-10">
-            <p className="mb-0.5 text-xs">Sort By:</p>
+            <p className="mb-0.5 text-xs">{propConst.desc}</p>
             <Menu as="div" className="relative max-w-max text-left">
             {({ open }) => (
                 <>
                 <div>
                     <Menu.Button className="inline-flex justify-center w-full rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-                    {props.options[0]}
+                    {chosenOption}
                     <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                     </Menu.Button>
                 </div>
@@ -39,15 +54,15 @@ function SortBy(props) {
                         {(props.options.map((option) => 
                             <Menu.Item>
                             {({ active }) => (
-                                <a
-                                href="#"
-                                className={classNames(
-                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
-                                )}
+                                <div
+                                    onClick={() => chooseOption(option)}
+                                    className={classNames(
+                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                        'block px-4 py-2 text-sm cursor-pointer'
+                                    )}
                                 >
-                                {option}
-                                </a>
+                                    {option}
+                                </div>
                             )}
                             </Menu.Item>
                         ))}

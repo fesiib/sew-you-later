@@ -10,9 +10,9 @@ function ImageSearchTopBar(props) {
                 <div className="my-4 mr-4">
                     <SearchBar/>
                 </div>
-                <SortBy options={["Relevance", "A-Z"]}/>
+                <SortBy options={["Relevance", "A-Z"]} parentUpdate={props.parentOrganizationUpdate}/>
                 <div className="m-2">
-                    <SizeBar/>
+                    <SizeBar setGallerySize={props.setGallerySize}/>
                 </div>
             </div>
         </div>

@@ -53,7 +53,11 @@ function App() {
   };
 
   return (
-    <></>
+    <div>
+      {cnt}
+      <div onClick={_increaseCounter}> +1 </div>
+      <div onClick={_decreaseCounter}> -1 </div>
+    </div>
   );
 
   // return (
