@@ -49,7 +49,7 @@ function OrderReportsPage(props) {
                         modal
                         nested
                         position="center center"
-                        contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
+                        contentStyle={popupStyle}
                     >
                         {close => (
                                 <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">

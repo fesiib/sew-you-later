@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { addImage } from '../reducers/reportImages';
+
 import PopupWidget from '../components/PopupWidget'; 
+import Popup from 'reactjs-popup';
 import ImageNotes from './ImageNotes';
+import { interpolate } from 'chroma-js';
 
 const propVars = {
     reportTitle: "Please type a report title.",
@@ -10,24 +14,52 @@ const propVars = {
     ]
 };
 
+const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
+
 function ReportImages({reportId}) {
     const report = useSelector(state => state.orderReports.find((report) => report.id === reportId));
     const images = useSelector(state => state.reportImages.filter((image) => image.parentReportId === reportId));
     const dispatch = useDispatch();
 
+    function popupClick(e, close) {
+        if(typeof e.target.className.includes === "function")
+            if(e.target.className.includes("back"))
+                close();
+    };
+
     const renderedImages = images.map(image => {
-        return <PopupWidget 
-                    popupButton={
+        return <Popup
+                    trigger={
                         <img className="thumbnail mx-4 mt-5 cursor-pointer" src={image.src}/>
                     }
-                    popupContent={
-                        <ImageNotes imageId={image.id}/>
+                    modal
+                    nested
+                    position="center center"
+                    contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
+                >
+                    {close => (
+                            <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                <button onClick={close} className="float-right p-0 m-4 shadow-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                                <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                    <ImageNotes imageId={image.id} imageSrc={image.src}/>
+                                </div>
+                            </div>
+                        )
                     }
-                />
+                </Popup>
     });
 
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
     function uploadImage() {
-        
+        var src = "/report_images/" + (getRandomInt(8) + 1).toString() + ".png";
+        dispatch(addImage(src, reportId));
     }
 
     return (
