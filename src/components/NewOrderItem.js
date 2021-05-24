@@ -9,7 +9,7 @@ const propConst = {
 function NewOrderItem(props) {
 
     return (
-        <Notification size="h-9 w-9" position="top-left" data={props.vars.unseen}>
+        <Notification size="h-6 w-6" position="top-left" data={props.vars.unseen}>
             <div className="inline-flex bg-white rounded-xl hover:bg-gray-300">
                 <a href="#">
                     <div className="ml-4 mb-4 mt-4 w-128 h-36 cursor-pointer">
@@ -35,7 +35,7 @@ function NewOrderItem(props) {
                     </div>
                 </div>
                 <div className="m-4">
-                    <ImageWithText vars={{referenceImages: props.vars.referenceImages}}/>
+                    <ImageWithText vars={{referenceImage: props.vars.referenceImages[0], text: props.vars.referenceImages.length - 1}}/>
                 </div>
             </div>
         </Notification>

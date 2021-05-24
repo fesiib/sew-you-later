@@ -27,6 +27,12 @@ function DiscussionSearchPage(props) {
         /* TODO (when the dataset stuff is ready) */
     };
 
+    function moveTo(href) {
+        return () => {
+            window.location = "/" + href + window.location.search;
+        }
+    }
+
     return (
 
         <div className="h-screen w-screen">
@@ -61,9 +67,7 @@ function DiscussionSearchPage(props) {
                         </h3>
                         <div className="flex justify-between items-center px-4">
                             <ImageSearchTopBar setGallerySize={setGallerySize} parentOrganizationUpdate={parentOrganizationUpdate}/>
-                            <Link to="/discussion-notes" className="self-start">                            
-                                <button className="bg-indigo-900 h-10">{propConst.viewNotesButtonText}</button>
-                            </Link>
+                                <button className="self-start bg-indigo-900 h-10" onClick={moveTo('discussion-notes')}>{propConst.viewNotesButtonText}</button>
                         </div>
                         <div style={{height: "calc(100% - 105px)"}} className={`gallery-${gallerySize} pt-4 px-8 justify-around overflow-scroll`}>
                             <img className="thumbnail " src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"/>      

@@ -3,13 +3,10 @@ import { Disclosure } from '@headlessui/react'
 import "./Sidebar.css"
 
 function Sidebar(props) {
+    
     function moveTo(href) {
         return () => {
-            // const search = props.location.search;
-            // const params = new URLSearchParams(search);
-            // const orderID = params.get('orderID');
-            // window.location = "/" + href + "?orderID=" + orderID;
-            window.location = "/" + href;
+            window.location = "/" + href + window.location.search;
         }
     }
 

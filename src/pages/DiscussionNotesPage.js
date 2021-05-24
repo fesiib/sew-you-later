@@ -10,6 +10,12 @@ const propConst = {
 
 function DiscussionNotesPage(props) {
 
+    function moveTo(href) {
+        return () => {
+            window.location = "/" + href + window.location.search;
+        }
+    }
+
     return (
         <div className="h-screen w-screen">
             <Navbar/>
@@ -17,10 +23,8 @@ function DiscussionNotesPage(props) {
             <div className="ml-20 mt-2 mr-8">
                 <h3 className="font-bold mx-8">{propConst.viewNotesHeader}</h3>
                 <div className="flex justify-end">
-                    <Link to="/discussion-search">
-                        <button className="bg-indigo-900 h-10">{propConst.searchImagesButtonText}</button>
-                    </Link>
-                    </div>
+                    <button className="bg-indigo-900 h-10" onClick={moveTo('discussion-search')}>{propConst.searchImagesButtonText}</button>
+                </div>
                 <div className="p-4 m-4 gallery-large">    
                     <Notification type="check" position="top-right">
                         <img className="thumbnail border-4 border-green-400" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"/>    
