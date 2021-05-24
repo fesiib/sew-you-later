@@ -26,7 +26,7 @@ function CurOrderItem(props) {
                         </div>
                         <ProgressBar vars={props.vars.progressInfo}/>
                         <div className="text-right">
-                            {propConst.estimatedDue} {props.vars.estimatedDue} {/* Make it date-time picker */}
+                            {propConst.estimatedDue} {props.vars.progressInfo.estimatedDue} {/* Make it date-time picker */}
                         </div>
                     </div>
                 </a>

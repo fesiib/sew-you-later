@@ -35,9 +35,7 @@ const propUtils = {
             return propUtils.sortBy(firstEl.orderTitle, secondEl.orderTitle);
         },
         (firstEl, secondEl) => {
-            let d1 = firstEl.estimatedDue.split('/');
-            let d2 = secondEl.estimatedDue.split('/');
-            return propUtils.sortBy(new Date(d1[2], d1[0], d1[1]), new Date(d2[2], d2[0], d2[1]));
+            return propUtils.sortBy(new Date(firstEl.estimatedDue), new Date(secondEl.estimatedDue));
         },
         (firstEl, secondEl) => {
             return propUtils.sortBy(firstEl.customerName, secondEl.customerName);
