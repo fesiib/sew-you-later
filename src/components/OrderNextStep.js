@@ -6,10 +6,10 @@ const propConst = {
     nextStepTitle: "Next Step",
 };
 
-const propVars = {
-    stepTitle: "Discussion",
-    stepDesc: "You will discuss stuff with the customer",
-};
+// const propVars = {
+//     stepTitle: "Discussion",
+//     stepDesc: "You will discuss stuff with the customer",
+// };
 
 function OrderNextStep(props) {
 
@@ -24,8 +24,8 @@ function OrderNextStep(props) {
                 </a>
             </div>
             <div className="m-5 col-span-3 row-span-1 row-start-2">
-                <h2 className="">{propVars.stepTitle}</h2>
-                <p>{propVars.stepDesc}</p>
+                <h2 className="">{props.vars.steps[props.vars.curStep.stepIndex]}</h2>
+                <p>{props.vars.curStep.nextStepDesc}</p>
             </div>
         </div>
     );

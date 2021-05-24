@@ -21,11 +21,11 @@ function OrderDetailsPage(props) {
             </div>
             <div className="ml-18 flex flex-row justify-center items-center">
                 <div className="flex-col w-3/5">
-                    <OrderProgress />
-                    <OrderDetails />
+                    <OrderProgress vars={props.vars.progressInfo}/>
+                    <OrderDetails vars={props.vars}/>
                 </div>
                 <div className="self-start w-1/5">
-                    <OrderNextStep />
+                    <OrderNextStep vars={props.vars.progressInfo}/>
                 </div>`
             </div>
         </div>

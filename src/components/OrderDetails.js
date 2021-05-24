@@ -6,6 +6,7 @@ const propConst = {
     orderDescTitle: "Order Description",
     orderDetailsTitle: "Order Details",
     customerInfoTitle: "Customer Information",
+    reportText: "Report"
 };
 
 const propVars = {
@@ -39,14 +40,17 @@ function OrderDetails(props) {
                     <div className="">
                         <h2 className="m-5"> {propConst.refImagesTitle} </h2>
                         <div className = "flex gap-5 flex-wrap">
+                            {props.vars.referenceImages.map((src) => (
+                                <img className="w-36 h-36 thumbnail" src={src}/>
+                            ))}
+                            {/* <ImageWithText/>
                             <ImageWithText/>
                             <ImageWithText/>
                             <ImageWithText/>
                             <ImageWithText/>
                             <ImageWithText/>
                             <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
+                            <ImageWithText/> */}
                         </div>
                     </div>
                 </div>
@@ -54,16 +58,16 @@ function OrderDetails(props) {
                     <div className="m-5 text-right">
                         <h2 className="whitespace-nowrap"> {propConst.customerInfoTitle} </h2>
                         <div className="">
-                            <p className="whitespace-nowrap">{propVars.customerName}</p>
-                            <p>{propVars.customerInfo}</p>
-                            <p className="font-bold">{propVars.customerLocation}</p>
-                            <p>{propVars.customerEmail}</p>
+                            <p className="whitespace-nowrap">{props.vars.customerName}</p>
+                            <p>{props.vars.customerInfo}</p>
+                            <p className="font-bold">{props.vars.customerLocation}</p>
+                            <p>{props.vars.customerEmail}</p>
                         </div>
                     </div>
                     <div className="flex justify-end">
                         <a href="#" className="flex flex-row justify-end items-center font-bold text-gray-500">
                             <ExclamationCircleIcon className="h-5"/>
-                            <p>Report</p>
+                            <p>{propConst.reportText}</p>
                         </a>
                     </div>
                 </div>
