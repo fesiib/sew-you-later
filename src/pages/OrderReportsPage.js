@@ -34,15 +34,18 @@ function OrderReportsPage(props) {
     };
 
     const _submitReport = () => {
-        console.log("alla alla");
         if(reports.length == 1) {
-            dispatch(sendDraftReport(0));
+            let date = (new Date()).toLocaleString();
+            console.log(date);
+            dispatch(sendDraftReport(0, date));
             dispatch(sendDraftImages(0));
             dispatch(sendDraftNotes(0));
         }
         else {
             let setId = reports[reports.length - 2].id + 1;
-            dispatch(sendDraftReport(setId));
+            let date = (new Date()).toLocaleString();
+            console.log(date);
+            dispatch(sendDraftReport(setId, date));
             dispatch(sendDraftImages(setId));
             dispatch(sendDraftNotes(setId));
         }

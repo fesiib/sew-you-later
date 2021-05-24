@@ -48,10 +48,13 @@ export function updateDraftReportBody(body) {
     };
 }
 
-export function sendDraftReport(id) {
+export function sendDraftReport(id, date) {
     return {
         type: SEND_DRAFT_REPORT,
-        payload: id,
+        payload: {
+            id: id,
+            postDate: date,
+        },
     };
 }
 
@@ -107,7 +110,8 @@ export default function orderReports(state = initialState, action) {
                     if(report.id === -1)
                         return {
                             ...report,
-                            id: action.payload
+                            id: action.payload.id,
+                            postDate: action.payload.postDate,
                         };
                     return report;
                 }
