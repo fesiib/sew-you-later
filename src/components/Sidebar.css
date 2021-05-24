@@ -12,3 +12,7 @@
 #sideBar:hover #label { 
     display: block;
 }
+
+#faqButton:hover #label {
+    display: block;
+}

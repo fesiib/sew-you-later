@@ -4,7 +4,8 @@ import { ExclamationCircleIcon } from '@heroicons/react/solid'
 const propConst = {
     refImagesTitle: "Reference Images",
     orderDescTitle: "Order Description",
-    orderDetailsTitle: "Order Details"
+    orderDetailsTitle: "Order Details",
+    customerInfoTitle: "Customer Information",
 };
 
 const propVars = {
@@ -51,8 +52,9 @@ function OrderDetails(props) {
                 </div>
                 <div className="flex flex-col justify-between">
                     <div className="m-5 text-right">
-                        <h2 className="whitespace-nowrap">{propVars.customerName}</h2>
+                        <h2 className="whitespace-nowrap"> {propConst.customerInfoTitle} </h2>
                         <div className="">
+                            <p className="whitespace-nowrap">{propVars.customerName}</p>
                             <p>{propVars.customerInfo}</p>
                             <p className="font-bold">{propVars.customerLocation}</p>
                             <p>{propVars.customerEmail}</p>
