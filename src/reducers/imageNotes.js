@@ -1,12 +1,12 @@
 const ADD_NOTE = "ADD_NOTE";
 const DELETE_NOTE = "DELETE_NOTE"
 
-export function addNote(title, description, parentId) {
+export function addNote(title, body, parentId) {
     return {
         type: ADD_NOTE,
         payload: {
             title: title,
-            description: description,
+            body: body,
             parentImageId: parentId
         }
     }

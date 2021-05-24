@@ -20,9 +20,9 @@ function OrderReportsPage(props) {
         return <ReportBrief key={report.id} id={report.id} report={report} />
     });
 
-    function _addReport(title, description) {
+    function _addReport(title, body) {
         const date = (new Date()).toLocaleString();
-        dispatch(addReport(title, description, date));
+        dispatch(addReport(title, body, date));
     };
 
     function popupClick(e, close) {

@@ -1,14 +1,16 @@
 const ADD_REPORT = "ADD_REPORT";
 const DELETE_REPORT = "DELETE_REPORT";
 const ADD_BLANK_REPORT = "ADD_BLANK_REPORT";
+const UPDATE_DRAFT_REPORT_TITLE = "UPDATE_DRAFT_REPORT_TITLE";
+const UPDATE_DRAFT_REPORT_BODY = "UPDATE_DRAFT_REPORT_BODY";
 
-export function addReport(title, description, date) {
+export function addReport(title, body, date) {
     return {
         type: ADD_REPORT,
         payload: {
             postDate: date,
             title: title,
-            description: description,
+            body: body,
         }
     };
 }
@@ -25,9 +27,23 @@ export function addBlankReport(date) {
         type: ADD_BLANK_REPORT,
         payload: {
             postDate: date,
-            title: "asd",
-            description: "",
+            title: "",
+            body: "",
         },
+    }
+}
+
+export function updateDraftReportTitle(title) {
+    return {
+        type: UPDATE_DRAFT_REPORT_TITLE,
+        payload: title,
+    }
+}
+
+export function updateDraftReportBody(body) {
+    return {
+        type: UPDATE_DRAFT_REPORT_BODY,
+        payload: body,
     }
 }
 
@@ -57,6 +73,24 @@ export default function orderReports(state = initialState, action) {
                 {
                     ...action.payload,
                     id: -1,
+                }
+            ];
+        }
+        case UPDATE_DRAFT_REPORT_TITLE: {
+            return [
+                ...state.filter((report) => report.id !== -1),
+                {
+                    ...state[state.length - 1],
+                    title: action.payload
+                }
+            ];
+        }
+        case UPDATE_DRAFT_REPORT_BODY: {
+            return [
+                ...state.filter((report) => report.id !== -1),
+                {
+                    ...state[state.length - 1],
+                    body: action.payload
                 }
             ];
         }

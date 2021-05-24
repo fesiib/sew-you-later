@@ -40,7 +40,7 @@ function ReportBrief({id, report}) {
                 <h2>{"Posted: " + report.postDate}</h2>
             </div>
             <div className="mb-4 h-32">
-                <p className="line-clamp-5">{report.description}</p>
+                <p className="line-clamp-5">{report.body}</p>
             </div> 
             <div className="flex justify-evenly">
                 <img className="thumbnail w-36 h-36" src={propVars.imgLink}/>
