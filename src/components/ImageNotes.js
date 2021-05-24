@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-
 import { addNote } from '../reducers/imageNotes';
 
-
 import SingleNote from './SingleNote';
-
 
 function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
     const notes = useSelector(state => state.imageNotes.filter((note) => note.parentImageId === imageId));
