@@ -20,7 +20,7 @@ function NewOrderItem(props) {
                     </div>
                 </a>
                 <div className="mr-4 mb-4 mt-4 flex flex-col justify-between">
-                    <div className=" w-56 text-right">
+                    <div className=" w-56 text-right mt-1">
                         <h2 className="overflow-hidden overflow-ellipsis whitespace-nowrap">{props.vars.customerName}</h2>
                         <div className="">
                             <p>{props.vars.customerInfo}</p>

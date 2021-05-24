@@ -62,7 +62,6 @@ function CurrentOrderspage(props) {
     };
 
     return (
-
         <div className="relative">
             <Navbar />
             <FAQButton />
@@ -83,7 +82,6 @@ function CurrentOrderspage(props) {
             </div>
         </div>
     );
-
 };
 
 export default CurrentOrderspage;
