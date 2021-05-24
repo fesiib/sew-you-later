@@ -36,7 +36,6 @@ function OrderReportsPage(props) {
     const _submitReport = () => {
         if(reports.length == 1) {
             let date = (new Date()).toLocaleString();
-            console.log(date);
             dispatch(sendDraftReport(0, date));
             dispatch(sendDraftImages(0));
             dispatch(sendDraftNotes(0));
@@ -44,7 +43,6 @@ function OrderReportsPage(props) {
         else {
             let setId = reports[reports.length - 2].id + 1;
             let date = (new Date()).toLocaleString();
-            console.log(date);
             dispatch(sendDraftReport(setId, date));
             dispatch(sendDraftImages(setId));
             dispatch(sendDraftNotes(setId));
