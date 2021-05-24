@@ -8,7 +8,6 @@ const propVars = {
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
     customerEmail: "beyaldiz@kaist.ac.kr",
-    hasNotification: true,
     referenceImages: ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"],
     progressInfo: {    
         estimatedDue: "2021-05-29", // YYYY-MM-DD
@@ -19,30 +18,10 @@ const propVars = {
             nextStepDesc: "You will discuss stuff with the customer",
             curStepDesc: "Discussion",
         },
-        // orderConfirmation: {
-        //     str: "Order Confirmation",
-        //     status: "complete",
-        // },
-        // customerResponse: {
-        //     str: "Customer's Response",
-        //     status: "incomplete",
-        // },
-        // discussion: {
-        //     str: "Discussion",
-        //     status: "incomplete",
-        // },
-        // measurementRecord: {
-        //     str: "Measurement Record",
-        //     status: "incomplete",
-        // },
-        // production: {
-        //     str: "Production",
-        //     status: "incomplete",
-        // },
-        // delivery: {
-        //     str: "Delivery",
-        //     status: "incomplete",
-        // },
+    },
+    notificationInfo: {
+        hasNotification: true,
+        notificationPage: "order-details", // another possible options: "measurement...." (depending on)
     },
     id: 0,
 };
