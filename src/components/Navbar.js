@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Notification from './Notification';
+import {useSelector} from 'react-redux';
 
 function checkActiveWindow() {
     var active_path = window.location.pathname
@@ -16,8 +17,8 @@ function checkActiveWindow() {
 const activeWindow = checkActiveWindow()
 
 const navigation = [
-    { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 4, },
-    { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 4 },
+    { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 0},
+    { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 0},
     { name: 'Previous Orders', href: '#', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
 ]
 
@@ -26,6 +27,13 @@ function classNames(...classes) {
 }
 
 function Navbar(props) {
+
+    const newOrdersList = useSelector(state => state.newOrdersList.orders);    
+    const curOrdersList = useSelector(state => state.curOrdersList.orders);    
+
+    navigation[0].cntNotifications = newOrdersList.reduce((acc, ord) => acc + (ord.unseen === true ? 1 : 0), 0);
+    navigation[1].cntNotifications = curOrdersList.reduce((acc, ord) => acc + (ord.notificationInfo.hasNotification === true ? 1 : 0), 0);
+
     return (
         <Disclosure as="nav" className="sticky top-0 z-20 bg-indigo-900">
             {({ open }) => (
