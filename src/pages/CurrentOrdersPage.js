@@ -1,5 +1,6 @@
 import CurOrderItem from '../components/CurOrderItem';
 import Navbar from '../components/Navbar';
+import FAQButton from '../components/FAQButton';
 import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -64,6 +65,7 @@ function CurrentOrderspage(props) {
 
         <div className="relative">
             <Navbar />
+            <FAQButton />
             <div className="max-w-7xl mx-auto">
                 <div className="flex justify-between items-center ml-8 mr-12 my-6">
                     <h1>{propConst.header}</h1>
