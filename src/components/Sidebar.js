@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Disclosure } from '@headlessui/react'
 
 import "./Sidebar.css"
