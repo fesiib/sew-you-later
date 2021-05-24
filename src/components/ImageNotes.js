@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addNote } from '../reducers/imageNotes';
+import { addNote, deleteNote } from '../reducers/imageNotes';
+import { deleteImage } from '../reducers/reportImages';
 
 import SingleNote from './SingleNote';
 
@@ -10,6 +11,14 @@ function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
     const renderedNotes = notes.map(note => {
         return <SingleNote key={note.id} id={note.id} reportId={reportId} imageId={imageId}/>
     });
+
+    const _deleteImage = () => {
+        dispatch(deleteImage(imageId));
+        notes.forEach(note => {
+            dispatch(deleteNote(note.id));
+        });
+        closePopup();
+    }
 
     return (
         <div className="max-w-5xl w-full lg:flex card overflow-hidden">
@@ -26,7 +35,7 @@ function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
                     </div>
                     <div className="grid grid-cols-2 divide-x content-center">
                         <div>
-                            <button className="text-red-500 p-0 mx-2 shadow-none">
+                            <button onClick={_deleteImage} className="text-red-500 p-0 mx-2 shadow-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
