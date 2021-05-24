@@ -6,14 +6,23 @@ const progressBarColorMapping = {
 
 function ProgressBar(props) {
 
+    const getStatus = (index) => {
+        let curStepIndex = props.vars.curStep.stepIndex;
+        if(index < curStepIndex) 
+            return "complete";
+        if(index > curStepIndex)
+            return "incomplete";
+        return props.vars.curStep.stepStatus; 
+    };
+
     return (
         <div className="relative pt-1 pb-4 mt-4 ml-4">
             <div className="mb-4 text-xs flex rounded bg-gray-400">
-                {Object.entries(props.vars).map(([key, value]) => 
+                {Object.entries(props.vars.steps).map(([index, title]) => 
                     <div style={{ width: "17%" }} className=" mr-0.5 ml-0.5 flex flex-col text-center border border-gray-400">
-                        <div className={`h-2 shadow-none text-black justify-center ${progressBarColorMapping[value.status]}`}>
+                        <div className={`h-2 shadow-none text-black justify-center ${progressBarColorMapping[(getStatus(index))]}`}>
                             <div className="mt-2">
-                                {value.str}
+                                {title}
                             </div>
                         </div>
                     </div>

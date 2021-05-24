@@ -12,7 +12,7 @@ const propConst = {
 
 const propUtils = {
     getCmpArr: (v1, v2) => {
-        return [v1 < v2, v1 == v2, v1 > v2];
+        return [v1 < v2, v1 === v2, v1 > v2];
     },
     decide: (cmpArr) => {
         for(let i = 0; i < 3; i++) {
@@ -22,7 +22,7 @@ const propUtils = {
         }
     },
     sortBy: (v1, v2, order='Less') => {
-        if(order == 'Greater') {
+        if(order === 'Greater') {
             [v1, v2] = [v2, v1];
         }
         const cmpArr = propUtils.getCmpArr(v1, v2);

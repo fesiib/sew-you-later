@@ -3,38 +3,46 @@ import { addCurOrder, removeCurOrder, updateCurOrder } from '../reducers/Current
 import { useState } from 'react';
 
 const propVars = {
-    orderTitle: "Z shirt with Pocket",
+    orderTitle: "T shirt with Pocket",
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
+    customerEmail: "beyaldiz@kaist.ac.kr",
     hasNotification: true,
-    estimatedDue: "05/23/2021",
     referenceImages: ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"],
-    progressInfo: {
-        orderConfirmation: {
-            str: "Order Confirmation",
-            status: "incomplete",
+    progressInfo: {    
+        estimatedDue: "2021-05-29", // YYYY-MM-DD
+        steps: ["Order Confirmation", "Customer's Response", "Discussion", "Measurement Record", "Production", "Delivery"],
+        curStep: {
+            stepIndex: 2,
+            stepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
+            nextStepDesc: "You will discuss stuff with the customer",
+            curStepDesc: "Discussion",
         },
-        customerResponse: {
-            str: "Customer's Response",
-            status: "incomplete",
-        },
-        discussion: {
-            str: "Discussion",
-            status: "incomplete",
-        },
-        measurementRecord: {
-            str: "Measurement Record",
-            status: "incomplete",
-        },
-        production: {
-            str: "Production",
-            status: "incomplete",
-        },
-        delivery: {
-            str: "Delivery",
-            status: "incomplete",
-        },
+        // orderConfirmation: {
+        //     str: "Order Confirmation",
+        //     status: "complete",
+        // },
+        // customerResponse: {
+        //     str: "Customer's Response",
+        //     status: "incomplete",
+        // },
+        // discussion: {
+        //     str: "Discussion",
+        //     status: "incomplete",
+        // },
+        // measurementRecord: {
+        //     str: "Measurement Record",
+        //     status: "incomplete",
+        // },
+        // production: {
+        //     str: "Production",
+        //     status: "incomplete",
+        // },
+        // delivery: {
+        //     str: "Delivery",
+        //     status: "incomplete",
+        // },
     },
     id: 0,
 };

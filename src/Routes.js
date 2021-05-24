@@ -26,16 +26,16 @@ class Routes extends React.Component {
                 <Switch>
                     <Route exact path="/" component={App}/>
                     <Route exact path="/signin" component={Signin}/>
-                    <Route exact path="/order_reports" component={OrderReportsPage}/>
+                    <Route exact path="/order-reports" component={OrderReportsPage}/>
                     <Route exact path="/faq" component={FAQ}/>
                     <Route exact path="/discussion-search" component={DiscussionSearchPage}/>
                     <Route exact path="/discussion-notes" component={DiscussionNotesPage}/>
                     <Route exact path="/new-orders" component={NewOrdersPage}/>
                     <Route exact path="/current-orders" component={CurrentOrderspage}/>
-                    <Route exact path="/test/new-orders" component={TestNewOrdersPage}/>
-                    <Route exact path="/test/current-orders" component={TestCurrentOrdersPage}/>
                     <Route exact path="/order-details" component={OrderDetailsPage}/>
                     <Route exact path="/order-measurements" component={OrderMeasurementsPage}/>
+                    <Route exact path="/test/new-orders" component={TestNewOrdersPage}/>
+                    <Route exact path="/test/current-orders" component={TestCurrentOrdersPage}/>
                 </Switch>
             </Router>
         )
