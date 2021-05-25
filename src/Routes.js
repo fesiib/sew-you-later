@@ -18,6 +18,7 @@ import TestCurrentOrdersPage from './pages/TestCurrentOrdersPage';
 
 import OrderDetailsPage from './pages/OrderDetailsPage';
 import OrderMeasurementsPage from './pages/OrderMeasurementsPage';
+import NewOrderDetailsPage from './pages/NewOrderDetailsPage';
 
 class Routes extends React.Component {
     render() {
@@ -33,6 +34,7 @@ class Routes extends React.Component {
                     <Route exact path="/new-orders" component={NewOrdersPage}/>
                     <Route exact path="/current-orders" component={CurrentOrderspage}/>
                     <Route exact path="/order-details" component={OrderDetailsPage}/>
+                    <Route exact path="/new-order-details" component={NewOrderDetailsPage}/>
                     <Route exact path="/order-measurements" component={OrderMeasurementsPage}/>
                     <Route exact path="/test/new-orders" component={TestNewOrdersPage}/>
                     <Route exact path="/test/current-orders" component={TestCurrentOrdersPage}/>
