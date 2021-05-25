@@ -1,89 +1,57 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addCurOrder, removeCurOrder, updateCurOrder } from '../reducers/CurrentOrdersList';
+import { addCurOrder, removeCurOrder, updateCurOrder } from '../reducers/curOrdersList';
 import { useState } from 'react';
+import { resetApp } from '../reducers';
 
 const propVars = {
-    orderTitle: "T shirt with Pocket",
+    orderTitle: "T-shirt with Pocket",
+    orderDesc: `Hello! I want to order a T-Shirt. I have attached some images as references as
+    I want it to look similar to the images. The collar and the arm part as shown in the images
+    are just right! Can you finish it in two weeks?`,
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
     customerEmail: "beyaldiz@kaist.ac.kr",
-    hasNotification: true,
-    referenceImages: ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"],
-    progressInfo: {    
-        estimatedDue: "2021-05-29", // YYYY-MM-DD
-        steps: ["Order Confirmation", "Customer's Response", "Discussion", "Measurement Record", "Production", "Delivery"],
-        curStep: {
-            stepIndex: 2,
-            stepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
-            nextStepDesc: "You will discuss stuff with the customer",
-            curStepDesc: "Discussion",
-        },
-        // orderConfirmation: {
-        //     str: "Order Confirmation",
-        //     status: "complete",
-        // },
-        // customerResponse: {
-        //     str: "Customer's Response",
-        //     status: "incomplete",
-        // },
-        // discussion: {
-        //     str: "Discussion",
-        //     status: "incomplete",
-        // },
-        // measurementRecord: {
-        //     str: "Measurement Record",
-        //     status: "incomplete",
-        // },
-        // production: {
-        //     str: "Production",
-        //     status: "incomplete",
-        // },
-        // delivery: {
-        //     str: "Delivery",
-        //     status: "incomplete",
-        // },
-    },
-    id: 0,
+    estimatedDue: "2021-05-29", // YYYY-MM-DD
+    steps: "Order Confirmation-Customer's Response-Discussion-Measurement Record-Production-Delivery",
+    curStepIndex: 2,
+    curStepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
+    nextStepDesc: "You will discuss stuff with the customer",
+    curStepDesc: "Discussion",
+    notificationPage: "order-details", // another possible options: "measurement...." (depending on) also "" if no notification
+    curStepPage: "discussion-search", // will be equal to nextStepPage if incomplete, and before one step if ongoing
+    nextStepPage: "discussion-search", 
 };
+
+const referenceImages = ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"];
 
 function TestCurrentOrdersPage(props) {
 
-    const [id, setId] = useState(0);
-
     const dispatch = useDispatch();
+    const curOrdersList = useSelector(state => state.curOrdersList);
 
     const _addCurOrder = () => {
-        propVars.id = id;
-        setId(id + 1);
         dispatch(addCurOrder(propVars));
     };
 
     const _removeCurOrder = () => {
-        if(id > 0) {
-            dispatch(removeCurOrder(id - 1));
-            setId(id - 1);
-        }
+        
     };
 
     const _updateCurOrder = () => {
-        dispatch(updateCurOrder(id - 1, {
-            ...propVars, 
-            progressInfo: {
-                ...propVars.progressInfo, 
-                orderConfirmation: {
-                    ...propVars.progressInfo.orderConfirmation,
-                    status: "complete",
-                },
-            },
-        },));
+        dispatch(updateCurOrder({...curOrdersList.find((order) => order.id == 0), notificationPage: "Measurements"}, 0));
     };
+
+    const _resetApp = () => {
+        dispatch(resetApp());
+    }
 
     return (
         <div>
             <div onClick={_addCurOrder}> +1 </div>
             <div onClick={_removeCurOrder}> -1 </div>
             <div onClick={_updateCurOrder}>U</div>
+            <div onClick={_resetApp}>Reset</div>
         </div>
     );
 

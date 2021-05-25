@@ -1,5 +1,6 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import {useSelector} from 'react-redux';
 
 const propConst = {
     refImagesTitle: "Reference Images",
@@ -26,37 +27,32 @@ const propVars = {
 
 function OrderDetails(props) {
 
+    const curRefImages = useSelector(state => state.curRefImages);
+    const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
+
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
             <h1 className="mt-10 ml-10 mr-10 text-center"> {propConst.orderDetailsTitle} </h1>
             <div className="flex flex-row m-10">
                 <div className="flex flex-col">
                     <div className="">
-                        <h2 className="m-5"> {propConst.orderDescTitle} </h2>
+                        <h2 className="my-5"> {propConst.orderDescTitle} </h2>
                         <p className="text-black">
-                            {propVars.orderDesc}
+                            {props.vars.orderDesc}
                         </p>    
                     </div>
                     <div className="">
-                        <h2 className="m-5"> {propConst.refImagesTitle} </h2>
+                        <h2 className="my-5"> {propConst.refImagesTitle} </h2>
                         <div className = "flex gap-5 flex-wrap">
-                            {props.vars.referenceImages.map((src) => (
-                                <img className="w-36 h-36 thumbnail" src={src}/>
+                            {referenceImages.map((refImage) => (
+                                <img className="w-36 h-36 thumbnail" src={refImage.src}/>
                             ))}
-                            {/* <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/> */}
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-between">
-                    <div className="m-5 text-right">
-                        <h2 className="whitespace-nowrap"> {propConst.customerInfoTitle} </h2>
+                <div className="flex flex-col justify-between ml-10">
+                    <div className="my-5 text-right">
+                        <h2 className="whitespace-nowrap mb-5"> {propConst.customerInfoTitle} </h2>
                         <div className="">
                             <p className="whitespace-nowrap">{props.vars.customerName}</p>
                             <p>{props.vars.customerInfo}</p>
@@ -65,10 +61,10 @@ function OrderDetails(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <a href="#" className="flex flex-row justify-end items-center font-bold text-gray-500">
+                        <button href="#" className="flex flex-row justify-end items-center red">
                             <ExclamationCircleIcon className="h-5"/>
                             <p>{propConst.reportText}</p>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import MeasurementMessage from '../components/MeasurementMessage';
 import MeasurementReceived from '../components/MeasurementReceived';
 import { useDispatch, useSelector } from 'react-redux';
 import { resendRq, sendRq } from '../reducers/measurements';
+import FAQButton from '../components/FAQButton';
 
 const propsConst = {
     send: "Send",
@@ -50,6 +51,7 @@ function OrderMeasurementsPage(props) {
     return (
         <div className="">
             <Navbar className="absolute top-0"/>
+            <FAQButton />
             <div className="absolute left-0">
                 <Sidebar/>
             </div>

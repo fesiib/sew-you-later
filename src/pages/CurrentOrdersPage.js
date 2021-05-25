@@ -1,5 +1,6 @@
 import CurOrderItem from '../components/CurOrderItem';
 import Navbar from '../components/Navbar';
+import FAQButton from '../components/FAQButton';
 import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -14,14 +15,14 @@ const propUtils = {
         return [v1 < v2, v1 == v2, v1 > v2];
     },
     decide: (cmpArr) => {
-        for(let i = 0; i < 3; i++) {
-            if(cmpArr[i]) {
+        for (let i = 0; i < 3; i++) {
+            if (cmpArr[i]) {
                 return i - 1;
             }
         }
     },
-    sortBy: (v1, v2, order='Less') => {
-        if(order == 'Greater') {
+    sortBy: (v1, v2, order = 'Less') => {
+        if (order == 'Greater') {
             [v1, v2] = [v2, v1];
         }
         const cmpArr = propUtils.getCmpArr(v1, v2);
@@ -48,37 +49,39 @@ const propUtils = {
 
 function CurrentOrderspage(props) {
 
-    const curOrdersList = useSelector(state => state.curOrdersList.orders);   
+    const curOrdersList = useSelector(state => state.curOrdersList);   
     const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
 
     const updateOrganization = (option) => {
-        for(let i = 0; i < propConst.sortByOptions.length; i++) {
-            if(option === propConst.sortByOptions[i]) {
+        for (let i = 0; i < propConst.sortByOptions.length; i++) {
+            if (option === propConst.sortByOptions[i]) {
                 setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
-                break ;
+                break;
             }
         }
     };
 
     return (
-        <div className="w-full">
-            <Navbar/>
-            <div className="flex justify-between items-center mx-10 my-4">
-                <h1>{propConst.header}</h1>
-                <SortBy options={propConst.sortByOptions} parentUpdate={updateOrganization}/>
-            </div>
-            <div className="flex justify-center">
-                <ul>
-                    {curOrdersOrganization.map((val) => (
-                        <div className="m-4">                        
-                            <CurOrderItem vars={val}/>
-                        </div>
-                    ))}
-                </ul>
+        <div className="relative">
+            <Navbar />
+            <FAQButton />
+            <div className="max-w-7xl mx-auto">
+                <div className="flex justify-between items-center ml-8 mr-12 my-6">
+                    <h1>{propConst.header}</h1>
+                    <SortBy options={propConst.sortByOptions} parentUpdate={updateOrganization} />
+                </div>
+                <div className="flex justify-center mb-2">
+                    <ul>
+                        {curOrdersOrganization.map((val) => (
+                            <div className="mb-6">
+                                <CurOrderItem vars={val} />
+                            </div>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );
-
 };
 
 export default CurrentOrderspage;

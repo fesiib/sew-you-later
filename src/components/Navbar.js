@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Notification from './Notification';
+import {useSelector} from 'react-redux';
 
 function checkActiveWindow() {
     var active_path = window.location.pathname
@@ -16,8 +17,8 @@ function checkActiveWindow() {
 const activeWindow = checkActiveWindow()
 
 const navigation = [
-    { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 4, },
-    { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 4 },
+    { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 0},
+    { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 0},
     { name: 'Previous Orders', href: '#', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
 ]
 
@@ -26,6 +27,13 @@ function classNames(...classes) {
 }
 
 function Navbar(props) {
+
+    const newOrdersList = useSelector(state => state.newOrdersList);    
+    const curOrdersList = useSelector(state => state.curOrdersList);    
+
+    navigation[0].cntNotifications = newOrdersList.reduce((acc, ord) => acc + (ord.unseen === true ? 1 : 0), 0);
+    navigation[1].cntNotifications = curOrdersList.reduce((acc, ord) => acc + (ord.notificationPage !== "X" ? 1 : 0), 0);
+
     return (
         <Disclosure as="nav" className="sticky top-0 z-20 bg-indigo-900">
             {({ open }) => (
@@ -49,8 +57,8 @@ function Navbar(props) {
                                 </div>
                                 <div className="hidden sm:block sm:ml-6">
                                     <div className="flex px-4 space-x-4 ml-20">
-                                        {navigation.map((item) => (
-                                            <div className="px-3 py-3">
+                                        {navigation.map((item, index) => (
+                                            <div className="px-3 py-3" key={index}>
                                                 <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
                                                     <a
                                                         key={item.name}
@@ -102,7 +110,7 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="#"
+                                                                href="/"
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
@@ -115,7 +123,7 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="#"
+                                                                href="/"
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
@@ -128,7 +136,7 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="#"
+                                                                href="/"
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
@@ -149,8 +157,8 @@ function Navbar(props) {
 
                     <Disclosure.Panel className="sm:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1">
-                            {navigation.map((item) => (
-                                <div className="px-6 py-3">
+                            {navigation.map((item, index) => (
+                                <div className="px-6 py-3" key={index}>
                                     <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
                                         <a
                                             key={item.name}
