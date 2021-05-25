@@ -8,6 +8,7 @@ export const IMMUTABLE = 3;
 
 
 const propsConst = {
+    placeholder: "No Selection",
     neckLabel: "Neck",
     bustLabel: "Bust",
     waistLabel: "Waist",
@@ -25,7 +26,7 @@ const propsConst = {
     backLengthLabel: "Back Length",
     wristLabel: "Wrist",
     sleeveLengthLabel: "Sleeve Length",
-    placeholder: "No Selection",
+    shoulderLabel: "Shoulder",
 };
 
 export const allBPs = [
@@ -47,6 +48,7 @@ export const allBPs = [
     propsConst.backLengthLabel,
     propsConst.wristLabel,
     propsConst.sleeveLengthLabel,
+    propsConst.shoulderLabel
 ];
 
 
