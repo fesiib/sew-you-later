@@ -1,26 +1,18 @@
-const propConst = {
-    neckLabel: "Neck",
-    bustLabel: "Bust",
-    waistLabel: "Waist",
-    hipsLabel: "Hips",
-    thighLabel: "Thigh",
-    kneeLabel: "Knee",
-    calfLabel: "Calf",
-    waistToKneeLabel: "Waist to Knee",
-    ankleLabel: "Ankle",
-    inseamLabel: "Inseam",
-    riseLabel: "Rise",
-    outseamLabel: "Outseam",
-    backLengthLabel: "Back Length",
-    wristLabel: "Wrist",
-    sleeveLengthLabel: "Sleeve Length",
-    placeholder: "No Selection"
-};
+// fix rise and sleeve-length
+// add shoulder
+// add send and title
+// add reset button
+// fix null problem
 
-const SHADOW_LINE_STYLE = {
-    stroke: "rgb(0, 0, 0)",
-    strokeWidth: "30px",
-    visibility: "hidden",
+import React, {useRef} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import measurementsReducer, {allBPs, IMMUTABLE, addBP, removeBP, receiveRq } from '../reducers/measurements';
+import MenBody from './MenBody';
+
+
+const propConst = {
+    placeholderClassName: "invisible resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-gray-300",
+    selectedClassName: "resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black",
 };
 
 const SHADOW_LINE_DASH_STYLE = {
@@ -30,14 +22,16 @@ const SHADOW_LINE_DASH_STYLE = {
     visibility: "hidden",
 };
 
-const SHADOW_ELLIPSE_STYLE = {
-    paintOrder: "stroke markers",
-    stroke: "rgb(0, 0, 0)",
-    strokeWidth: "30px",
-    fill: "rgba(216, 216, 216, 0)",
-    strokeDasharray: "8px",  
-    visibility: "hidden",
+const PLACEHOLDER_SHADOW_STYLE = {
+    opacity: "0.1",
+    stroke: "green",
+    strokeWidth: "40px",
 };
+
+const PLACEHOLDER_SHADOW_STYLE_CSS = "stroke: green; stroke-width: 40px; opacity:0.1;";
+const ON_SHADOW_STYLE_CSS = "stroke: green; fill: rgba(216, 216, 216, 0); stroke-width: 50px; opacity: 0.5;";
+const SELECTED_SHADOW_STYLE_CSS = "stroke: green; fill: rgba(216, 216, 216, 0); stroke-width: 50px; opacity: 0.8;";
+
 
 const LINE_STYLE = {
     stroke: "rgb(0, 0, 0)",
@@ -58,561 +52,322 @@ const ELLIPSE_STYLE = {
     strokeDasharray: "8px",  
 };
 
+function containsObject(obj, list) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function MeasurementBody(props) {
+    const dispatch = useDispatch();
+
+    const {bodyParts, status} = useSelector(state => state.measurementsReducer);
+    
+    // console.log(measurementsReducer);
+    // const bodyParts = measurementsReducer.bodyParts;
+    // const status = measurementsReducer.staus;
+
+    const BPRefs = allBPs.map((label, id) => {
+        return React.createRef();
+    });
+    
+    let selectionRef = React.createRef();
+
+    const _addBP = (value) => {
+      dispatch(addBP(value));
+    };
+  
+    const _removeBP = (value) => {
+      dispatch(removeBP(value));
+    };
+
+    let highlightLeaveTimeout = null;
+
+    const highlightBP = (event, show, value) => {
+        if (highlightLeaveTimeout != null)
+            clearTimeout(highlightLeaveTimeout);
+        
+        if (show) {
+            selectionRef.current.innerHTML = allBPs[value];
+            selectionRef.current.className=propConst.selectedClassName;
+            if (status != IMMUTABLE && !containsObject(value, bodyParts)) {
+                event.target.setAttribute('style', ON_SHADOW_STYLE_CSS);
+                //BPRefs[value].current.setAttribute('style', SELECTED_ELLIPSE_STYLE_CSS);
+            }
+        }
+        else {
+            highlightLeaveTimeout = setTimeout(() => {
+                selectionRef.current.innerHTML = allBPs[0];
+                selectionRef.current.className=propConst.placeholderClassName;
+                if (status != IMMUTABLE && !containsObject(value, bodyParts)) {
+                    event.target.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
+                    //BPRefs[value].current.setAttribute('style', PLACEHOLDER_ELLIPSE_STYLE_CSS);
+                }
+            }, 200);
+            highlightLeaveTimeout = null;
+        }
+    };
+
+    const onClick = (event, value) => {
+        if (status == IMMUTABLE) {
+            return;
+        }
+        console.log(event);
+        if (containsObject(value, bodyParts)) {
+            //remove
+            _removeBP(value);
+            event.target.setAttribute('style', ON_SHADOW_STYLE_CSS);
+        }
+        else {
+            //add
+            _addBP(value);
+            event.target.setAttribute('style', SELECTED_SHADOW_STYLE_CSS);
+        }
+    }
     return (
         <div className="card min-w-min max-w-max m-10 p-10 bg-white rounded-xl">
-            <h2> Currently Selected: </h2>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-gray-300">
-                {propConst.placeholder}
+            <div ref={selectionRef} className={propConst.placeholderClassName}>
+                {allBPs[0]}
             </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.neckLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.bustLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.waistLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.hipsLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.thighLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.kneeLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.calfLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.waistToKneeLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.ankleLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.inseamLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.riseLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.outseamLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.backLengthLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.wristLabel}
-            </div>
-            <div className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black">
-                {propConst.sleeveLengthLabel}
-            </div>
-            
-            
-            
-            
+
             <svg version="1.0" width="600px" height="800px" viewBox="0 0 1273.000000 1475.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(100.000000,0)">
-            
-            <g>
-                <title>shadows</title>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
-                    <title>neck</title>
-                </ellipse>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="199.516" cy="441.128" rx="123.063" ry="16.052">
-                    <title>bust</title>
-                </ellipse>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="199.108" cy="635.715" rx="109.814" ry="15.365">
-                    <title>waist</title>
-                </ellipse>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="200.215" cy="766.757" rx="124.502" ry="15.417">
-                    <title>hips</title>
-                </ellipse>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="135.668" cy="880.432" rx="59.492" ry="14.524">
-                    <title>thigh</title>
-                </ellipse>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="265.768" cy="1087.489" rx="39.042" ry="7.629">
-                    <title>knee</title>
-                </ellipse>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="135.407" cy="1207.006" rx="44.595" ry="6.66">
-                    <title>calf</title>
-                </ellipse>
-                <g>
-                    <title>waist-to-knee</title>
-                    <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="635.727" x2="443.429" y2="636.67"/>
-                    <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="1089.408" x2="440.809" y2="1091.502"/>
-                    <g transform="matrix(0.968635, 0, 0, 0.79578, -462.072723, 38.298904)">
-                    <title>line</title>
-                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                <g transform="translate(100.000000,0)">
+                    <MenBody />
+                    <ellipse ref={BPRefs[1]} style={ELLIPSE_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
+                        <title>neck</title>
+                    </ellipse>
+                    <ellipse ref={BPRefs[2]} style={ELLIPSE_STYLE} cx="199.516" cy="441.128" rx="123.063" ry="16.052">
+                        <title>bust</title>
+                    </ellipse>
+                    <ellipse ref={BPRefs[3]} style={ELLIPSE_STYLE} cx="199.108" cy="635.715" rx="109.814" ry="15.365">
+                        <title>waist</title>
+                    </ellipse>
+                    <ellipse ref={BPRefs[4]} style={ELLIPSE_STYLE} cx="200.215" cy="766.757" rx="124.502" ry="15.417">
+                        <title>hips</title>
+                    </ellipse>
+                    <ellipse ref={BPRefs[5]} style={ELLIPSE_STYLE} cx="135.668" cy="880.432" rx="59.492" ry="14.524">
+                        <title>thigh</title>
+                    </ellipse>
+                    <ellipse ref={BPRefs[6]} style={ELLIPSE_STYLE} cx="265.768" cy="1087.489" rx="39.042" ry="7.629">
+                        <title>knee</title>
+                    </ellipse>
+                    <ellipse ref={BPRefs[7]} style={ELLIPSE_STYLE} cx="135.407" cy="1207.006" rx="44.595" ry="6.66">
+                        <title>calf</title>
+                    </ellipse>
+                    <g ref={BPRefs[8]}>
+                        <title>waist-to-knee</title>
+                        <line style={LINE_DASH_STYLE} x1="308.904" y1="635.727" x2="443.429" y2="636.67"/>
+                        <line style={LINE_DASH_STYLE} x1="308.904" y1="1089.408" x2="440.809" y2="1091.502"/>
+                        <g transform="matrix(0.968635, 0, 0, 0.79578, -462.072723, 38.298904)">
+                        <title>line</title>
+                        <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                        <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                        <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                        </g>
                     </g>
-                </g>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="763.77" cy="1402.417" rx="35.057" ry="7.472">
-                    <title>ankle</title>
-                </ellipse>
-                <g>
-                    <title>inseam</title>
-                    <line style={SHADOW_LINE_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
-                    <line style={SHADOW_LINE_STYLE} x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
-                    <line style={SHADOW_LINE_STYLE} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
-                </g>
-                <g>
-                    <title>rise</title>
-                    <line style={SHADOW_LINE_STYLE} x1="201.028" y1="825.571" x2="201.16" y2="632.214"/>
-                    <line style={SHADOW_LINE_STYLE} x1="191.084" y1="826.146" x2="210.729" y2="826.146"/>
-                </g>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="719.976" cy="642.827" rx="109.814" ry="15.365">
-                    <title>waist-back</title>
-                </ellipse>
-                <g>
-                    <title>outseam</title>
-                    <g transform="matrix(1.208778, 0, 0, 1.312076, -157.546906, -340.904968)">
-                    <title>line</title>
-                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                    <ellipse ref={BPRefs[9]} style={ELLIPSE_STYLE} cx="763.77" cy="1402.417" rx="35.057" ry="7.472">
+                        <title>ankle</title>
+                    </ellipse>
+                    <g ref={BPRefs[10]}>
+                        <title>inseam</title>
+                        <line style={LINE_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
+                        <line style={LINE_STYLE} x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
+                        <line style={LINE_STYLE} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
                     </g>
-                    <line style={SHADOW_LINE_DASH_STYLE} x1="827.495" y1="641.548" x2="962.02" y2="642.491"/>
-                    <line style={SHADOW_LINE_DASH_STYLE} x1="797.906" y1="1400.388" x2="996.157" y2="1401.331"/>
+                    <g ref={BPRefs[11]}>
+                        <title>rise</title>
+                        <line style={LINE_STYLE} x1="201.028" y1="825.571" x2="201.16" y2="632.214"/>
+                        <line style={LINE_STYLE} x1="191.084" y1="826.146" x2="210.729" y2="826.146"/>
+                    </g>
+                    <ellipse ref={BPRefs[12]} style={ELLIPSE_STYLE} cx="719.976" cy="642.827" rx="109.814" ry="15.365">
+                        <title>waist-back</title>
+                    </ellipse>
+                    <g ref={BPRefs[13]}>
+                        <title>outseam</title>
+                        <g transform="matrix(1.208778, 0, 0, 1.312076, -157.546906, -340.904968)">
+                        <title>line</title>
+                        <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                        <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                        <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                        </g>
+                        <line style={LINE_DASH_STYLE} x1="827.495" y1="641.548" x2="962.02" y2="642.491"/>
+                        <line style={LINE_DASH_STYLE} x1="797.906" y1="1400.388" x2="996.157" y2="1401.331"/>
+                    </g>
+                    <ellipse ref={BPRefs[14]} style={ELLIPSE_STYLE} cx="717.623" cy="222.857" rx="46.517" ry="10.166">
+                        <title>neck-back</title>
+                    </ellipse>
+                    <g ref={BPRefs[15]} transform="matrix(1.125301, 0, 0, 0.723075, -348.708466, -322.305695)">
+                        <title>back-length</title>
+                        <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                        <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                        <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                    </g>
+                    
+                    <ellipse ref={BPRefs[16]} style={ELLIPSE_STYLE} cx="886.008" cy="749.985" rx="23.857" ry="6.622">
+                        <title>wrist</title>
+                    </ellipse>
+                    <g ref={BPRefs[17]} transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
+                        <title>sleeve-length</title>
+                        <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                        <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                        <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                    </g>
+                    
+                        <title>shadows</title>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 1)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 1)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 1)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
+                            <title>neck</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 2)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 2)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 2)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="199.516" cy="441.128" rx="123.063" ry="16.052">
+                            <title>bust</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 3)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 3)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 3)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="199.108" cy="635.715" rx="109.814" ry="15.365">
+                            <title>waist</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 4)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 4)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 4)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="200.215" cy="766.757" rx="124.502" ry="15.417">
+                            <title>hips</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 5)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 5)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 5)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="135.668" cy="880.432" rx="59.492" ry="14.524">
+                            <title>thigh</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 6)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 6)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 6)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="265.768" cy="1087.489" rx="39.042" ry="7.629">
+                            <title>knee</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 7)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 7)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 7)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="135.407" cy="1207.006" rx="44.595" ry="6.66">
+                            <title>calf</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 16)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 16)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 16)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="886.008" cy="749.985" rx="23.857" ry="6.622">
+                            <title>wrist</title>
+                        </ellipse>
+                        <ellipse 
+                            onClick = {(event) => onClick(event, 9)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 9)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 9)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="763.77" cy="1402.417" rx="35.057" ry="7.472">
+                            <title>ankle</title>
+                        </ellipse>
+                        
+                        <g>
+                            <title>waist-to-knee</title>
+                            <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="635.727" x2="443.429" y2="636.67"/>
+                            <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="1089.408" x2="440.809" y2="1091.502"/>
+                            <g transform="matrix(0.968635, 0, 0, 0.79578, -462.072723, 38.298904)">
+                            <title>waist-to-knee</title>
+                                <line onClick = {(event) => onClick(event, 8)} 
+                                    onMouseEnter={(event) => highlightBP(event, true, 8)} 
+                                    onMouseLeave={(event) => highlightBP(event, false, 8)} 
+                                    style={PLACEHOLDER_SHADOW_STYLE}
+                                    x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                                <line x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                                <line x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                            </g>
+                        </g>
+                        <g>
+                            <title>inseam</title>
+                            <line 
+                            onClick = {(event) => onClick(event, 10)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 10)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 10)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
+                            <line x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
+                            <line x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
+                        </g>
+                        <g>
+                            <title>rise</title>
+                            <line 
+                            onClick = {(event) => onClick(event, 11)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 11)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 11)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} x1="201.028" y1="825.571" x2="201.16" y2="632.214"/>
+                            <line x1="191.084" y1="826.146" x2="210.729" y2="826.146"/>
+                        </g>
+                        {/* <ellipse 
+                            onMouseEnter={(event) => highlightBP(event, false, 12)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 12)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="719.976" cy="642.827" rx="109.814" ry="15.365">
+                            <title>waist-back</title>
+                        </ellipse> */}
+                        <g>
+                            <title>outseam</title>
+                            <g transform="matrix(1.208778, 0, 0, 1.312076, -157.546906, -340.904968)">
+                            <title>outseam</title>
+                            <line 
+                            onClick = {(event) => onClick(event, 13)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 13)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 13)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                            <line x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                            <line x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                            </g>
+                            <line style={SHADOW_LINE_DASH_STYLE} x1="827.495" y1="641.548" x2="962.02" y2="642.491"/>
+                            <line style={SHADOW_LINE_DASH_STYLE} x1="797.906" y1="1400.388" x2="996.157" y2="1401.331"/>
+                        </g>
+                        {/* <ellipse 
+                            onClick = {(event) => onClick(event, 14)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 14)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 14)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="717.623" cy="222.857" rx="46.517" ry="10.166">
+                            <title>neck-back</title>
+                        </ellipse> */}
+                        <g transform="matrix(1.125301, 0, 0, 0.723075, -348.708466, -322.305695)">
+                            <title>back-length</title>
+                            <line 
+                            onClick = {(event) => onClick(event, 15)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 15)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 15)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                            <line x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                            <line x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                        </g>
+                        
+                        <g transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
+                            <title>sleeve-length</title>
+                            <line 
+                            onClick = {(event) => onClick(event, 17)} 
+                            onMouseEnter={(event) => highlightBP(event, true, 17)} 
+                            onMouseLeave={(event) => highlightBP(event, false, 17)} 
+                            style={PLACEHOLDER_SHADOW_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
+                            <line x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
+                            <line x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+                        </g>
+                    
+                    
                 </g>
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="717.623" cy="222.857" rx="46.517" ry="10.166">
-                    <title>neck-back</title>
-                </ellipse>
-                <g transform="matrix(1.125301, 0, 0, 0.723075, -348.708466, -322.305695)">
-                    <title>back-length</title>
-                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-                </g>
-                
-                <ellipse style={SHADOW_ELLIPSE_STYLE} cx="886.008" cy="749.985" rx="23.857" ry="6.622">
-                    <title>wrist</title>
-                </ellipse>
-                <g transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
-                    <title>sleeve-length</title>
-                    <line style={SHADOW_LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                    <line style={SHADOW_LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                    <line style={SHADOW_LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-                </g>
-            </g>
-            
-            <ellipse style={ELLIPSE_STYLE} cx="199.541" cy="224.842" rx="46.517" ry="10.166">
-                <title>neck</title>
-            </ellipse>
-            <ellipse style={ELLIPSE_STYLE} cx="199.516" cy="441.128" rx="123.063" ry="16.052">
-                <title>bust</title>
-            </ellipse>
-            <ellipse style={ELLIPSE_STYLE} cx="199.108" cy="635.715" rx="109.814" ry="15.365">
-                <title>waist</title>
-            </ellipse>
-            <ellipse style={ELLIPSE_STYLE} cx="200.215" cy="766.757" rx="124.502" ry="15.417">
-                <title>hips</title>
-            </ellipse>
-            <ellipse style={ELLIPSE_STYLE} cx="135.668" cy="880.432" rx="59.492" ry="14.524">
-                <title>thigh</title>
-            </ellipse>
-            <ellipse style={ELLIPSE_STYLE} cx="265.768" cy="1087.489" rx="39.042" ry="7.629">
-                <title>knee</title>
-            </ellipse>
-            <ellipse style={ELLIPSE_STYLE} cx="135.407" cy="1207.006" rx="44.595" ry="6.66">
-                <title>calf</title>
-            </ellipse>
-            <g>
-                <title>waist-to-knee</title>
-                <line style={LINE_DASH_STYLE} x1="308.904" y1="635.727" x2="443.429" y2="636.67"/>
-                <line style={LINE_DASH_STYLE} x1="308.904" y1="1089.408" x2="440.809" y2="1091.502"/>
-                <g transform="matrix(0.968635, 0, 0, 0.79578, -462.072723, 38.298904)">
-                <title>line</title>
-                <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-                </g>
-            </g>
-            <ellipse style={ELLIPSE_STYLE} cx="763.77" cy="1402.417" rx="35.057" ry="7.472">
-                <title>ankle</title>
-            </ellipse>
-            <g>
-                <title>inseam</title>
-                <line style={LINE_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
-                <line style={LINE_STYLE} x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
-                <line style={LINE_STYLE} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
-            </g>
-            <g>
-                <title>rise</title>
-                <line style={LINE_STYLE} x1="201.028" y1="825.571" x2="201.16" y2="632.214"/>
-                <line style={LINE_STYLE} x1="191.084" y1="826.146" x2="210.729" y2="826.146"/>
-            </g>
-            <ellipse style={ELLIPSE_STYLE} cx="719.976" cy="642.827" rx="109.814" ry="15.365">
-                <title>waist-back</title>
-            </ellipse>
-            <g>
-                <title>outseam</title>
-                <g transform="matrix(1.208778, 0, 0, 1.312076, -157.546906, -340.904968)">
-                <title>line</title>
-                <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-                </g>
-                <line style={LINE_DASH_STYLE} x1="827.495" y1="641.548" x2="962.02" y2="642.491"/>
-                <line style={LINE_DASH_STYLE} x1="797.906" y1="1400.388" x2="996.157" y2="1401.331"/>
-            </g>
-            <ellipse style={ELLIPSE_STYLE} cx="717.623" cy="222.857" rx="46.517" ry="10.166">
-                <title>neck-back</title>
-            </ellipse>
-            <g transform="matrix(1.125301, 0, 0, 0.723075, -348.708466, -322.305695)">
-                <title>back-length</title>
-                <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-            </g>
-            
-            <ellipse style={ELLIPSE_STYLE} cx="886.008" cy="749.985" rx="23.857" ry="6.622">
-                <title>wrist</title>
-            </ellipse>
-            <g transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
-                <title>sleeve-length</title>
-                <line style={LINE_STYLE} x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-                <line style={LINE_STYLE} x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-                <line style={LINE_STYLE} x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-            </g>
-
-
-            <g transform="translate(0.000000,1475.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                <title>body</title>
-                {/* {/* <path d="M11435 14730 c-42 -11 -1 -11 50 -1 34 7 35 9 10 9 -16 0 -43 -4 -60 -8z"/> */}
-                {/* <path d="M11265 14723 c-38 -8 -86 -25 -83 -28 2 -2 35 4 73 15 60 16 68 26 10 13z"/> */}
-                {/* <path d="M11600 14717 c3 -3 50 -13 105 -22 54 -10 146 -30 202 -46 57 -16 107 -29 111 -28 16 1 -138 51 -213 69 -80 18 -214 36 -205 27z"/> */}
-                <path d="M1835 14689 l-120 -18 100 7 c55 4 156 7 224 7 110 0 120 1 85 12 -55 16 -149 14 -289 -8z"/>
-                <path d="M7010 14690 l-115 -19 100 7 c128 9 301 9 340 0 28 -7 28 -6 -5 9 -52 23 -187 25 -320 3z"/>
-                {/* <path d="M11007 14648 c-84 -29 -65 -32 23 -3 41 13 66 24 55 24 -11 0 -46 -10 -78 -21z"/> */}
-                <path d="M1625 14620 c-13 -6 -15 -9 -5 -9 8 0 22 4 30 9 18 12 2 12 -25 0z"/>
-                <path d="M7530 14607 c25 -12 88 -63 140 -112 52 -50 104 -97 115 -105 25 -18 -117 133 -159 170 -34 30 -108 70 -128 70 -7 0 7 -10 32 -23z"/>
-                <path d="M2375 14599 c22 -12 78 -60 125 -108 117 -118 144 -136 40 -26 -92 98 -141 139 -180 149 -15 4 -9 -2 15 -15z"/>
-                <path d="M1530 14584 c-49 -22 -46 -28 5 -8 11 4 -11 -22 -50 -58 -63 -58 -174 -188 -162 -188 3 0 41 41 84 91 43 49 98 106 122 125 24 18 38 34 30 34 -8 1 0 7 16 15 17 7 26 14 20 14 -5 0 -35 -11 -65 -25z"/>
-                <path d="M6710 14584 l-25 -15 25 6 c23 5 22 3 -10 -22 -19 -15 -52 -46 -73 -67 -42 -43 -140 -166 -133 -166 3 0 44 45 93 101 48 55 106 114 127 130 22 16 33 29 25 29 -12 0 -12 2 1 10 25 16 -3 11 -30 -6z"/>
-                {/* <path d="M10881 14555 c-95 -51 -99 -64 -6 -17 44 21 87 42 95 45 11 4 9 6 -5 6 -11 0 -49 -15 -84 -34z"/> */}
-                {/* {/* <path d="M12020 14588 c3 -4 32 -26 66 -51 73 -54 156 -145 207 -229 45 -75 48 -67 5 16 -38 72 -171 209 -238 245 -25 13 -43 22 -40 19z"/> */}
-                <path d="M1967 14569 c44 -4 98 -12 119 -18 59 -16 53 -4 -7 13 -29 9 -84 15 -123 15 l-71 -2 82 -8z"/>
-                <path d="M7140 14570 c41 -4 93 -10 115 -14 l40 -5 -40 13 c-22 8 -74 14 -115 14 l-75 -1 75 -7z"/>
-                {/* <path d="M11395 14555 c-65 -30 -56 -31 25 0 36 13 56 24 45 24 -11 0 -42 -11 -70 -24z"/> */}
-                <path d="M1860 14501 c-35 -11 -121 -56 -145 -76 -11 -9 1 -5 28 10 26 14 75 37 110 50 58 22 63 33 7 16z"/>
-                <path d="M7009 14486 c-56 -23 -129 -64 -129 -72 0 -3 20 7 45 22 25 14 75 37 113 50 37 13 58 24 47 24 -11 0 -45 -11 -76 -24z"/>
-                {/* <path d="M10828 14493 c7 -3 16 -2 19 1 4 3 -2 6 -13 5 -11 0 -14 -3 -6 -6z"/> */}
-                {/* <path d="M10802 14427 c-33 -46 -85 -157 -78 -165 3 -2 24 33 47 79 23 46 48 94 56 106 27 40 8 25 -25 -20z"/> */}
-                {/* <path d="M11290 14406 c-29 -29 -61 -69 -72 -87 -19 -32 -18 -32 14 6 18 22 53 61 77 88 60 64 47 60 -19 -7z"/> */}
-                <path d="M7602 14421 c32 -16 72 -39 90 -51 l33 -22 -30 27 c-33 29 -87 59 -125 69 -14 4 1 -6 32 -23z"/>
-                <path d="M2456 14404 c32 -19 66 -41 75 -47 8 -7 1 1 -15 16 -29 27 -97 67 -113 67 -4 0 20 -16 53 -36z"/>
-                <path d="M2518 14260 c16 -25 37 -66 47 -93 10 -26 20 -46 22 -44 8 9 -41 118 -68 149 l-29 33 28 -45z"/>
-                <path d="M6935 14238 c-46 -51 -86 -119 -99 -168 -4 -14 6 2 23 35 16 33 53 88 80 123 28 34 49 62 47 62 -2 0 -25 -23 -51 -52z"/>
-                <path d="M7717 14243 c20 -27 45 -67 55 -90 21 -48 33 -58 17 -15 -20 52 -87 152 -103 152 -3 0 11 -21 31 -47z"/>
-                <path d="M1994 14236 c-80 -59 -116 -99 -158 -177 -48 -88 -46 -100 3 -19 41 68 118 154 186 208 59 47 36 39 -31 -12z"/>
-                <path d="M7164 14240 c-22 -16 -54 -46 -69 -67 -24 -32 -18 -28 36 21 35 33 68 63 74 68 20 18 -2 6 -41 -22z"/>
-                {/* <path d="M11969 14193 c-32 -36 -53 -63 -47 -63 2 0 21 20 41 45 42 49 45 61 6 18z"/> */}
-                {/* {/* <path d="M12295 14200 c10 -11 20 -20 23 -20 3 0 -3 9 -13 20 -10 11 -20 20 -23 20 -3 0 3 -9 13 -20z"/> */}
-                <path d="M1737 14160 c-60 -66 -91 -121 -122 -215 -31 -93 -27 -112 5 -23 28 80 79 172 130 237 52 65 45 66 -13 1z"/>
-                {/* {/* <path d="M12104 14179 c-18 -36 -44 -117 -43 -139 0 -8 10 17 23 55 12 39 28 80 35 93 6 12 9 22 7 22 -3 0 -13 -14 -22 -31z"/> */}
-                <path d="M7834 14180 c28 -153 14 -310 -55 -620 -62 -275 -79 -377 -78 -455 2 -58 2 -58 10 24 5 47 32 182 59 301 84 363 84 369 84 555 0 114 -4 178 -12 195 l-12 25 4 -25z"/>
-                <path d="M2641 14145 c-3 -99 -12 -263 -22 -418 -6 -87 -9 -160 -6 -163 17 -18 49 529 34 606 -2 14 -5 4 -6 -25z"/>
-                {/* {/* <path d="M12283 14135 c0 -27 2 -38 4 -22 2 15 2 37 0 50 -2 12 -4 0 -4 -28z"/> */}
-                <path d="M2075 14135 c-106 -33 -200 -103 -265 -195 -19 -28 -10 -22 43 27 73 66 156 119 246 158 59 26 44 32 -24 10z"/>
-                <path d="M2264 14097 c30 -29 66 -76 80 -103 27 -50 26 -23 -2 31 -27 55 -49 80 -91 103 l-41 23 54 -54z"/>
-                {/* <path d="M11556 14108 c-21 -39 -46 -101 -34 -88 9 9 68 130 63 130 -2 0 -15 -19 -29 -42z"/> */}
-                {/* {/* <path d="M12171 14118 c-32 -35 -126 -196 -119 -204 3 -2 25 28 48 68 24 40 58 94 76 121 39 55 37 60 -5 15z"/> */}
-                <path d="M6470 14080 c-11 -151 9 -293 82 -585 21 -88 50 -209 64 -270 18 -82 23 -96 19 -53 -3 32 -30 164 -60 295 -66 288 -85 401 -94 558 -6 107 -7 113 -11 55z"/>
-                <path d="M1315 13990 c2 -74 9 -163 15 -198 9 -52 8 -66 -5 -85 -18 -25 -20 -103 -4 -179 15 -71 46 -175 60 -196 9 -15 10 -14 4 3 -48 147 -76 326 -57 360 8 15 11 10 20 -31 6 -27 14 -71 18 -99 4 -27 9 -45 11 -39 2 7 -3 65 -12 130 -24 190 -18 327 20 449 3 11 -1 8 -10 -7 -8 -16 -21 -56 -29 -90 l-13 -63 -7 80 c-12 127 -17 112 -11 -35z"/>
-                <path d="M6556 14111 c-15 -23 -36 -131 -35 -176 1 -49 2 -48 10 19 5 38 16 91 24 118 13 45 13 60 1 39z"/>
-                {/* <path d="M10906 14059 c-3 -17 -5 -46 -5 -63 1 -18 5 -7 10 28 9 63 6 88 -5 35z"/> */}
-                {/* <path d="M10711 14016 c-1 -93 25 -252 60 -361 16 -49 77 -187 134 -305 67 -137 110 -239 119 -280 10 -45 14 -55 15 -33 2 49 -29 133 -117 319 -123 261 -171 413 -196 619 -13 108 -14 109 -15 41z"/> */}
-                {/* <path d="M11995 14053 c-22 -14 -55 -39 -74 -57 -35 -33 -111 -142 -111 -160 0 -6 15 12 34 40 19 28 72 85 118 128 45 42 81 76 78 75 -3 0 -23 -12 -45 -26z"/> */}
-                <path d="M1753 14023 c-51 -39 -95 -87 -126 -135 -27 -44 -20 -46 15 -4 18 22 64 70 103 108 38 37 67 68 64 68 -4 0 -29 -17 -56 -37z"/>
-                {/* {/* <path d="M12332 13989 c-1 -42 -4 -105 -7 -140 -4 -54 -3 -59 5 -31 6 18 9 81 7 140 -2 87 -3 93 -5 31z"/> */}
-                <path d="M2448 13942 c25 -55 39 -69 18 -17 -10 22 -22 45 -27 50 -6 6 -2 -9 9 -33z"/>
-                {/* <path d="M11733 13947 c-96 -72 -164 -184 -162 -266 1 -70 16 -80 21 -15 6 84 53 177 128 254 33 33 59 60 57 60 -1 0 -21 -15 -44 -33z"/> */}
-                <path d="M1514 13938 c-62 -74 -94 -187 -94 -330 0 -82 17 -224 26 -216 2 2 -1 45 -6 96 -18 171 14 345 80 440 35 50 33 55 -6 10z"/>
-                <path d="M2502 13920 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M2536 13899 c16 -145 22 -275 14 -359 -4 -52 -6 -96 -5 -98 2 -2 9 23 15 55 16 76 7 329 -14 398 l-16 50 6 -46z"/>
-                <path d="M7642 13820 c-2 -32 -23 -144 -37 -194 -5 -17 -4 -18 4 -6 17 25 43 154 38 196 l-4 39 -1 -35z"/>
-                {/* <path d="M10805 13773 c6 -45 44 -157 51 -150 3 2 -1 17 -7 33 -6 16 -20 58 -31 94 -15 52 -17 57 -13 23z"/> */}
-                {/* <path d="M11259 13761 c-16 -16 -29 -38 -28 -48 0 -13 3 -12 10 7 5 14 22 35 37 47 15 13 23 23 19 23 -5 0 -22 -13 -38 -29z"/> */}
-                {/* <path d="M11286 13708 c-9 -12 -15 -38 -15 -58 l2 -35 6 42 c4 23 13 48 20 57 8 9 11 16 8 16 -3 0 -13 -10 -21 -22z"/> */}
-                <path d="M2654 13631 c-1 -77 -16 -157 -58 -296 -4 -11 2 -2 13 21 44 94 81 341 54 357 -5 3 -8 -34 -9 -82z"/>
-                {/* <path d="M11466 13680 c9 -49 39 -123 69 -170 32 -50 42 -53 13 -3 -12 20 -37 75 -55 122 -19 47 -31 70 -27 51z"/> */}
-                {/* <path d="M11221 13660 c-1 -48 22 -131 53 -186 14 -25 35 -77 46 -114 11 -37 27 -73 35 -80 20 -16 19 -12 -5 35 -11 22 -20 46 -20 54 0 8 -20 58 -45 111 -26 56 -49 122 -54 156 -6 42 -9 49 -10 24z"/> */}
-                {/* <path d="M11432 13645 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/> */}
-                <path d="M6675 13584 c5 -68 41 -211 51 -201 2 2 0 17 -6 33 -6 16 -20 76 -31 134 -18 101 -19 102 -14 34z"/>
-                {/* <path d="M11281 13594 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/> */}
-                {/* {/* <path d="M12355 13570 c4 -14 26 -67 51 -118 48 -101 54 -138 27 -146 -10 -3 -37 -10 -60 -16 -40 -10 -43 -13 -42 -43 l1 -32 7 29 c5 26 13 31 56 41 94 21 94 24 10 195 -31 63 -53 104 -50 90z"/> */}
-                <path d="M2602 13530 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                {/* <path d="M11076 13490 c24 -164 23 -161 19 -80 -2 41 -8 86 -14 100 -9 21 -10 18 -5 -20z"/> */}
-                {/* <path d="M11254 13360 c0 -69 1 -97 3 -62 2 34 2 90 0 125 -2 34 -3 6 -3 -63z"/> */}
-                <path d="M7581 13382 c-11 -33 -21 -68 -21 -78 1 -10 12 15 25 56 29 89 27 104 -4 22z"/>
-                <path d="M7027 13240 c3 -25 9 -63 14 -85 7 -31 7 -26 3 23 -3 35 -9 73 -14 85 -7 16 -7 9 -3 -23z"/>
-                <path d="M7551 13264 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M1421 13254 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M2552 13230 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                {/* <path d="M11182 13180 c0 -36 4 -94 8 -130 7 -62 7 -61 7 35 0 55 -3 114 -7 130 -6 23 -8 14 -8 -35z"/> */}
-                <path d="M1431 13213 c-1 -7 4 -45 11 -84 12 -70 13 -71 90 -145 89 -84 214 -170 261 -179 18 -4 120 -5 228 -3 l197 3 73 50 c40 28 111 86 157 130 72 69 84 85 87 120 l5 40 -11 -33 c-13 -42 -93 -123 -202 -204 -122 -91 -120 -90 -341 -86 l-191 3 -60 34 c-75 42 -146 95 -214 158 -50 45 -55 53 -71 128 -10 44 -19 74 -19 68z"/>
-                {/* {/* <path d="M12344 13164 c1 -29 4 -50 9 -47 9 5 8 52 -2 78 -6 13 -8 3 -7 -31z"/> */}
-                <path d="M2542 13175 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/>
-                {/* <path d="M11444 13125 l1 -70 100 -52 c55 -29 105 -53 110 -53 6 0 -28 21 -75 46 -112 60 -123 72 -131 142 l-7 57 2 -70z"/> */}
-                {/* <path d="M11142 13065 c18 -35 34 -63 36 -61 4 5 -56 126 -63 126 -3 0 10 -29 27 -65z"/> */}
-                <path d="M6642 13080 c0 -19 2 -27 5 -17 2 9 2 25 0 35 -3 9 -5 1 -5 -18z"/>
-                {/* <path d="M11058 13035 c-8 -30 -12 -52 -8 -50 9 5 33 96 27 101 -2 2 -11 -21 -19 -51z"/> */}
-                {/* {/* <path d="M12341 13063 c-1 -6 -4 -20 -7 -30 -5 -17 -5 -17 6 0 6 10 9 23 6 30 -3 9 -5 9 -5 0z"/> */}
-                <path d="M7620 13044 c0 -13 75 -84 88 -84 4 1 -4 10 -18 21 -14 11 -35 32 -47 47 -13 15 -23 22 -23 16z"/>
-                <path d="M6705 12978 c-39 -40 -43 -46 -18 -29 27 18 82 81 71 81 -2 0 -26 -23 -53 -52z"/>
-                <path d="M6781 12949 c-1 -36 -3 -88 -6 -115 -4 -42 -4 -45 5 -19 14 41 20 156 10 180 -6 14 -9 -1 -9 -46z"/>
-                <path d="M7571 12994 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M6866 12968 c-3 -19 -22 -67 -41 -108 -34 -73 -22 -72 15 1 21 41 45 127 37 135 -2 3 -7 -10 -11 -28z"/>
-                <path d="M7563 12930 c0 -25 2 -35 4 -22 2 12 2 32 0 45 -2 12 -4 2 -4 -23z"/>
-                <path d="M7175 12893 c3 -62 40 -182 51 -170 3 2 -3 20 -11 40 -8 21 -22 74 -30 120 l-15 82 5 -72z"/>
-                <path d="M7432 12911 c-11 -27 -36 -75 -56 -107 -26 -42 -29 -50 -11 -29 29 34 101 173 93 180 -3 3 -14 -17 -26 -44z"/>
-                <path d="M7264 12914 c-8 -19 -17 -49 -20 -67 -2 -18 4 -7 14 24 10 31 22 61 26 67 4 7 4 12 1 12 -3 0 -13 -16 -21 -36z"/>
-                <path d="M7040 12882 c0 -27 -7 -71 -15 -98 -19 -62 -18 -67 2 -29 16 29 32 175 19 175 -3 0 -6 -22 -6 -48z"/>
-                <path d="M7131 12897 c-7 -21 -33 -69 -57 -105 -41 -63 -42 -65 -9 -28 40 45 89 139 83 158 -3 7 -10 -4 -17 -25z"/>
-                <path d="M6898 12845 c-4 -44 -10 -96 -13 -115 l-5 -35 15 40 c11 27 15 65 13 115 l-3 75 -7 -80z"/>
-                <path d="M7010 12907 c0 -9 -22 -59 -49 -112 -27 -52 -47 -95 -45 -95 2 0 21 30 43 68 41 70 67 139 57 149 -3 4 -6 -1 -6 -10z"/>
-                <path d="M7490 12902 c0 -13 54 -85 76 -102 10 -8 7 -1 -7 15 -15 17 -34 45 -43 63 -16 31 -26 40 -26 24z"/>
-                <path d="M7337 12879 c-3 -8 -9 -39 -15 -69 -6 -30 -13 -64 -17 -75 -3 -11 1 -7 10 8 16 28 39 137 30 145 -2 3 -6 -1 -8 -9z"/>
-                {/* {/* <path d="M12289 12841 c-15 -26 -23 -29 -105 -38 l-89 -10 70 -1 c91 0 117 8 133 42 18 37 11 42 -9 7z"/> */}
-                {/* <path d="M11053 12785 c0 -27 2 -38 4 -22 2 15 2 37 0 50 -2 12 -4 0 -4 -28z"/> */}
-                <path d="M2440 12789 c0 -129 33 -456 51 -516 20 -65 148 -155 339 -239 56 -25 104 -43 106 -41 2 2 -35 21 -83 43 -96 42 -242 131 -286 172 -16 15 -35 39 -43 54 -17 33 -49 243 -65 423 -11 128 -19 172 -19 104z"/>
-                <path d="M7627 12715 c3 -60 13 -177 23 -260 l19 -150 41 -37 c23 -20 91 -62 151 -93 109 -56 329 -149 336 -142 2 2 -27 17 -64 32 -193 81 -411 204 -433 244 -8 16 -34 183 -68 446 -8 63 -9 59 -5 -40z"/>
-                <path d="M6728 12705 c-5 -44 -18 -147 -29 -230 l-22 -150 -46 -45 c-45 -44 -249 -156 -383 -210 -32 -13 -56 -25 -54 -27 7 -7 227 87 327 139 53 27 114 66 136 86 37 35 41 42 51 117 20 141 34 298 30 350 -3 45 -4 42 -10 -30z"/>
-                <path d="M1552 12728 c-3 -60 -39 -348 -52 -411 -19 -90 -78 -142 -283 -248 -73 -38 -129 -69 -125 -69 14 0 174 73 247 114 41 23 98 64 126 92 50 49 53 55 63 125 18 121 34 330 30 389 l-4 55 -2 -47z"/>
-                {/* <path d="M11876 12743 c-36 -71 -49 -349 -21 -458 17 -67 21 -73 259 -387 212 -278 309 -426 395 -598 71 -143 111 -252 143 -390 25 -111 36 -434 19 -604 -6 -65 -10 -121 -8 -123 3 -2 11 42 18 99 21 153 18 490 -4 600 -55 271 -195 548 -449 889 -91 121 -116 153 -246 321 -97 126 -109 152 -120 255 -11 95 3 328 22 383 16 46 13 52 -8 13z"/> */}
-                {/* <path d="M11037 12670 c-12 -111 -53 -258 -140 -506 -165 -469 -200 -689 -178 -1104 17 -300 34 -432 136 -1070 20 -124 45 -288 55 -365 10 -77 18 -121 19 -98 1 52 -25 261 -84 663 -125 857 -134 1204 -39 1600 13 58 58 204 99 325 107 319 155 519 143 596 -2 13 -7 -5 -11 -41z"/> */}
-                <path d="M2376 12624 c-4 -20 -5 -38 -3 -40 3 -3 8 11 11 32 4 20 5 38 3 40 -3 3 -8 -11 -11 -32z"/>
-                <path d="M1662 12570 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M2356 12544 c-4 -14 -5 -28 -3 -31 3 -2 8 8 11 23 4 14 5 28 3 31 -3 2 -8 -8 -11 -23z"/>
-                <path d="M1671 12522 c-1 -23 60 -318 78 -377 19 -61 10 -2 -18 127 -16 73 -36 165 -44 203 -8 39 -15 60 -16 47z"/>
-                <path d="M2341 12493 c-1 -6 -4 -20 -7 -30 -5 -17 -5 -17 6 0 6 10 9 23 6 30 -3 9 -5 9 -5 0z"/>
-                <path d="M1761 12094 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                {/* <path d="M1050 11990 c-8 -5 -10 -10 -5 -10 6 0 17 5 25 10 8 5 11 10 5 10 -5 0 -17 -5 -25 -10z"/> */}
-                <path d="M8397 11949 c7 -7 15 -10 18 -7 3 3 -2 9 -12 12 -14 6 -15 5 -6 -5z"/>
-                <path d="M5823 11891 c-244 -119 -342 -202 -417 -355 -55 -112 -83 -224 -95 -381 -10 -122 0 -352 19 -450 l9 -50 -5 50 c-2 28 -7 125 -11 216 -15 421 80 679 313 845 34 24 122 75 195 114 74 38 130 70 124 70 -5 0 -65 -27 -132 -59z"/>
-                <path d="M8539 11880 c227 -121 326 -206 399 -348 99 -190 126 -407 98 -792 -5 -60 -4 -61 4 -20 5 25 13 128 16 230 10 268 -13 410 -90 575 -52 111 -118 185 -231 260 -73 49 -281 155 -302 155 -4 0 43 -27 106 -60z"/>
-                <path d="M623 11850 c-130 -45 -213 -90 -281 -154 -143 -134 -214 -355 -214 -666 0 -135 19 -376 29 -366 3 2 0 53 -6 112 -41 401 27 714 190 889 67 71 133 112 255 161 115 45 131 53 119 53 -5 0 -47 -13 -92 -29z"/>
-                <path d="M3365 11846 c105 -40 154 -64 214 -105 212 -145 315 -469 282 -893 -7 -88 -10 -162 -8 -164 9 -9 27 227 27 347 0 295 -71 520 -205 654 -64 65 -151 115 -273 159 -90 32 -120 34 -37 2z"/>
-                <path d="M3028 11813 c6 -2 18 -2 25 0 6 3 1 5 -13 5 -14 0 -19 -2 -12 -5z"/>
-                {/* <path d="M11300 11804 c-30 -8 -73 -26 -96 -39 -43 -25 -134 -119 -134 -137 0 -6 13 5 28 25 77 97 173 143 330 156 l87 8 -80 1 c-44 0 -105 -6 -135 -14z"/> */}
-                {/* <path d="M1065 11799 c231 -30 394 -49 411 -48 34 2 -137 28 -289 44 -156 16 -240 19 -122 4z"/> */}
-                <path d="M2870 11803 c-101 -10 -360 -46 -356 -50 2 -3 78 5 168 16 89 11 197 25 238 30 73 8 30 12 -50 4z"/>
-                {/* <path d="M11528 11803 c6 -2 18 -2 25 0 6 3 1 5 -13 5 -14 0 -19 -2 -12 -5z"/> */}
-                <path d="M1508 11743 c7 -3 16 -2 19 1 4 3 -2 6 -13 5 -11 0 -14 -3 -6 -6z"/>
-                <path d="M1890 11640 c80 -120 155 -139 225 -59 l20 23 -36 -22 c-20 -12 -53 -22 -73 -22 -32 0 -47 9 -99 58 -50 47 -57 51 -37 22z"/>
-                <path d="M7544 10973 c-30 -75 -24 -148 23 -289 39 -115 93 -237 114 -259 6 -5 -6 25 -26 67 -39 86 -115 337 -115 383 0 17 6 55 14 85 8 30 13 56 12 58 -2 1 -12 -19 -22 -45z"/>
-                <path d="M6766 10995 c16 -50 15 -153 0 -215 -48 -185 -106 -330 -161 -401 -24 -30 -22 -29 8 4 45 49 94 152 143 297 45 134 52 237 21 300 -9 19 -14 26 -11 15z"/>
-                {/* <path d="M11976 10713 c-9 -148 -30 -298 -56 -391 -25 -90 -24 -103 1 -32 40 111 60 222 66 383 3 86 4 157 1 157 -3 0 -8 -53 -12 -117z"/> */}
-                <path d="M8460 10621 c0 -99 -19 -205 -81 -451 -32 -129 -63 -271 -70 -315 -15 -111 -23 -751 -13 -1013 8 -203 9 -181 15 353 6 625 7 636 70 890 22 88 49 203 60 255 20 95 38 340 26 340 -4 0 -7 -27 -7 -59z"/>
-                <path d="M3842 10645 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/>
-                <path d="M9022 10640 c0 -19 2 -27 5 -17 2 9 2 25 0 35 -3 9 -5 1 -5 -18z"/>
-                <path d="M3277 10565 c-7 -101 -35 -235 -101 -490 -19 -77 -41 -176 -47 -220 -15 -112 -23 -732 -13 -1003 9 -216 9 -200 15 348 7 630 7 640 73 895 64 248 89 399 84 505 -3 62 -3 61 -11 -35z"/>
-                {/* <path d="M10965 10540 c3 -111 32 -326 42 -316 2 2 -3 59 -12 127 -8 68 -19 167 -25 219 l-9 95 4 -125z"/> */}
-                <path d="M162 10625 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/>
-                <path d="M5342 10625 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/>
-                <path d="M721 10549 c-1 -87 21 -216 76 -429 72 -284 75 -312 82 -960 l6 -575 9 340 c10 384 3 756 -18 921 -8 60 -37 198 -65 305 -59 230 -71 289 -81 389 l-7 75 -2 -66z"/>
-                <path d="M5901 10549 c-1 -87 21 -216 76 -429 72 -282 74 -313 81 -950 5 -433 8 -524 13 -390 10 279 10 753 -1 900 -14 195 -26 263 -80 475 -58 227 -70 286 -80 385 l-7 75 -2 -66z"/>
-                <path d="M3832 10580 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M9011 10574 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M171 10554 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M5351 10554 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M7690 10406 c0 -2 8 -10 18 -17 15 -13 16 -12 3 4 -13 16 -21 21 -21 13z"/>
-                <path d="M939 10191 c43 -38 141 -86 216 -107 33 -9 107 -17 165 -19 l105 -4 -90 10 c-146 15 -264 51 -371 114 -56 33 -57 34 -25 6z"/>
-                <path d="M3045 10188 c-101 -63 -228 -103 -380 -117 l-80 -8 73 -2 c40 0 108 6 150 14 81 16 216 77 267 119 41 34 30 32 -30 -6z"/>
-                <path d="M8936 9750 c3 -323 21 -620 37 -648 9 -13 57 -225 79 -347 29 -158 35 -515 14 -835 -30 -458 -31 -512 -12 -547 9 -18 16 -47 17 -65 1 -31 2 -31 8 -8 5 16 2 38 -7 60 -20 44 -18 146 9 513 38 533 24 798 -62 1142 -37 145 -54 319 -69 685 -17 433 -18 437 -14 50z"/>
-                <path d="M3756 9755 c5 -422 15 -546 59 -732 91 -379 102 -586 65 -1223 -22 -367 -22 -393 -7 -426 10 -19 17 -51 18 -72 l1 -37 8 29 c7 22 4 41 -9 72 -21 46 -19 122 14 569 35 480 19 737 -70 1095 -37 150 -51 314 -75 870 -8 180 -8 162 -4 -145z"/>
-                <path d="M246 9923 c-27 -625 -35 -729 -71 -873 -34 -138 -62 -281 -77 -390 -17 -129 -15 -506 5 -760 29 -367 32 -482 13 -529 -9 -23 -16 -51 -15 -64 1 -14 6 -7 15 22 7 24 18 49 24 56 11 13 10 43 -26 630 -26 442 -12 624 81 1025 40 174 52 308 61 728 7 314 1 411 -10 155z"/>
-                <path d="M5428 9970 c-4 -58 -12 -222 -18 -366 -14 -333 -23 -416 -66 -597 -66 -279 -78 -383 -78 -662 1 -160 9 -352 22 -533 26 -329 27 -407 7 -442 -8 -14 -14 -38 -14 -55 0 -26 3 -22 21 25 25 65 25 134 3 490 -39 615 -29 806 65 1188 41 170 48 238 61 627 11 349 9 518 -3 325z"/>
-                {/* <path d="M11856 10008 c-6 -55 -57 -737 -56 -762 2 -118 48 329 60 583 10 200 8 279 -4 179z"/> */}
-                {/* <path d="M10992 9840 c-1 -85 5 -218 13 -295 8 -77 15 -168 15 -202 0 -34 5 -65 10 -68 14 -9 13 46 -6 231 -9 87 -20 233 -23 324 l-8 165 -1 -155z"/> */}
-                {/* {/* <path d="M12632 9849 c-3 -85 -17 -228 -43 -442 -11 -93 -19 -171 -16 -173 6 -7 45 244 57 376 6 63 10 158 8 210 -3 77 -4 82 -6 29z"/> */}
-                <path d="M6011 9474 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M3171 9465 c0 -5 17 -80 40 -165 83 -321 81 -308 83 -605 2 -303 0 -289 102 -725 31 -129 62 -262 69 -295 36 -153 0 52 -51 294 -96 455 -97 456 -99 746 l-3 260 -46 175 c-46 176 -93 334 -95 315z"/>
-                <path d="M8350 9466 c0 -4 24 -104 54 -224 68 -270 76 -335 69 -543 -9 -241 2 -308 147 -914 55 -231 41 -130 -25 178 -97 455 -98 462 -100 747 -3 283 -3 282 -91 594 -40 144 -54 184 -54 162z"/>
-                {/* <path d="M10933 9430 c0 -25 2 -35 4 -22 2 12 2 32 0 45 -2 12 -4 2 -4 -23z"/> */}
-                <path d="M772 9268 c-78 -280 -82 -306 -82 -565 0 -262 -2 -277 -94 -718 -35 -171 -67 -330 -70 -355 l-5 -45 11 45 c108 458 161 700 173 795 4 28 8 165 9 305 l2 255 57 229 c31 126 56 231 54 233 -2 2 -27 -79 -55 -179z"/>
-                <path d="M5951 9267 c-76 -272 -81 -306 -81 -560 0 -257 -6 -305 -100 -749 -62 -295 -80 -417 -30 -203 15 66 42 181 60 255 83 348 82 339 90 675 l8 310 56 224 c31 123 55 226 52 228 -2 2 -27 -79 -55 -180z"/>
-                {/* <path d="M11078 9025 c16 -33 46 -118 67 -190 105 -361 266 -670 595 -1135 307 -435 279 -389 273 -440 -4 -41 -2 -48 28 -75 31 -29 32 -18 1 17 -10 13 -13 32 -10 69 l5 51 -180 251 c-99 139 -211 298 -249 355 -220 325 -368 628 -453 923 -34 117 -58 175 -90 214 -9 11 -3 -7 13 -40z"/> */}
-                {/* {/* <path d="M12546 8723 c-5 -167 -23 -474 -41 -718 -7 -100 22 104 35 240 12 132 26 675 18 675 -3 0 -9 -89 -12 -197z"/> */}
-                {/* <path d="M11903 8878 c76 -175 124 -323 236 -733 81 -297 158 -542 167 -532 2 2 -12 50 -31 108 -18 57 -68 230 -109 384 -73 272 -112 406 -155 530 -29 82 -102 255 -108 255 -3 0 -3 -6 0 -12z"/> */}
-                {/* <path d="M10942 8855 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/> */}
-                {/* <path d="M10923 8718 c-7 -53 -40 -236 -74 -405 -79 -402 -98 -534 -106 -728 -12 -325 40 -560 176 -798 23 -39 51 -83 62 -97 13 -16 11 -8 -6 20 -43 72 -100 199 -129 284 -51 153 -67 257 -73 466 -6 233 7 355 91 815 57 318 80 475 74 515 -1 14 -9 -19 -15 -72z"/> */}
-                <path d="M1920 8462 c0 -16 50 -52 72 -52 27 0 74 26 82 45 5 13 0 12 -20 -4 -35 -27 -82 -27 -111 1 -13 12 -23 17 -23 10z"/>
-                <path d="M6057 8268 c-7 -132 -19 -226 -67 -548 -81 -539 -100 -747 -107 -1186 -6 -390 3 -587 43 -914 22 -176 47 -333 152 -949 8 -52 17 -90 19 -84 2 6 -21 170 -51 365 -124 791 -140 959 -140 1453 0 444 15 665 79 1125 59 424 75 563 82 708 3 83 4 152 1 152 -3 0 -8 -55 -11 -122z"/>
-                <path d="M878 8260 c-9 -136 -26 -273 -73 -580 -75 -485 -95 -712 -102 -1140 -7 -431 12 -737 72 -1142 21 -143 135 -801 140 -813 8 -17 -5 80 -35 275 -64 401 -99 655 -129 925 -21 186 -34 544 -28 780 10 366 31 598 106 1140 47 339 64 515 59 605 -3 56 -4 48 -10 -50z"/>
-                <path d="M3115 8270 c15 -202 29 -324 71 -630 78 -568 96 -800 96 -1230 0 -315 -8 -471 -43 -770 -18 -156 -92 -664 -133 -920 -9 -52 -16 -104 -15 -115 1 -25 77 401 123 690 127 796 127 1469 0 2301 -53 353 -73 499 -83 627 -5 65 -12 121 -16 125 -4 4 -4 -31 0 -78z"/>
-                <path d="M8297 8245 c5 -108 32 -341 92 -780 62 -457 82 -844 69 -1289 -10 -341 -41 -613 -144 -1270 -24 -159 -43 -293 -41 -299 1 -5 13 48 25 119 12 71 42 246 67 390 94 552 119 820 120 1294 0 479 -26 789 -111 1320 -33 208 -64 453 -65 520 -1 30 -5 66 -9 80 -5 14 -6 -21 -3 -85z"/>
-                <path d="M7125 7710 c3 -14 9 -46 15 -71 5 -26 14 -111 20 -190 14 -191 21 -207 14 -36 -4 131 -26 275 -45 307 -7 11 -8 8 -4 -10z"/>
-                <path d="M7215 7643 c-12 -54 -18 -130 -20 -248 l-3 -170 8 150 c4 83 15 192 24 244 9 52 15 95 13 98 -2 2 -12 -32 -22 -74z"/>
-                {/* {/* <path d="M12471 7645 c0 -27 3 -77 9 -110 13 -83 62 -296 67 -291 3 2 -9 71 -26 153 -17 81 -35 182 -40 223 -7 66 -9 69 -10 25z"/> */}
-                <path d="M5702 7610 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M3482 7590 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M8662 7590 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                {/* {/* <path d="M12574 7098 c50 -101 103 -219 117 -263 l26 -80 -53 -158 c-63 -186 -119 -324 -142 -352 -10 -12 -5 -9 9 6 27 27 71 132 155 370 l47 134 -28 80 c-36 103 -101 243 -165 356 -28 49 -53 89 -54 89 -1 0 38 -82 88 -182z"/> */}
-                <path d="M3466 7058 c-84 -321 -79 -287 -72 -475 7 -167 23 -274 44 -295 6 -6 3 9 -6 33 -13 36 -16 87 -16 264 l-1 220 38 154 c21 84 36 155 34 157 -2 3 -12 -24 -21 -58z"/>
-                <path d="M521 7104 c-1 -6 16 -80 37 -165 37 -152 37 -156 36 -349 -1 -175 -6 -230 -29 -295 -6 -19 -6 -19 6 -1 22 35 29 88 39 266 7 140 6 189 -6 245 -16 78 -82 316 -83 299z"/>
-                <path d="M5701 7101 c-1 -7 12 -69 29 -137 44 -184 53 -255 47 -389 -5 -121 -23 -195 -68 -290 -20 -40 -20 -40 0 -17 28 32 61 123 77 212 21 117 17 239 -11 360 -29 126 -73 280 -74 261z"/>
-                <path d="M8627 6973 c-57 -210 -60 -235 -54 -373 5 -127 26 -220 68 -302 33 -64 40 -52 8 15 -79 169 -80 375 -3 681 38 151 24 135 -19 -21z"/>
-                <path d="M5262 7040 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M81 7034 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M9104 7020 c3 -19 14 -105 25 -190 11 -85 23 -174 27 -196 8 -50 -27 -167 -87 -289 -21 -44 -30 -69 -19 -55 48 62 130 255 130 308 0 39 -68 444 -76 451 -4 3 -4 -10 0 -29z"/>
-                <path d="M3920 7034 c0 -5 14 -107 30 -226 l29 -218 -26 -77 c-50 -152 -126 -280 -185 -313 -50 -28 -49 -36 2 -10 51 26 98 89 160 215 77 157 77 155 35 410 -19 120 -38 221 -40 224 -3 2 -5 0 -5 -5z"/>
-                <path d="M70 7003 c0 -6 -13 -92 -30 -191 -16 -100 -30 -197 -30 -217 0 -71 98 -277 172 -361 17 -19 53 -46 80 -60 64 -32 62 -23 -3 12 -78 43 -137 134 -199 309 l-31 90 26 208 c15 115 24 211 21 214 -3 4 -6 2 -6 -4z"/>
-                <path d="M5241 6938 c-7 -40 -23 -135 -35 -211 l-23 -138 24 -70 c24 -73 70 -170 97 -204 8 -11 -2 21 -24 71 -75 177 -75 175 -45 410 26 202 30 285 6 142z"/>
-                <path d="M5632 6904 c0 -156 -30 -254 -110 -354 -20 -25 -28 -38 -17 -30 123 96 183 301 136 465 -6 21 -9 -3 -9 -81z"/>
-                <path d="M8726 6988 c-3 -13 -9 -54 -12 -93 -11 -131 36 -262 124 -346 l46 -44 -38 45 c-78 94 -108 192 -110 353 0 59 -1 107 -2 107 -1 0 -4 -10 -8 -22z"/>
-                {/* {/* <path d="M12071 6944 c-2 -86 50 -193 145 -299 42 -47 37 -35 -26 60 -65 97 -90 148 -105 219 -13 58 -13 59 -14 20z"/> */}
-                <path d="M1770 6878 c1 -10 51 -161 65 -196 20 -49 62 -76 137 -87 58 -9 145 15 175 47 18 20 84 198 82 223 0 6 -17 -35 -37 -91 -20 -56 -44 -109 -52 -119 -39 -46 -151 -61 -229 -29 -48 19 -65 48 -110 187 -13 37 -25 67 -27 67 -2 0 -4 -1 -4 -2z"/>
-                <path d="M7045 6645 c-133 -63 -370 -71 -642 -20 -15 2 -8 -2 17 -10 146 -49 411 -56 543 -15 61 19 137 56 137 66 0 5 4 7 -55 -21z"/>
-                <path d="M7275 6660 c10 -16 85 -49 150 -67 111 -30 315 -26 477 8 84 18 46 20 -58 3 -182 -30 -434 -6 -546 52 -19 10 -27 11 -23 4z"/>
-                <path d="M7968 6623 c7 -3 16 -2 19 1 4 3 -2 6 -13 5 -11 0 -14 -3 -6 -6z"/>
-                <path d="M456 6573 c4 -16 11 -38 15 -51 5 -13 9 -56 10 -95 1 -40 4 -83 8 -97 4 -14 6 20 4 75 -3 55 -11 121 -20 148 -16 51 -28 65 -17 20z"/>
-                <path d="M7191 6485 c-3 -357 79 -1281 160 -1785 6 -36 15 -180 19 -320 8 -225 12 -271 38 -395 37 -173 40 -154 7 47 -21 128 -25 185 -25 364 0 191 -4 242 -40 516 -70 519 -91 722 -120 1158 -6 91 -17 248 -24 350 l-13 185 -2 -120z"/>
-                <path d="M3527 6536 c-11 -34 -17 -83 -16 -137 1 -72 3 -78 10 -44 4 22 8 65 8 95 1 30 6 72 12 93 16 59 5 54 -14 -7z"/>
-                <path d="M5638 6525 c8 -47 8 -86 -1 -175 -5 -54 -4 -50 9 25 15 82 15 95 1 140 -14 45 -15 46 -9 10z"/>
-                <path d="M7156 6413 c-27 -554 -61 -918 -138 -1478 -37 -270 -41 -324 -44 -546 -2 -208 -7 -269 -29 -398 -14 -85 -24 -158 -22 -164 4 -14 56 263 68 368 5 50 9 155 8 235 -1 114 5 194 30 375 54 399 91 733 116 1055 16 201 32 690 23 690 -3 0 -8 -62 -12 -137z"/>
-                <path d="M8716 6508 c-9 -36 -6 -88 9 -153 l15 -60 -7 60 c-4 33 -7 86 -6 118 1 62 -1 69 -11 35z"/>
-                <path d="M1966 6213 c-33 -521 -55 -740 -123 -1243 -41 -308 -45 -354 -48 -580 -2 -212 -6 -266 -29 -399 -15 -84 -25 -155 -23 -158 7 -6 56 259 68 362 5 50 9 153 8 230 -2 114 5 190 34 405 62 448 96 764 117 1055 11 169 25 605 18 605 -2 0 -12 -125 -22 -277z"/>
-                <path d="M5540 6485 c0 -5 14 -58 31 -118 l32 -107 71 -63 c39 -34 76 -69 83 -77 42 -55 45 -57 29 -24 -8 17 -48 61 -88 97 -67 59 -75 72 -98 139 -33 98 -59 165 -60 153z"/>
-                <path d="M8784 6378 l-37 -113 -88 -85 c-49 -47 -89 -91 -89 -99 0 -7 10 -1 22 15 12 16 40 45 62 64 109 95 107 93 135 181 29 88 43 149 37 149 -3 0 -21 -51 -42 -112z"/>
-                <path d="M2025 6215 c6 -370 36 -698 125 -1367 32 -237 40 -329 40 -455 0 -87 5 -192 10 -233 14 -108 53 -307 57 -294 2 7 -6 65 -18 130 -18 96 -23 167 -26 368 -2 167 -10 296 -23 395 -10 80 -32 250 -49 376 -48 367 -60 499 -111 1210 -7 110 -8 90 -5 -130z"/>
-                {/* {/* <path d="M12281 6371 c-1 -85 -3 -96 -28 -125 -29 -35 -73 -123 -72 -146 0 -8 8 7 19 33 10 27 37 73 59 102 44 58 49 87 32 185 -7 38 -9 31 -10 -49z"/> */}
-                {/* {/* <path d="M12552 6416 c-30 -112 -53 -155 -120 -223 -48 -48 -55 -58 -25 -35 79 61 119 120 143 210 12 46 21 85 18 87 -2 2 -9 -15 -16 -39z"/> */}
-                <path d="M5470 6423 c0 -28 33 -89 58 -108 18 -12 23 -14 14 -3 -7 8 -26 40 -42 69 -16 30 -30 48 -30 42z"/>
-                <path d="M8876 6392 c-10 -22 -29 -51 -42 -66 -14 -14 -21 -26 -16 -26 16 0 59 55 71 89 16 48 8 49 -13 3z"/>
-                {/* {/* <path d="M11013 6303 c-12 -158 -9 -634 6 -813 7 -85 25 -300 41 -477 16 -177 34 -413 40 -525 6 -112 13 -207 16 -213 7 -17 -5 432 -16 555 -70 841 -84 1089 -77 1368 3 116 4 212 2 212 -2 0 -7 -48 -12 -107z"/> */}
-                <path d="M190 6386 c0 -5 10 -36 22 -68 17 -49 34 -72 97 -130 71 -66 161 -135 161 -124 0 3 -26 25 -57 49 -99 77 -166 151 -195 219 -15 35 -28 59 -28 54z"/>
-                {/* <path d="M12405 6343 c-7 -52 -31 -99 -107 -208 -27 -38 -35 -55 -19 -36 70 80 128 179 135 232 4 28 5 53 3 56 -3 2 -8 -18 -12 -44z"/> */}
-                <path d="M3784 6320 c-18 -50 -74 -112 -194 -214 l-45 -38 46 31 c26 16 50 27 54 23 5 -4 5 -2 2 4 -3 5 25 40 63 77 49 48 73 81 84 114 9 25 14 48 12 50 -2 2 -12 -19 -22 -47z"/>
-                <path d="M331 6356 c-1 -5 6 -33 16 -62 14 -45 32 -68 117 -151 60 -58 74 -69 35 -28 -108 114 -123 134 -146 193 -12 31 -22 53 -22 48z"/>
-                <path d="M3649 6298 c-8 -25 -39 -70 -73 -108 -105 -115 -114 -129 -21 -35 68 68 94 102 103 134 17 56 9 64 -9 9z"/>
-                <path d="M5469 6153 c28 -24 232 -135 237 -130 3 3 -53 35 -216 124 -33 18 -39 20 -21 6z"/>
-                <path d="M8803 6107 c-142 -80 -159 -96 -28 -28 88 46 160 91 145 91 -3 0 -55 -29 -117 -63z"/>
-                <path d="M3674 6144 c-18 -14 -18 -15 4 -4 12 6 22 13 22 15 0 8 -5 6 -26 -11z"/>
-                {/* <path d="M12461 6074 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/> */}
-                <path d="M3514 6054 c-18 -14 -18 -15 4 -4 12 6 22 13 22 15 0 8 -5 6 -26 -11z"/>
-                <path d="M487 6049 c7 -7 15 -10 18 -7 3 3 -2 9 -12 12 -14 6 -15 5 -6 -5z"/>
-                {/* <path d="M12442 5945 c-32 -236 -92 -491 -236 -1000 -114 -400 -132 -488 -141 -655 -8 -152 -49 -316 -107 -424 -60 -110 -106 -208 -114 -241 -6 -26 51 76 148 265 55 107 87 241 98 410 11 180 20 220 140 630 102 350 138 492 174 675 32 169 58 364 54 406 -2 21 -8 -4 -16 -66z"/> */}
-                <path d="M3082 4560 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M8261 4564 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M921 4544 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M6101 4544 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M6123 4185 c-1 -104 3 -201 7 -215 10 -32 11 205 1 320 -7 70 -8 51 -8 -105z"/>
-                <path d="M942 4195 c0 -93 3 -190 7 -215 11 -58 12 215 1 315 -5 54 -7 31 -8 -100z"/>
-                <path d="M3058 4320 c-4 -14 -7 -108 -6 -210 l1 -185 9 160 c9 180 8 276 -4 235z"/>
-                <path d="M8232 4125 l1 -200 8 178 c4 99 4 188 -1 200 -5 14 -8 -56 -8 -178z"/>
-                <path d="M6347 4088 c-4 -64 -14 -152 -22 -195 -25 -141 -26 -151 -5 -88 30 87 41 176 38 295 l-3 105 -8 -117z"/>
-                <path d="M7995 4050 c2 -136 6 -164 29 -230 14 -41 24 -64 21 -50 -23 113 -38 219 -45 318 l-9 117 4 -155z"/>
-                {/* <path d="M10963 3848 c-174 -368 -213 -517 -213 -809 0 -284 26 -528 85 -794 23 -104 69 -443 96 -710 7 -66 13 -221 13 -345 1 -124 4 -200 8 -170 27 234 -24 927 -92 1235 -60 270 -86 556 -77 848 8 268 38 383 194 736 51 117 92 215 90 217 -2 3 -49 -91 -104 -208z"/> */}
-                {/* <path d="M1230 3925 c0 -3 24 -17 53 -32 45 -24 64 -28 139 -28 55 0 91 4 99 12 10 10 4 10 -27 1 -53 -14 -141 -3 -208 26 -31 14 -56 23 -56 21z"/> */}
-                <path d="M2690 3894 c-54 -21 -78 -24 -140 -20 -45 2 -67 1 -55 -4 39 -16 142 -11 199 11 31 11 58 25 61 30 4 5 5 9 3 8 -2 -1 -32 -12 -68 -25z"/>
-                <path d="M6796 3859 c-3 -17 -5 -46 -5 -63 1 -18 5 -7 10 28 9 63 6 88 -5 35z"/>
-                <path d="M7547 3825 c3 -33 7 -62 9 -64 7 -8 2 74 -6 99 -5 16 -6 2 -3 -35z"/>
-                <path d="M3072 3730 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M8251 3733 c-1 -7 12 -93 28 -190 57 -343 59 -418 25 -683 -42 -324 -114 -623 -329 -1365 -151 -521 -172 -621 -144 -692 6 -15 17 -55 24 -88 13 -58 13 -58 14 -19 1 22 -8 67 -20 100 -30 88 -24 119 146 684 231 772 306 1088 345 1452 17 160 12 293 -15 450 -25 149 -73 372 -74 351z"/>
-                <path d="M883 3504 c-51 -271 -57 -334 -43 -503 26 -317 119 -727 306 -1351 156 -517 214 -742 214 -823 0 -17 -12 -62 -27 -100 -20 -52 -24 -70 -15 -79 9 -9 12 -7 12 8 0 10 10 44 21 74 18 46 20 68 16 140 -8 108 -30 196 -178 714 -239 837 -313 1171 -326 1486 -6 153 -1 210 43 478 14 84 24 158 22 164 -2 5 -22 -88 -45 -208z"/>
-                <path d="M6067 3532 c-53 -270 -61 -363 -47 -535 29 -370 114 -735 355 -1537 109 -363 155 -535 155 -585 0 -16 -9 -59 -20 -93 -11 -35 -20 -76 -19 -90 0 -15 14 18 30 73 29 100 29 100 14 185 -8 47 -80 315 -160 595 -265 928 -329 1232 -330 1580 0 170 3 211 33 388 19 109 32 200 30 203 -2 2 -21 -81 -41 -184z"/>
-                <path d="M3081 3688 c-1 -9 13 -101 31 -205 76 -454 29 -768 -282 -1853 -140 -489 -175 -625 -190 -740 -12 -83 -11 -87 19 -170 19 -53 31 -75 31 -58 0 14 -9 48 -21 75 -42 96 -20 202 179 873 165 559 236 837 281 1101 59 345 56 493 -15 849 -27 134 -32 155 -33 128z"/>
-                <path d="M2256 3563 c-3 -43 -17 -148 -31 -233 -53 -332 -55 -687 -4 -1020 38 -254 41 -324 36 -700 -5 -330 -16 -529 -46 -795 -11 -99 -10 -549 1 -475 3 25 7 129 7 231 1 102 10 282 21 400 50 550 52 1018 7 1324 -57 381 -60 610 -14 965 27 205 43 380 35 380 -3 0 -8 -35 -12 -77z"/>
-                <path d="M7442 3600 c0 -19 2 -27 5 -17 2 9 2 25 0 35 -3 9 -5 1 -5 -18z"/>
-                <path d="M1746 3520 c2 -52 15 -183 29 -290 46 -361 44 -546 -13 -910 -26 -171 -27 -185 -26 -600 0 -368 3 -457 24 -665 13 -132 26 -350 30 -485 l7 -245 -2 275 c-2 156 -9 342 -18 430 -37 368 -45 885 -18 1085 5 33 19 134 32 225 20 144 23 205 24 475 0 299 -1 317 -32 520 -18 116 -34 226 -37 245 -2 19 -2 -8 0 -60z"/>
-                <path d="M6926 3512 c2 -45 16 -173 31 -285 45 -341 38 -588 -32 -1042 -39 -259 1 -1257 56 -1397 16 -40 20 -67 16 -108 -5 -53 -4 -54 9 -25 19 43 17 68 -10 133 -20 47 -27 92 -41 262 -38 480 -37 954 4 1215 33 215 43 378 39 627 -4 193 -10 268 -36 438 -17 113 -33 219 -35 235 -3 17 -3 -7 -1 -53z"/>
-                <path d="M7428 3505 c-4 -33 -19 -139 -34 -235 -25 -159 -28 -200 -28 -440 0 -273 9 -387 47 -610 20 -113 22 -160 21 -485 0 -472 -28 -875 -65 -947 -23 -45 -24 -114 -3 -148 8 -14 13 -17 10 -8 -18 59 -16 87 8 158 20 60 28 116 40 275 44 568 44 927 2 1216 -14 90 -30 217 -37 282 -17 175 -7 479 26 722 14 109 25 217 23 240 -3 36 -4 34 -10 -20z"/>
-                {/* <path d="M11806 3268 c-15 -203 -49 -422 -211 -1373 -81 -476 -116 -766 -114 -950 l2 -100 12 155 c21 254 43 399 169 1140 62 364 102 623 126 829 22 183 37 391 28 391 -3 0 -8 -42 -12 -92z"/> */}
-                {/* <path d="M10931 934 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/> */}
-                <path d="M7470 736 c0 -3 -7 -58 -15 -122 -17 -125 -15 -161 3 -67 16 79 26 193 18 193 -3 0 -6 -2 -6 -4z"/>
-                <path d="M6891 683 c-1 -28 6 -86 14 -129 16 -82 33 -120 20 -44 -5 25 -14 86 -20 135 -11 78 -13 83 -14 38z"/>
-                {/* <path d="M10833 593 c-67 -176 -83 -242 -83 -339 0 -85 26 -160 68 -197 52 -47 175 -59 322 -32 l75 14 -80 -7 c-103 -9 -193 -9 -227 1 -38 10 -95 62 -118 107 -50 98 -34 212 69 489 18 46 30 88 29 93 -2 5 -27 -53 -55 -129z"/> */}
-                <path d="M6457 673 c-10 -9 -9 -51 1 -57 4 -2 8 11 8 30 0 37 0 37 -9 27z"/>
-                <path d="M7898 649 c4 -24 7 -28 13 -16 5 8 6 22 3 31 -11 27 -21 17 -16 -15z"/>
-                {/* <path d="M11585 622 c62 -65 150 -124 280 -190 102 -51 396 -175 401 -169 2 2 -74 38 -169 81 -279 128 -422 208 -521 294 -36 31 -34 29 9 -16z"/> */}
-                <path d="M6368 624 c-16 -8 -28 -19 -28 -24 0 -4 -2 -14 -5 -22 -3 -7 1 -22 9 -33 13 -19 14 -18 9 6 -3 18 3 35 22 57 30 36 30 37 -7 16z"/>
-                <path d="M7983 614 c18 -17 27 -38 27 -58 0 -24 3 -27 10 -16 23 36 4 77 -44 94 -15 5 -14 1 7 -20z"/>
-                <path d="M6241 534 c-24 -30 -24 -33 -11 -54 8 -12 10 -9 10 13 0 15 9 36 20 47 11 11 16 20 11 20 -5 0 -19 -12 -30 -26z"/>
-                <path d="M8108 536 c15 -19 20 -36 16 -50 -5 -16 -3 -18 6 -10 18 18 8 55 -20 73 l-25 16 23 -29z"/>
-                <path d="M6985 470 c10 -99 17 -140 25 -135 4 2 1 42 -7 87 -17 101 -25 123 -18 48z"/>
-                {/* <path d="M1265 478 c-35 -51 -156 -165 -242 -229 -79 -59 -93 -73 -93 -97 0 -26 36 -79 47 -68 2 2 -5 14 -16 25 -39 39 -28 57 83 140 90 68 181 156 225 219 12 17 20 32 17 32 -3 0 -12 -10 -21 -22z"/> */}
-                <path d="M7355 389 c-17 -105 -32 -350 -16 -269 6 33 7 34 13 10 16 -59 105 -107 211 -115 l62 -4 -55 9 c-103 17 -181 61 -199 112 -14 40 -14 163 0 266 17 126 5 119 -16 -9z"/>
-                <path d="M6559 460 c-7 -35 -4 -48 7 -38 3 4 4 21 2 40 l-3 33 -6 -35z"/>
-                {/* <path d="M2750 452 c38 -57 120 -135 217 -205 50 -37 93 -75 95 -85 5 -20 -11 -62 -24 -62 -4 0 -8 -4 -8 -10 0 -19 28 2 40 30 16 39 5 67 -39 94 -67 43 -189 145 -246 209 -31 34 -47 47 -35 29z"/> */}
-                <path d="M6155 456 c-14 -21 -14 -28 -2 -58 15 -34 87 -110 87 -92 0 6 -13 23 -30 39 -38 36 -55 86 -40 115 15 28 4 25 -15 -4z"/>
-                <path d="M8188 469 c18 -19 15 -57 -10 -97 -14 -22 -17 -33 -8 -30 8 2 22 21 33 41 21 42 17 81 -10 91 -15 6 -16 5 -5 -5z"/>
-                <path d="M7801 415 c0 -33 3 -67 9 -75 18 -29 21 -1 6 66 l-14 69 -1 -60z"/>
-                {/* <path d="M4913 330 c0 -41 2 -58 4 -37 2 20 2 54 0 75 -2 20 -4 3 -4 -38z"/>
-                <path d="M5793 355 c0 -27 2 -38 4 -22 2 15 2 37 0 50 -2 12 -4 0 -4 -28z"/>
-                <path d="M6560 345 c0 -8 2 -15 4 -15 2 0 6 7 10 15 3 8 1 15 -4 15 -6 0 -10 -7 -10 -15z"/>
-                <path d="M3766 264 c-9 -26 -16 -52 -15 -58 0 -6 9 13 20 43 10 30 17 56 15 58 -2 2 -11 -17 -20 -43z"/>
-                <path d="M4091 209 c-18 -55 -31 -102 -29 -104 2 -3 19 41 37 96 18 55 31 102 29 104 -2 3 -19 -41 -37 -96z"/>
-                <path d="M5010 275 c-18 -19 -32 -37 -29 -39 2 -3 19 13 37 35 41 48 37 51 -8 4z"/>
-                <path d="M6602 290 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M4431 199 c-18 -55 -31 -103 -28 -105 2 -2 18 42 36 97 17 56 30 104 28 106 -2 2 -19 -42 -36 -98z"/>
-                <path d="M4650 269 c0 -5 5 -7 10 -4 6 3 10 8 10 11 0 2 -4 4 -10 4 -5 0 -10 -5 -10 -11z"/>
-                <path d="M5150 265 c-7 -9 -11 -17 -9 -20 3 -2 10 5 17 15 14 24 10 26 -8 5z"/>
-                <path d="M5550 265 c-6 -8 -10 -19 -8 -24 1 -6 8 1 15 14 13 28 11 31 -7 10z"/>
-                <path d="M5800 260 c-6 -11 -9 -54 -7 -98 l3 -77 2 79 c1 58 7 84 19 98 9 10 11 18 5 18 -6 0 -16 -9 -22 -20z"/>
-                <path d="M6290 271 c0 -5 9 -11 21 -14 16 -4 18 -3 8 9 -13 16 -29 19 -29 5z"/>
-                <path d="M6685 269 c-11 -17 1 -21 15 -4 8 9 8 15 2 15 -6 0 -14 -5 -17 -11z"/>
-                <path d="M6930 269 c0 -5 5 -7 10 -4 6 3 10 8 10 11 0 2 -4 4 -10 4 -5 0 -10 -5 -10 -11z"/>
-                <path d="M7193 265 c-9 -24 1 -27 15 -5 8 13 8 20 2 20 -6 0 -13 -7 -17 -15z"/>
-                <path d="M7580 265 c-6 -8 -10 -19 -8 -24 1 -5 11 2 21 15 19 26 8 34 -13 9z"/>
-                <path d="M7860 265 c-19 -22 -8 -25 13 -3 9 10 13 18 8 18 -5 0 -14 -7 -21 -15z"/>
-                <path d="M7993 185 c1 -74 2 -82 4 -31 3 55 8 72 26 88 l22 19 -22 -10 c-19 -9 -22 -8 -26 12 -2 12 -4 -23 -4 -78z"/>
-                <path d="M8100 269 c0 -5 5 -7 10 -4 6 3 10 8 10 11 0 2 -4 4 -10 4 -5 0 -10 -5 -10 -11z"/>
-                <path d="M8480 260 c-6 -12 -9 -33 -7 -48 l4 -27 2 29 c0 16 8 38 18 48 9 10 11 18 5 18 -6 0 -16 -9 -22 -20z"/>
-                <path d="M8732 268 c-7 -7 -12 -19 -12 -27 1 -12 4 -11 12 4 6 11 16 23 22 27 7 5 8 8 1 8 -6 0 -16 -5 -23 -12z"/>
-                <path d="M9002 268 c-8 -8 -11 -42 -10 -97 l1 -86 6 88 c4 62 10 91 21 97 8 5 10 10 5 10 -6 0 -16 -5 -23 -12z"/>
-                <path d="M9140 265 c-6 -8 -10 -19 -8 -24 1 -6 8 1 15 14 13 28 11 31 -7 10z"/>
-                <path d="M6823 200 c0 -41 2 -58 4 -37 2 20 2 54 0 75 -2 20 -4 3 -4 -38z"/>
-                <path d="M7010 254 c0 -8 5 -12 10 -9 6 3 10 10 10 16 0 5 -4 9 -10 9 -5 0 -10 -7 -10 -16z"/>
-                <path d="M9264 175 c0 -50 1 -71 3 -48 2 23 2 64 0 90 -2 26 -3 8 -3 -42z"/>
-                <path d="M5942 215 c0 -16 2 -22 5 -12 2 9 2 23 0 30 -3 6 -5 -1 -5 -18z"/>
-                <path d="M6191 224 c0 -11 3 -14 6 -6 3 7 2 16 -1 19 -3 4 -6 -2 -5 -13z"/>
-                <path d="M6563 200 c0 -25 2 -35 4 -22 2 12 2 32 0 45 -2 12 -4 2 -4 -23z"/>
-                <path d="M3606 204 c-4 -14 -5 -28 -3 -31 3 -2 8 8 11 23 4 14 5 28 3 31 -3 2 -8 -8 -11 -23z"/>
-                <path d="M3936 164 c-9 -37 -15 -68 -13 -71 3 -2 12 26 21 63 9 37 15 68 13 71 -3 2 -12 -26 -21 -63z"/>
-                <path d="M4286 189 c-8 -42 0 -50 9 -9 4 17 5 34 2 36 -2 3 -7 -10 -11 -27z"/>
-                <path d="M6430 195 c0 -2 15 -12 33 -20 l32 -16 -25 20 c-24 20 -40 26 -40 16z"/>
-                <path d="M2412 175 c9 -11 22 -39 29 -62 11 -39 10 -45 -7 -64 -16 -18 -27 -21 -79 -16 -78 6 -132 33 -156 77 l-20 35 6 -30 c3 -16 17 -40 31 -52 29 -26 112 -53 164 -53 39 0 80 29 80 57 0 33 -24 93 -44 110 -21 18 -21 18 -4 -2z"/>
-                <path d="M3732 153 c-15 -48 -8 -55 8 -8 7 20 10 38 8 41 -3 2 -10 -13 -16 -33z"/>
-                <path d="M4921 176 c-7 -8 -11 -32 -8 -53 l4 -38 1 41 c1 22 7 45 14 52 7 7 9 12 6 12 -3 0 -11 -6 -17 -14z"/>
-                <path d="M6685 179 c-11 -16 -1 -19 13 -3 7 8 8 14 3 14 -5 0 -13 -5 -16 -11z"/>
-                <path d="M7871 169 c-18 -11 -31 -22 -28 -25 2 -3 22 6 42 21 45 30 34 34 -14 4z"/>
-                <path d="M8880 174 c0 -8 -13 -29 -29 -45 -16 -16 -26 -29 -21 -29 13 0 60 60 60 76 0 8 -2 14 -5 14 -3 0 -5 -7 -5 -16z"/>
-                {/* <path d="M12567 166 c59 -13 111 -30 123 -41 38 -35 19 -87 -38 -102 -15 -3 -234 1 -487 11 -793 29 -790 29 -358 -4 173 -14 345 -20 550 -20 279 0 300 1 331 20 17 11 33 28 33 37 4 63 -26 86 -138 107 -126 23 -136 18 -16 -8z"/>
-                {/* <path d="M1566 140 c-23 -57 -21 -96 6 -114 65 -46 250 19 247 86 0 15 -3 18 -6 8 -18 -48 -101 -90 -180 -90 -71 0 -89 33 -58 107 8 20 14 38 11 40 -2 2 -11 -14 -20 -37z"/>
-                <path d="M5942 160 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                <path d="M7070 161 c0 -11 -14 -31 -31 -45 -17 -14 -25 -26 -19 -26 19 0 60 48 60 70 0 11 -2 20 -5 20 -3 0 -5 -9 -5 -19z"/>
-                <path d="M7725 161 c-3 -11 -18 -30 -32 -41 -14 -11 -22 -20 -17 -20 23 1 73 64 61 77 -3 2 -8 -5 -12 -16z"/>
-                {/* <path d="M1049 143 c-13 -16 -12 -17 4 -4 9 7 17 15 17 17 0 8 -8 3 -21 -13z"/> 
-                <path d="M2955 136 c10 -14 19 -26 22 -26 7 0 -17 39 -28 46 -6 3 -3 -5 6 -20z"/>
-                <path d="M3585 130 c-4 -17 -5 -34 -2 -36 2 -3 7 10 11 27 8 42 0 50 -9 9z"/>
-                <path d="M5662 129 c-13 -16 -19 -29 -13 -29 11 0 47 48 40 54 -2 2 -14 -10 -27 -25z"/>
-                <path d="M8599 130 c-15 -17 -23 -30 -19 -30 7 0 32 26 44 48 11 19 3 14 -25 -18z"/>
-                <path d="M4790 142 c0 -7 -15 -21 -32 -32 -18 -11 -28 -20 -21 -20 18 0 69 47 61 56 -5 4 -8 2 -8 -4z"/>
-                <path d="M6416 122 l-19 -27 24 22 c12 12 21 24 18 27 -2 2 -13 -8 -23 -22z"/>
-                <path d="M6561 129 c-1 -17 8 -32 27 -45 47 -35 58 -38 20 -5 -20 17 -39 41 -41 54 -4 20 -4 20 -6 -4z"/>
-                <path d="M8240 142 c0 -7 -15 -21 -32 -32 -18 -11 -28 -20 -21 -20 18 0 69 47 61 56 -5 4 -8 2 -8 -4z"/>
-                <path d="M4271 133 c-1 -6 -4 -20 -7 -30 -5 -17 -5 -17 6 0 6 10 9 23 6 30 -3 9 -5 9 -5 0z"/>
-                {/* <path d="M5258 118 c-10 -10 -14 -18 -9 -18 10 0 36 29 30 34 -2 1 -12 -6 -21 -16z"/> 
-                <path d="M6155 114 c-18 -16 -22 -22 -9 -15 18 9 53 42 43 41 -2 -1 -17 -12 -34 -26z"/>
-                {/* <path d="M1210 110 c-6 -11 -9 -20 -8 -20 2 0 11 9 21 20 9 11 13 20 7 20 -5 0 -14 -9 -20 -20z"/>
-                <path d="M1400 108 c-28 -30 -36 -66 -19 -83 8 -7 37 -16 64 -20 59 -8 55 3 -6 16 -65 15 -72 32 -33 78 30 36 25 42 -6 9z"/>
-                <path d="M2599 104 c33 -45 25 -67 -27 -78 -52 -12 -56 -29 -4 -20 45 8 72 21 72 35 0 17 -28 65 -46 80 -12 9 -10 4 5 -17z"/>
-                <path d="M2789 106 c36 -49 29 -61 -41 -75 l-43 -9 46 -1 c72 -2 90 35 43 86 l-26 28 21 -29z"/>
-                <path d="M8362 110 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z"/>
-                {/* <path d="M1027 113 c-14 -13 -7 -43 12 -53 11 -5 35 -10 53 -9 31 1 31 1 -12 12 -37 10 -45 16 -44 35 1 24 0 25 -9 15z"/>
-                <path d="M6736 104 c-11 -8 -16 -14 -10 -14 13 0 39 18 34 24 -3 2 -14 -2 -24 -10z"/>
-                <path d="M2968 84 c-9 -9 -34 -20 -55 -24 l-38 -8 41 -1 c43 -1 79 18 73 38 -3 8 -9 6 -21 -5z"/>
-                <path d="M6961 86 c-20 -23 -99 -56 -159 -66 l-57 -9 63 4 c68 5 150 35 178 66 15 16 15 19 2 19 -9 0 -21 -6 -27 -14z"/>
-                <path d="M7745 75 c-16 -14 -25 -25 -20 -25 6 0 24 11 40 25 17 13 26 24 20 24 -5 0 -23 -11 -40 -24z"/> */}
-                {/* <path d="M1187 67 c-10 -26 20 -47 66 -46 l42 1 -43 10 c-29 6 -46 16 -51 30 -6 18 -9 19 -14 5z"/> */}
-            </g>
-            </g>
             </svg>
         </div>
     );

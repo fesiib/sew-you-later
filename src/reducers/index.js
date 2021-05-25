@@ -4,11 +4,13 @@ import {combineReducers} from 'redux';
 import counter from "./counter";
 import newOrdersList from './NewOrdersList';
 import curOrdersList from './CurrentOrdersList';
+import measurementsReducer from './measurements';
 
 const appReducer = combineReducers({
     counter: counter,
     newOrdersList: newOrdersList,
     curOrdersList: curOrdersList,
+    measurementsReducer,
 });
 
 const rootReducer = (state, action) => {
