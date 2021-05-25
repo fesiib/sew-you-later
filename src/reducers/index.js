@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 //import user from "./user";
 
 import counter from "./counter";
+import measurementsReducer from './measurements';
 import orderReports from "./orderReports";
 import reportImages from "./reportImages";
 import imageNotes from "./imageNotes";
@@ -21,6 +22,7 @@ const appReducer = combineReducers({
     imageNotes: imageNotes,
     newOrdersList: newOrdersList,
     curOrdersList: curOrdersList,
+    measurementsReducer,
     newOrdersId: newOrdersId,
     newRefImages: newRefImages,
     curOrdersId: curOrdersId,

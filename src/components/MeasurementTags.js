@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import chroma from 'chroma-js';
+import { allBPs, addBP, removeBP, resetBP, IMMUTABLE} from '../reducers/measurements';
+import {useDispatch, useSelector } from 'react-redux';
 
 const colorSelected = "blue";
 
@@ -11,18 +13,11 @@ const propConst = {
     measurementTagsNoOptions: (inputValue) => {
         return "Could not find matching Body Part";
     },
-    options: [
-        { value: 'chocolate', label: 'Chocolate'},
-        { value: 'strawberry', label: 'Strawberry'},
-        { value: 'vanilla', label: 'Vanilla'},
-        { value: '1', label: 'Vanilla'},
-        { value: '2', label: 'Vanilla'},
-        { value: '4', label: 'Vanilla'},
-        { value: '3', label: 'Vanilla'},
-        { value: '5', label: 'Vanilla'},
-        { value: '6', label: 'Vanilla'},
-    ],
     animatedComponents: makeAnimated(),
+    options: [
+        {value: 'chocoalte', label: 'choco'},
+        {value: 'vanilla', label: 'vanilla'},
+    ],
     styles: {
         control: styles => ({ 
             ...styles,
@@ -80,16 +75,91 @@ const propConst = {
 };
 
 function MeasurementTags(props) {
+    const dispatch = useDispatch();
+    
+    const optionsBP = allBPs.slice(1).map((label, index) => {
+        let value = (index+1).toString();
+        return {
+            value,
+            label,
+        };
+    });
+
+    const {
+        bodyParts,
+        status
+    } = useSelector(state => state.measurementsReducer);
+
+    const selectedBP = bodyParts.map((value, index) => {
+        return {
+            value: value.toString(),
+            label: allBPs[value],
+        };
+    });
+
+    const selectorRef = React.createRef();
+
+    const _addBP = (value) => {
+        dispatch(addBP(value));
+    };
+
+    const _removeBP = (value) => {
+        dispatch(removeBP(value));
+    };
+
+    const _resetBP = () => {
+        dispatch(resetBP());
+    }
+
+    const onChange = (selectedOptions, action) => {
+        console.log(action);
+        switch(action.action) {
+            case 'set-value':
+            case 'select-option': {
+                if (action.option == undefined) {
+                    break;
+                }
+                _addBP(parseInt(action.option.value));
+                break;
+            }
+            case 'deselect-option':
+            case 'pop-value':
+            case 'remove-value': {
+                if (action.removedValue == undefined) {
+                    break;
+                }
+                _removeBP(parseInt(action.removedValue.value));
+                break;
+            }
+            case 'clear': {
+                if (action.removedValues == undefined) {
+                    break;
+                }
+                for (let option of action.removedValues) {
+                    if (option != undefined) {
+                        _removeBP(parseInt(option.value));
+                    }
+                }
+            }
+        }
+    }
+
     return (
         <Select
-            options={propConst.options}
+            ref={selectorRef}
+            options={optionsBP}
             closeMenuOnSelect={false}
             placeholder={propConst.measurementTagsPlaceholder}
             isMulti
+            value={selectedBP}
+            onChange={onChange}
+            isClearable={true}
+            isDisabled={(status == IMMUTABLE)}
             className="max-w-xl m-10"
             noOptionsMessage={propConst.measurementTagsNoOptions}
             components={propConst.animatedComponents}
             styles={propConst.styles}
+
         />
     );
 }

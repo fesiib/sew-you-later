@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.0" width="1273.000000pt" height="1475.000000pt" viewBox="0 0 1273.000000 1475.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<svg version="1.0" width="1273.000000pt" height="1475.000000pt" viewBox="0 0 1273.000000 1475.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
   <g transform="translate(0.000000,1475.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
     <title>body</title>
     <path d="M11435 14730 c-42 -11 -1 -11 50 -1 34 7 35 9 10 9 -16 0 -43 -4 -60 -8z"/>
@@ -366,18 +366,17 @@
   <ellipse style="paint-order: stroke markers; stroke: rgb(0, 0, 0); stroke-width: 5px; fill: rgba(216, 216, 216, 0); stroke-dasharray: 8px;" cx="763.77" cy="1402.417" rx="35.057" ry="7.472">
     <title>ankle</title>
   </ellipse>
-  <g>
+  <g transform="matrix(1, 0, 0, 1, 0.328979, 0)" bx:origin="0.484883 0.5">
     <title>inseam</title>
     <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
     <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
     <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
   </g>
-  <g>
+  <g transform="matrix(0, 0, 0, 0.964219, 718.000122, 35.771851)" style="" bx:origin="0.000116 0.5">
     <title>rise</title>
-    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="201.028" y1="825.571" x2="201.16" y2="632.214"/>
-    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="191.084" y1="826.146" x2="210.729" y2="826.146"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="200.028" y1="825.571" x2="200.16" y2="632.214"/>
   </g>
-  <ellipse style="paint-order: stroke markers; stroke: rgb(0, 0, 0); stroke-width: 5px; fill: rgba(216, 216, 216, 0); stroke-dasharray: 8px;" cx="719.976" cy="642.827" rx="109.814" ry="15.365">
+  <ellipse style="paint-order: stroke markers; stroke: rgb(0, 0, 0); stroke-width: 5px; fill: rgba(216, 216, 216, 0); stroke-dasharray: 8px;" cx="717.976" cy="642.827" rx="109.814" ry="15.365">
     <title>waist-back</title>
   </ellipse>
   <g>
@@ -394,19 +393,31 @@
   <ellipse style="paint-order: stroke markers; stroke: rgb(0, 0, 0); stroke-width: 5px; fill: rgba(216, 216, 216, 0); stroke-dasharray: 8px;" cx="717.623" cy="222.857" rx="46.517" ry="10.166">
     <title>neck-back</title>
   </ellipse>
-  <g style="" transform="matrix(1.125301, 0, 0, 0.723075, -348.708466, -322.305695)">
-    <title>back-length</title>
-    <line style="stroke: rgb(0, 0, 0); fill: rgba(0, 0, 0, 0); stroke-width: 5.41015px;" x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-    <line style="stroke: rgb(0, 0, 0); fill: rgba(0, 0, 0, 0); stroke-width: 5.41015px;" x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-    <line style="stroke: rgb(0, 0, 0); fill: rgba(0, 0, 0, 0); stroke-width: 5.41015px;" x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
-  </g>
   <ellipse style="paint-order: stroke markers; stroke: rgb(0, 0, 0); stroke-width: 5px; fill: rgba(216, 216, 216, 0); stroke-dasharray: 8px;" cx="886.008" cy="749.985" rx="23.857" ry="6.622">
     <title>waistband</title>
   </ellipse>
-  <g style="" transform="matrix(-1.635934, 0, 0, 0.795935, 2482.161621, -304.802246)">
+  <g transform="matrix(1, 0, 0, 0.7825, 226.241714, -348.25293)" style="" bx:origin="0.484883 0.5">
     <title>sleeve-length</title>
-    <line style="stroke: rgb(0, 0, 0); stroke-width: 4.11206px;" x1="947.874" y1="748.392" x2="946.616" y2="1327.349"/>
-    <line style="stroke: rgb(0, 0, 0); stroke-width: 4.11206px;" x1="938.388" y1="750.404" x2="958.033" y2="750.404"/>
-    <line style="stroke: rgb(0, 0, 0); stroke-width: 4.11206px;" x1="936.731" y1="1326.849" x2="956.376" y2="1326.849"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 0.718637, 2.729032, -369.910614)" style="" bx:origin="0.484883 0.5">
+    <title>back-length</title>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="717.814" y1="822.78" x2="716.556" y2="1401.737"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="708.328" y1="824.792" x2="727.973" y2="824.792"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="706.671" y1="1401.237" x2="726.316" y2="1401.237"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 0.686668, -153.819855, 77.642952)" style="" bx:origin="0.484883 0.5">
+    <title>rise</title>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="873.171" y1="822.78" x2="871.971" y2="1078.371"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="863.363" y1="822.78" x2="883.008" y2="822.78"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="862.437" y1="1078.371" x2="882.082" y2="1078.371"/>
+  </g>
+  <g transform="matrix(0.000001, 1, -0.75028, -0.000001, 1585.595703, -620.930603)" style="" bx:origin="0.484883 0.5">
+    <title>shoulder</title>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="860.137" y1="913.787" x2="858.951" y2="1078.371"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="850.405" y1="913.787" x2="870.05" y2="913.787"/>
+    <line style="stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="849.417" y1="1078.371" x2="869.062" y2="1078.371"/>
   </g>
 </svg>
