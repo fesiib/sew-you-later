@@ -11,6 +11,8 @@ import newOrdersId from './newOrdersId';
 import newRefImages from './newRefImages';
 import curOrdersId from './curOrdersId';
 import curRefImages from './curRefImages';
+import discussionImages from './discussionImages';
+import discussionImageNotes from './discussionImageNotes';
 
 const appReducer = combineReducers({
     counter: counter,
@@ -23,6 +25,8 @@ const appReducer = combineReducers({
     newRefImages: newRefImages,
     curOrdersId: curOrdersId,
     curRefImages: curRefImages,
+    discussionImages: discussionImages,
+    discussionImageNotes: discussionImageNotes,
 });
 
 const rootReducer = (state, action) => {
