@@ -3,14 +3,10 @@ import { addCurOrder, removeCurOrder, updateCurOrder } from '../reducers/curOrde
 import { useState } from 'react';
 
 const propVars = {
-    orderTitle: "T shirt with Pocket",
-    orderDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Phasellus condimentum commodo eros ac dapibus. 
-                Mauris convallis turpis ac turpis dapibus, at malesuada quam molestie. 
-                Mauris sed ex sagittis, dapibus mauris a, rhoncus felis. 
-                Proin tempus enim ac tincidunt luctus. Suspendisse eu turpis vel erat vehicula scelerisque eget at nisi. 
-                In odio lacus, laoreet vel rutrum eu, pharetra in quam. 
-                Quisque non tincidunt mauris. `,
+    orderTitle: "T-shirt with Pocket",
+    orderDesc: `Hello! I want to order a T-Shirt. I have attached some images as references as
+    I want it to look similar to the images. The collar and the arm part as shown in the images
+    are just right! Can you finish it in two weeks?`,
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
@@ -22,6 +18,8 @@ const propVars = {
     nextStepDesc: "You will discuss stuff with the customer",
     curStepDesc: "Discussion",
     notificationPage: "order-details", // another possible options: "measurement...." (depending on) also "" if no notification
+    curStepPage: "discussion-search", // will be equal to nextStepPage if incomplete, and before one step if ongoing
+    nextStepPage: "discussion-search", 
 };
 
 const referenceImages = ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"];
