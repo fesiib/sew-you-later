@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addCurOrder, removeCurOrder, updateCurOrder } from '../reducers/curOrdersList';
 import { useState } from 'react';
+import { resetApp } from '../reducers';
 
 const propVars = {
     orderTitle: "T-shirt with Pocket",
@@ -41,11 +42,16 @@ function TestCurrentOrdersPage(props) {
         dispatch(updateCurOrder({...curOrdersList.find((order) => order.id == 0), notificationPage: "Measurements"}, 0));
     };
 
+    const _resetApp = () => {
+        dispatch(resetApp());
+    }
+
     return (
         <div>
             <div onClick={_addCurOrder}> +1 </div>
             <div onClick={_removeCurOrder}> -1 </div>
             <div onClick={_updateCurOrder}>U</div>
+            <div onClick={_resetApp}>Reset</div>
         </div>
     );
 

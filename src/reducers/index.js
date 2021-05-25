@@ -12,6 +12,8 @@ import newRefImages from './newRefImages';
 import curOrdersId from './curOrdersId';
 import curRefImages from './curRefImages';
 
+const RESET_APP = "RESET_APP";
+
 const appReducer = combineReducers({
     counter: counter,
     orderReports: orderReports,
@@ -25,7 +27,14 @@ const appReducer = combineReducers({
     curRefImages: curRefImages,
 });
 
+export const resetApp = () => ({
+    type: RESET_APP,
+});
+
 const rootReducer = (state, action) => {
+    if (action.type == RESET_APP) {
+        return appReducer(undefined, action);
+    }
     return appReducer(state, action);
 }
 

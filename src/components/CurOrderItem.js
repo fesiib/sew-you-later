@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 
 const propConst = {
     estimatedDue: "Estimated Due:",
+    imagePlaceholderLink: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png",
 };
 
 
@@ -49,7 +50,13 @@ function CurOrderItem(props) {
                     </div>
                 </div>
                 <div className="m-4">
-                    <ImageWithText vars={{referenceImage: referenceImages[0].src, text: referenceImages.length - 1}}/>
+                    {
+                        referenceImages[0] == undefined
+                        ?
+                        <ImageWithText vars={{referenceImage: propConst.imagePlaceholderLink, text: 0}}/>
+                        :
+                        <ImageWithText vars={{referenceImage: referenceImages[0].src, text: referenceImages.length - 1}}/>
+                    }
                 </div>
             </div>
         </Notification>

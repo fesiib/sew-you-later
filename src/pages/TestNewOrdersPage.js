@@ -3,6 +3,7 @@ import { addNewOrder, removeNewOrder } from '../reducers/newOrdersList';
 import { makeNewOrderAvId } from '../reducers/newOrdersId';
 import { useEffect, useState } from 'react';
 import { addNewRefImage } from '../reducers/newRefImages';
+import { resetApp } from '../reducers';
 
 const propConst = {
     header: "New Orders",
@@ -33,9 +34,14 @@ function TestNewOrdersPage(props) {
         dispatch(makeNewOrderAvId());
     };
 
+    const _resetApp = () => {
+        dispatch(resetApp());
+    }
+
     return (
         <div>
             <div onClick={_addNewOrder}> +1 </div>
+            <div onClick={_resetApp}>Reset</div>
             {/* <div onClick={_removeNewOrder}> -1 </div> */}
         </div>
     );
