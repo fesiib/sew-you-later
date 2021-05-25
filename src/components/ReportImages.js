@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage } from '../reducers/reportImages';
 
-import PopupWidget from '../components/PopupWidget'; 
 import Popup from 'reactjs-popup';
 import ImageNotes from './ImageNotes';
-import { interpolate } from 'chroma-js';
 
 const propVars = {
     reportTitle: "Please type a report title.",

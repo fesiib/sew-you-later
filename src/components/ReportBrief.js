@@ -1,7 +1,7 @@
 import ImageWithText from './ImageWithText';
 import ReportMessage from '../components/ReportMessage'; 
 import ReportImages from '../components/ReportImages'; 
-import PopupWidget from '../components/PopupWidget'; 
+import PopupWidget from '../components/PopupWidget';
 
 const propVars = {
     reportTitle: "Report 1 Lorem ipsum  Lorem ipsum",
@@ -11,11 +11,6 @@ const propVars = {
 };
 
 function ReportBrief({id, report}) {
-    function modalClick(e, close) {
-        if(typeof e.target.className.includes === "function")
-            if(e.target.className.includes("back"))
-                close();
-    };
     return (
         <div className="card w-96 p-5 shadow-lg">
             <div className="flex mb-4">

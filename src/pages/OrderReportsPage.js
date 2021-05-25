@@ -10,12 +10,11 @@ import ReportBrief from '../components/ReportBrief';
 import Sidebar from '../components/Sidebar'; 
 import ReportMessage from '../components/ReportMessage'; 
 import ReportImages from '../components/ReportImages'; 
-import PopupWidget from '../components/PopupWidget'; 
 
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function OrderReportsPage(props) {
-    const reports = useSelector(state => state.orderReports);
+    const reports = useSelector(state => state.orderReports.filter(report => report.id !== -1));
     const dispatch = useDispatch();
     
     const renderedReports = reports.map(report => {
