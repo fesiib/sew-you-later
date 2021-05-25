@@ -10,7 +10,7 @@ function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
 
     const renderedNotes = notes.map(note => {
         return <SingleNote key={note.id} id={note.id} reportId={reportId} imageId={imageId}/>
-    });
+    }).reverse();
 
     const _deleteImage = () => {
         dispatch(deleteImage(imageId));
@@ -68,9 +68,27 @@ function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
                 </div>
                 <hr className="border-black"/>
                 {/* single notes will be listed in this div */}
-                <div className="fixed-height overflow-y-scroll pr-3"> 
-                    {renderedNotes}
-                </div>
+                {reportId !== -1 ? 
+                    <div className="fixed-height overflow-y-scroll pr-3"> 
+                        {renderedNotes.length === 0 ?
+                            <h2 className="text-gray-400 mt-4 text-center">There isn't any notes for this image</h2>
+                            :
+                            renderedNotes
+                        }
+                    </div>
+                    :
+                    <div className="fixed-height overflow-y-scroll pr-3"> 
+                        {renderedNotes.length === 0 ?
+                            <h2 className="text-gray-400 mt-4 text-center flex justify-center">You can add notes by clicking 
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                             icon</h2>
+                            :
+                            renderedNotes
+                        }
+                    </div>
+                }
             </div>
         </div>
     );

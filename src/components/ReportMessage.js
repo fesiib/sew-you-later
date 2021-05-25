@@ -37,13 +37,13 @@ function ReportMessage({reportId}) {
     }
     
     return (
-        <div>
+        <div className="flex-grow max-w-xl">
             {(() => {
                 if(reportId !== -1) {
-                    return <div className="card max-w-xl p-5 my-auto flex-grow">
-                                <input placeholder={placeholder.reportTitle} value={report ? report.title : title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
+                    return <div className="card max-w-xl p-5 my-auto">
+                                <input placeholder={"Report " + report.id} value={report ? report.title : title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
                                 <hr className=" border-black"/>
-                                <textarea placeholder={placeholder.reportBody} value={report ? report.body : body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
+                                <textarea placeholder={"No description"} value={report ? report.body : body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
                             </div>;
                 }
                     
@@ -53,7 +53,7 @@ function ReportMessage({reportId}) {
                         setTitle(report.title);
                         setBody(report.body);
                     }
-                    return <div className="card max-w-xl p-5 my-auto flex-grow">
+                    return <div className="card max-w-xl p-5 my-auto">
                                 <input onChange={(e) => onChangeTitle(e)} placeholder={placeholder.reportTitle} value={title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
                                 <hr className=" border-black"/>
                                 <textarea onChange={(e) => onChangeBody(e)} placeholder={placeholder.reportBody} value={body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>

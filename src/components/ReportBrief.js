@@ -17,17 +17,17 @@ function ReportBrief({id, report}) {
     const n = images.length;
 
     var imgRendered = [];
+    if(n == 0)
+        imgRendered.push(<h2 className="text-gray-400">Posted without image</h2>);
     if(n >= 1)
         imgRendered.push(<img className="thumbnail w-36 h-36" src={images[0].src}/>);
     if(n === 2)
         imgRendered.push(<img className="thumbnail w-36 h-36" src={images[1].src}/>);
     if(n > 2)
-        imgRendered.push(<ImageWithText vars={
-            {
-                referenceImage: images[1].src,
-                text: n - 2,
-            }
-        }/>);
+        imgRendered.push(<ImageWithText vars={{
+            referenceImage: images[1].src,
+            text: n - 2,
+        }}/>);
 
     return (
         <div className="card w-96 p-5 shadow-lg">
