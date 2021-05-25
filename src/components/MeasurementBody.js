@@ -162,7 +162,7 @@ function MeasurementBody(props) {
     useEffect(_setupBP);
 
     return (
-        <div className="card min-w-min max-w-max m-10 p-10 bg-white rounded-xl">
+        <div className="card min-w-min max-w-max m-0 pt-10 pl-10 pr-10 bg-white rounded-xl">
             <div className="flex flex-row">
                 <div ref={selectionRef} className={propConst.placeholderClassName}>
                     {allBPs[0]}
