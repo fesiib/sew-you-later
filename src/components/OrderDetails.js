@@ -29,7 +29,6 @@ function OrderDetails(props) {
 
     const curRefImages = useSelector(state => state.curRefImages);
     const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
-    console.log(referenceImages);
 
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
@@ -48,14 +47,6 @@ function OrderDetails(props) {
                             {referenceImages.map((refImage) => (
                                 <img className="w-36 h-36 thumbnail" src={refImage.src}/>
                             ))}
-                            {/* <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/> */}
                         </div>
                     </div>
                 </div>

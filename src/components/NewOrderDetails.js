@@ -40,7 +40,7 @@ function NewOrderDetails(props) {
             curStepStatus: "incomplete", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
             nextStepDesc: "You will have a discussion with the customer, after the customer responds",
             curStepDesc: "Waiting for customer's response for a video call date",
-            notificationPage: "X", // another possible options: "measurement...." (depending on) also "" if no notification
+            notificationPage: "X", // another possible options: "Measurements", "Order Details" (depending on) also "" if no notification
         }
     };
 

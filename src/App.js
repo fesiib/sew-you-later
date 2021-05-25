@@ -56,7 +56,7 @@ function App() {
   return (
     <div>
 
-      <Navbar />
+      {/* <Navbar />
       
       <div className="w-full flex justify-evenly flex-wrap">
         <ReportImages/>
@@ -82,14 +82,14 @@ function App() {
           <input type="submit" value="Submit" />
         </form>
 
-        <br />
+        <br /> */}
 
         {cnt}
 
         <div onClick={_increaseCounter}> +1 </div>
         <div onClick={_decreaseCounter}> -1 </div>
 
-        <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image" />
+        {/* <img className="w-36 h-36 thumbnail" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" alt="example image" />
 
         <ImageWithText />
 
@@ -105,7 +105,7 @@ function App() {
       </div>
       {cnt}
       <div onClick={_increaseCounter}> +1 </div>
-      <div onClick={_decreaseCounter}> -1 </div>
+      <div onClick={_decreaseCounter}> -1 </div> */}
       {/* <ConfirmCard title="Title" body="Lorem ipsum" decline="Ignore" confirm="Accept" onDecline={_decreaseCounter} onConfirm={_increaseCounter}/> */}
     </div>
   );

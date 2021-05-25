@@ -40,7 +40,7 @@ function TestCurrentOrdersPage(props) {
     };
 
     const _updateCurOrder = () => {
-        dispatch(updateCurOrder({...curOrdersList.find((order) => order.id == 0), estimatedDue: "2021-09-07"}, 0));
+        dispatch(updateCurOrder({...curOrdersList.find((order) => order.id == 0), notificationPage: "Measurements"}, 0));
     };
 
     return (
