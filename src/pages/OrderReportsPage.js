@@ -14,17 +14,12 @@ import ReportImages from '../components/ReportImages';
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function OrderReportsPage(props) {
-    const reports = useSelector(state => state.orderReports.filter(report => report.id !== -1));
+    const reports = useSelector(state => state.orderReports);
     const dispatch = useDispatch();
     
-    const renderedReports = reports.map(report => {
+    const renderedReports = reports.filter(report => report.id !== -1).map(report => {
         return <ReportBrief key={report.id} id={report.id} report={report} />
-    });
-
-    function _addReport(title, body) {
-        const date = (new Date()).toLocaleString();
-        dispatch(addReport(title, body, date));
-    };
+    }).reverse();
 
     function popupClick(e, close) {
         if(typeof e.target.className.includes === "function")

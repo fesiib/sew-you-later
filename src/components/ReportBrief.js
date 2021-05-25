@@ -14,7 +14,7 @@ function ReportBrief({id, report}) {
     return (
         <div className="card w-96 p-5 shadow-lg">
             <div className="flex mb-4">
-                <h1 className="w-72 line-clamp-2">{report.title}</h1>
+                <h1 className="w-72 line-clamp-2">{report.title === "" ? "Report " + report.id.toString() : report.title}</h1>
                 <PopupWidget 
                     popupButton={
                         <button className="w-16 h-16 rounded-full green text-4xl">
