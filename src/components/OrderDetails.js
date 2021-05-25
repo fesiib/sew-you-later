@@ -36,13 +36,13 @@ function OrderDetails(props) {
             <div className="flex flex-row m-10">
                 <div className="flex flex-col">
                     <div className="">
-                        <h2 className="m-5"> {propConst.orderDescTitle} </h2>
+                        <h2 className="my-5"> {propConst.orderDescTitle} </h2>
                         <p className="text-black">
                             {props.vars.orderDesc}
                         </p>    
                     </div>
                     <div className="">
-                        <h2 className="m-5"> {propConst.refImagesTitle} </h2>
+                        <h2 className="my-5"> {propConst.refImagesTitle} </h2>
                         <div className = "flex gap-5 flex-wrap">
                             {referenceImages.map((refImage) => (
                                 <img className="w-36 h-36 thumbnail" src={refImage.src}/>
@@ -50,9 +50,9 @@ function OrderDetails(props) {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-between">
-                    <div className="m-5 text-right">
-                        <h2 className="whitespace-nowrap"> {propConst.customerInfoTitle} </h2>
+                <div className="flex flex-col justify-between ml-10">
+                    <div className="my-5 text-right">
+                        <h2 className="whitespace-nowrap mb-5"> {propConst.customerInfoTitle} </h2>
                         <div className="">
                             <p className="whitespace-nowrap">{props.vars.customerName}</p>
                             <p>{props.vars.customerInfo}</p>
@@ -61,10 +61,10 @@ function OrderDetails(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <a href="#" className="flex flex-row justify-end items-center font-bold text-gray-500">
+                        <button href="#" className="flex flex-row justify-end items-center red">
                             <ExclamationCircleIcon className="h-5"/>
                             <p>{propConst.reportText}</p>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

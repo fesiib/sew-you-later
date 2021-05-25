@@ -1,11 +1,11 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { removeNewOrder } from '../reducers/newOrdersList';
-import {removeNewRefImage} from '../reducers/newRefImages';
-import {addCurOrder} from '../reducers/curOrdersList';
-import {addCurRefImage} from '../reducers/curRefImages';
-import {makeCurOrderAvId} from '../reducers/curOrdersId';
+import { removeNewRefImage } from '../reducers/newRefImages';
+import { addCurOrder } from '../reducers/curOrdersList';
+import { addCurRefImage } from '../reducers/curRefImages';
+import { makeCurOrderAvId } from '../reducers/curOrdersId';
 
 const propConst = {
     refImagesTitle: "Reference Images",
@@ -19,7 +19,7 @@ const propConst = {
 
 function NewOrderDetails(props) {
 
-    const newRefImages = useSelector(state => state.newRefImages);    
+    const newRefImages = useSelector(state => state.newRefImages);
     const curOrdersId = useSelector(state => state.curOrdersId);
     const dispatch = useDispatch();
     const referenceImages = newRefImages.filter(refImage => refImage.parentId == props.vars.id);
@@ -60,27 +60,27 @@ function NewOrderDetails(props) {
 
     return (
         <div className="m-10 min-w-min flex flex-col bg-white rounded-xl">
-            <h1 className="mt-10 ml-10 mr-10 text-center"> {propConst.orderDetailsTitle} </h1>
+            <h1 className="mt-10 mx-5 text-center"> {propConst.orderDetailsTitle} </h1>
             <div className="flex flex-row m-10">
                 <div className="flex flex-col">
                     <div className="">
-                        <h2 className="m-5"> {propConst.orderDescTitle} </h2>
+                        <h2 className="my-5"> {propConst.orderDescTitle} </h2>
                         <p className="text-black">
                             {props.vars.orderDesc}
-                        </p>    
+                        </p>
                     </div>
                     <div className="">
-                        <h2 className="m-5"> {propConst.refImagesTitle} </h2>
-                        <div className = "flex gap-5 flex-wrap">
+                        <h2 className="my-5"> {propConst.refImagesTitle} </h2>
+                        <div className="flex gap-5 flex-wrap">
                             {referenceImages.map((refImage) => (
-                                <img className="w-36 h-36 thumbnail" src={refImage.src}/>
+                                <img className="w-36 h-36 thumbnail" src={refImage.src} />
                             ))}
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-between">
-                    <div className="m-5 text-right">
-                        <h2 className="whitespace-nowrap"> {propConst.customerInfoTitle} </h2>
+                <div className="flex flex-col justify-between ml-10">
+                    <div className="my-5 text-right">
+                        <h2 className="whitespace-nowrap mb-5"> {propConst.customerInfoTitle} </h2>
                         <div className="">
                             <p className="whitespace-nowrap">{props.vars.customerName}</p>
                             <p>{props.vars.customerInfo}</p>
@@ -89,19 +89,19 @@ function NewOrderDetails(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <a href="#" className="flex flex-row justify-end items-center font-bold text-gray-500">
-                            <ExclamationCircleIcon className="h-5"/>
+                        <button href="#" className="flex flex-row justify-end items-center red">
+                            <ExclamationCircleIcon className="h-5" />
                             <p>{propConst.reportText}</p>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
-            <div className="h-20 flex flex-row">
-                <button className="flex-grow bg-green-500 active:bg-green-700 cursor-pointer" onClick={() => acceptTheOrder()}> 
-                    {propConst.acceptText} 
+            <div className="h-20 flex flex-row space-x-4 mx-10 mb-8 -mt-2">
+                <button className="flex-grow red cursor-pointer" onClick={() => declineTheOrder()}>
+                    {propConst.declineText}
                 </button>
-                <button className="flex-grow bg-red-500 active:bg-red-700 cursor-pointer" onClick={() => declineTheOrder()}> 
-                    {propConst.declineText} 
+                <button className="flex-grow green cursor-pointer" onClick={() => acceptTheOrder()}>
+                    {propConst.acceptText}
                 </button>
             </div>
         </div>

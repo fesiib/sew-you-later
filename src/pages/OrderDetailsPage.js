@@ -26,7 +26,7 @@ function OrderDetailsPage(props) {
                     <OrderProgress vars={curOrder}/>
                     <OrderDetails vars={curOrder}/>
                 </div>
-                <div className="self-start w-1/5">
+                <div className="self-start w-1/4">
                     <OrderNextStep vars={curOrder}/>
                 </div>`
             </div>
