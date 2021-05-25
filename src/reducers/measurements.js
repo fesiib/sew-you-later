@@ -6,7 +6,7 @@ const RESEND_RQ = "measurements/resendRq"; // status: 1 -> 2
 const RECEIVE_RQ = "measurements/receiveRq"; // status: 1 or 2 -> 3
 const RESET_BP = "measurements/reset";
 
-export const IMMUTABLE = 3;
+export const IMMUTABLE = 4;
 
 
 const propsConst = {
