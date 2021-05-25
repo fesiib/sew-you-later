@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar'; 
 import Sidebar from '../components/Sidebar';
+import FAQButton from '../components/FAQButton';
 import MeasurementBody from '../components/MeasurementBody';
 import MeasurementTags from '../components/MeasurementTags';
 import MeasurementMessage from '../components/MeasurementMessage';
@@ -51,6 +52,9 @@ function OrderMeasurementsPage(props) {
             <Navbar className="absolute top-0"/>
             <div className="absolute left-0">
                 <Sidebar/>
+            </div>
+            <div>
+                <FAQButton/>
             </div>
             <div className="ml-20 flex flex-col">
                 <div className="ml-44 mr-44 mt-10 flex flex-row justify-between">
