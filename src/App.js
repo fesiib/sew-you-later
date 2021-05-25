@@ -29,6 +29,7 @@ import MeasurementMessage from './components/MeasurementMessage';
 import MeasurementTags from './components/MeasurementTags';
 import MeasurementBody from './components/MeasurementBody';
 import CurrentOrderspage from './pages/CurrentOrdersPage';
+import ConfirmCard from './components/ConfirmCard';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -57,6 +58,7 @@ function App() {
       {cnt}
       <div onClick={_increaseCounter}> +1 </div>
       <div onClick={_decreaseCounter}> -1 </div>
+      {/* <ConfirmCard title="Title" body="Lorem ipsum" decline="Ignore" confirm="Accept" onDecline={_decreaseCounter} onConfirm={_increaseCounter}/> */}
     </div>
   );
 
