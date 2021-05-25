@@ -7,10 +7,9 @@ const propConst = {
 };
 
 function NewOrderItem(props) {
-
     return (
         <Notification size="h-6 w-6" position="top-left" data={props.vars.unseen}>
-            <div className="inline-flex bg-white rounded-xl hover:bg-gray-300">
+            <div className="inline-flex bg-white rounded-xl hover:bg-gray-300 pb-1">
                 <a href="#">
                     <div className="ml-4 mb-4 mt-4 w-128 h-36 cursor-pointer">
                         <h1 className="mb-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{props.vars.orderTitle}</h1>
@@ -28,10 +27,10 @@ function NewOrderItem(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <a href="#" className="flex flex-row justify-end items-center font-bold text-gray-500">
+                        <button href="#" className="flex flex-row justify-end items-center red">
                             <ExclamationCircleIcon className="h-5"/>
-                            <p>{propConst.report}</p>
-                        </a>
+                            <p class="ml-1">{propConst.report}</p>
+                        </button>
                     </div>
                 </div>
                 <div className="m-4">
@@ -40,7 +39,6 @@ function NewOrderItem(props) {
             </div>
         </Notification>
     );
-
 };
 
 export default NewOrderItem;
