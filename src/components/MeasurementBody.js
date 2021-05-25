@@ -4,7 +4,7 @@
 
 import React, {useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import measurementsReducer, {allBPs, IMMUTABLE, addBP, removeBP, receiveRq } from '../reducers/measurements';
+import measurementsReducer, {allBPs, IMMUTABLE, addBP, removeBP, receiveRq, resetBP } from '../reducers/measurements';
 import MenBody from './MenBody';
 
 
@@ -73,7 +73,8 @@ function MeasurementBody(props) {
         return React.createRef();
     });
 
-    let selectionRef = React.createRef();
+    const selectionRef = React.createRef();
+    const resetRef = React.createRef();
 
     const _addBP = (value) => {
       dispatch(addBP(value));
@@ -83,9 +84,31 @@ function MeasurementBody(props) {
       dispatch(removeBP(value));
     };
 
+    const _resetBP = () => {
+        dispatch(resetBP());
+    }
+
+    const _setupBP = () => {
+        for (let value = 1; value < allBPs.length; value++) {
+            if (BPRefsShadow[value].current == null) {
+                continue;
+            }
+            if (containsObject(value, bodyParts)) {
+                BPRefsShadow[value].current.setAttribute('style', SELECTED_SHADOW_STYLE_CSS);
+            }
+            else {
+                BPRefsShadow[value].current.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
+            }
+        }
+        if (status == IMMUTABLE) {
+            resetRef.current.disable = true;
+        }
+    };
+
     let highlightLeaveTimeout = null;
 
     const highlightBP = (event, show, value) => {
+        event.stopPropagation();
         if (highlightLeaveTimeout != null)
             clearTimeout(highlightLeaveTimeout);
         
@@ -111,6 +134,8 @@ function MeasurementBody(props) {
     };
 
     const onClick = (event, value) => {
+        event.stopPropagation();
+        event.preventDefault();
         if (status == IMMUTABLE) {
             return;
         }
@@ -125,20 +150,29 @@ function MeasurementBody(props) {
             _addBP(value);
             event.target.setAttribute('style', SELECTED_SHADOW_STYLE_CSS);
         }
-    }
+    };
 
-    useEffect(() => {
-        for (let value of bodyParts) {
-            BPRefsShadow[value].current.setAttribute('style', SELECTED_SHADOW_STYLE_CSS);
-        }
-    });
+    const onClickReset = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        _resetBP();
+        _setupBP();
+    };
+
+    useEffect(_setupBP);
 
     return (
         <div className="card min-w-min max-w-max m-10 p-10 bg-white rounded-xl">
-            <div ref={selectionRef} className={propConst.placeholderClassName}>
-                {allBPs[0]}
-            </div>
+            <div className="flex flex-row">
+                <div ref={selectionRef} className={propConst.placeholderClassName}>
+                    {allBPs[0]}
+                </div>
 
+                <button ref={resetRef} onClick={onClickReset} className="flex-end right-0 bg-green-500 active:bg-green-700 cursor-pointer">
+                    Reset
+                </button> 
+            </div>
+            
             <svg version="1.0" width="600px" height="800px" viewBox="0 0 1273.000000 1475.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(100.000000,0)">
                     <MenBody />

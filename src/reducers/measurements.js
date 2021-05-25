@@ -4,6 +4,8 @@ const EDIT_MSG = "measurements/editMsg";
 const SEND_RQ = "measurements/sendRq"; // status: 0 -> 1
 const RESEND_RQ = "measurements/resendRq"; // status: 1 -> 2
 const RECEIVE_RQ = "measurements/receiveRq"; // status: 1 or 2 -> 3
+const RESET_BP = "measurements/reset";
+
 export const IMMUTABLE = 3;
 
 
@@ -80,6 +82,10 @@ export const receiveRq = () => ({
     type: RECEIVE_RQ,
 });
 
+export const resetBP = () => ({
+    type: RESET_BP,
+});
+
 const initialState = {
     bodyParts: [],
     message: "",
@@ -138,6 +144,12 @@ const measurementsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: 3,
+            }
+        }
+        case RESET_BP: {
+            return {
+                ...state,
+                bodyParts: [],
             }
         }
         default:
