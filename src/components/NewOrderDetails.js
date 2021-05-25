@@ -41,6 +41,7 @@ function NewOrderDetails(props) {
             nextStepDesc: "You will have a discussion with the customer, after the customer responds",
             curStepDesc: "Waiting for customer's response for a video call date",
             notificationPage: "X", // another possible options: "Measurements", "Order Details" (depending on) also "" if no notification
+            nextStepPage: "discussion-search",
         }
     };
 
