@@ -53,7 +53,7 @@ function OrderMeasurementsPage(props) {
                 <Sidebar/>
             </div>
             <div className="ml-20 flex flex-col">
-                <div className="ml-32 mr-32 mt-10 flex flex-row justify-between">
+                <div className="ml-44 mr-44 mt-10 flex flex-row justify-between">
                     <h1>{propsConst.orderTitle + curOrder.orderTitle} </h1>
                     <button onClick={onSend} className="h-16 w-32 flex-end right-0 bg-green-500 active:bg-green-700 cursor-pointer text-2xl">
                         {
