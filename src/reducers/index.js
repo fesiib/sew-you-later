@@ -5,16 +5,19 @@ import counter from "./counter";
 import orderReports from "./orderReports";
 import reportImages from "./reportImages";
 import imageNotes from "./imageNotes";
+import newOrdersList from './NewOrdersList';
+import curOrdersList from './CurrentOrdersList';
 
 const appReducer = combineReducers({
     counter: counter,
     orderReports: orderReports,
     reportImages: reportImages,
     imageNotes: imageNotes,
+    newOrdersList: newOrdersList,
+    curOrdersList: curOrdersList,
 });
 
 const rootReducer = (state, action) => {
-    // state = undefined;
     return appReducer(state, action);
 }
 

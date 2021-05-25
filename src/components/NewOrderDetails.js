@@ -6,7 +6,9 @@ const propConst = {
     orderDescTitle: "Order Description",
     orderDetailsTitle: "Order Details",
     customerInfoTitle: "Customer Information",
-    reportText: "Report"
+    reportText: "Report",
+    acceptText: "Accept",
+    declineText: "Decline",
 };
 
 const propVars = {
@@ -24,17 +26,17 @@ const propVars = {
     customerEmail: "beyaldiz@kaist.ac.kr",
 };
 
-function OrderDetails(props) {
+function NewOrderDetails(props) {
 
     return (
-        <div className="m-10 flex flex-col bg-white rounded-xl">
+        <div className="m-10 min-w-min flex flex-col bg-white rounded-xl">
             <h1 className="mt-10 ml-10 mr-10 text-center"> {propConst.orderDetailsTitle} </h1>
             <div className="flex flex-row m-10">
                 <div className="flex flex-col">
                     <div className="">
                         <h2 className="m-5"> {propConst.orderDescTitle} </h2>
                         <p className="text-black">
-                            {propVars.orderDesc}
+                            {props.vars.orderDesc}
                         </p>    
                     </div>
                     <div className="">
@@ -72,10 +74,13 @@ function OrderDetails(props) {
                     </div>
                 </div>
             </div>
-            
+            <div className="h-20 flex flex-row">
+                <button className="flex-grow bg-green-500 active:bg-green-700 cursor-pointer"> {propConst.acceptText} </button>
+                <button className="flex-grow bg-red-500 active:bg-red-700 cursor-pointer"> {propConst.declineText} </button>
+            </div>
         </div>
     );
 
 };
 
-export default OrderDetails;
+export default NewOrderDetails;
