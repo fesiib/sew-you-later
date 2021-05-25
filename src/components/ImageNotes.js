@@ -53,12 +53,15 @@ function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
                             </div>
                         </div>
                         :
-                        <div className="float-right">
-                            <button onClick={closePopup} className="text-black p-0 mx-2 shadow-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
+                        <div className="flex justify-between">
+                            <h2 className="text-black mr-1 my-auto">Notes</h2>
+                            <div>
+                                <button onClick={closePopup} className="text-black p-0 mx-2 shadow-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     }
                     
