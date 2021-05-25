@@ -7,7 +7,6 @@ import MeasurementMessage from '../components/MeasurementMessage';
 import MeasurementReceived from '../components/MeasurementReceived';
 import { useDispatch, useSelector } from 'react-redux';
 import { resendRq, sendRq } from '../reducers/measurements';
-import FAQButton from '../components/FAQButton';
 
 const propsConst = {
     send: "Send",
@@ -19,8 +18,9 @@ function OrderMeasurementsPage(props) {
     const dispatch = useDispatch();
     
     const orderId = new URLSearchParams(window.location.search).get('orderId');
-    const curOrdersList = useSelector(state => state.curOrdersList.orders);  
+    const curOrdersList = useSelector(state => state.curOrdersList);  
     const curOrder = curOrdersList.find(order => (order.id == orderId));
+    
     const {
         status,
     } = useSelector(state => state.measurementsReducer);
