@@ -7,6 +7,7 @@ import Popup from 'reactjs-popup';
 import OrderDetails from '../components/OrderDetails';
 import OrderProgress from '../components/OrderProgress';
 import OrderNextStep from '../components/OrderNextStep';
+import MeasurementReceived from '../components/MeasurementReceived';
 import Sidebar from '../components/Sidebar';
 import {useSelector} from 'react-redux';
 
@@ -30,6 +31,7 @@ function OrderDetailsPage(props) {
                 </div>
                 <div className="self-start w-1/4">
                     <OrderNextStep vars={curOrder}/>
+                    <MeasurementReceived vars={"orderDetails"}/>
                 </div>`
             </div>
         </div>

@@ -73,7 +73,7 @@ function OrderMeasurementsPage(props) {
                     </div>
                     <div className="flex-col w-2/5">
                         <div className="w-1/2">
-                            <MeasurementReceived/>
+                            <MeasurementReceived vars={"measurements"}/>
                         </div>
                         <MeasurementTags />
                         <MeasurementMessage />
