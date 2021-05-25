@@ -5,8 +5,12 @@ import counter from "./counter";
 import orderReports from "./orderReports";
 import reportImages from "./reportImages";
 import imageNotes from "./imageNotes";
-import newOrdersList from './NewOrdersList';
-import curOrdersList from './CurrentOrdersList';
+import newOrdersList from './newOrdersList';
+import curOrdersList from './curOrdersList';
+import newOrdersId from './newOrdersId';
+import newRefImages from './newRefImages';
+import curOrdersId from './curOrdersId';
+import curRefImages from './curRefImages';
 
 const appReducer = combineReducers({
     counter: counter,
@@ -15,6 +19,10 @@ const appReducer = combineReducers({
     imageNotes: imageNotes,
     newOrdersList: newOrdersList,
     curOrdersList: curOrdersList,
+    newOrdersId: newOrdersId,
+    newRefImages: newRefImages,
+    curOrdersId: curOrdersId,
+    curRefImages: curRefImages,
 });
 
 const rootReducer = (state, action) => {

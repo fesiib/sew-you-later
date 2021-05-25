@@ -16,10 +16,11 @@ const propConst = {
 
 function OrderProgress(props) {
 
+    console.log(props.vars);
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
             <div className="m-5">
-                <h2 className="">{propConst.statusTitle + props.vars.curStep.curStepDesc}</h2>
+                <h2 className="">{propConst.statusTitle + props.vars.curStepDesc}</h2>
                 <ProgressBar vars={props.vars}/>
             </div>
             <div className="m-5 flex justify-end">

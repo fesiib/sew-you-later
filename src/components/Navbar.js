@@ -28,11 +28,11 @@ function classNames(...classes) {
 
 function Navbar(props) {
 
-    const newOrdersList = useSelector(state => state.newOrdersList.orders);    
-    const curOrdersList = useSelector(state => state.curOrdersList.orders);    
+    const newOrdersList = useSelector(state => state.newOrdersList);    
+    const curOrdersList = useSelector(state => state.curOrdersList);    
 
     navigation[0].cntNotifications = newOrdersList.reduce((acc, ord) => acc + (ord.unseen === true ? 1 : 0), 0);
-    navigation[1].cntNotifications = curOrdersList.reduce((acc, ord) => acc + (ord.notificationInfo.hasNotification === true ? 1 : 0), 0);
+    navigation[1].cntNotifications = curOrdersList.reduce((acc, ord) => acc + (ord.notificationPage !== "X" ? 1 : 0), 0);
 
     return (
         <Disclosure as="nav" className="sticky top-0 z-20 bg-indigo-900">
@@ -57,8 +57,8 @@ function Navbar(props) {
                                 </div>
                                 <div className="hidden sm:block sm:ml-6">
                                     <div className="flex px-4 space-x-4 ml-20">
-                                        {navigation.map((item) => (
-                                            <div className="px-3 py-3">
+                                        {navigation.map((item, index) => (
+                                            <div className="px-3 py-3" key={index}>
                                                 <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
                                                     <a
                                                         key={item.name}
@@ -157,8 +157,8 @@ function Navbar(props) {
 
                     <Disclosure.Panel className="sm:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1">
-                            {navigation.map((item) => (
-                                <div className="px-6 py-3">
+                            {navigation.map((item, index) => (
+                                <div className="px-6 py-3" key={index}>
                                     <Notification position="top-right" size="h-6 w-6" data={item.cntNotifications}>
                                         <a
                                             key={item.name}

@@ -49,7 +49,7 @@ const propUtils = {
 
 function CurrentOrderspage(props) {
 
-    const curOrdersList = useSelector(state => state.curOrdersList.orders);
+    const curOrdersList = useSelector(state => state.curOrdersList);   
     const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
 
     const updateOrganization = (option) => {

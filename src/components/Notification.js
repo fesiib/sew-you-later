@@ -8,7 +8,7 @@ function Notification(props) {
         data = "";
     }
 
-    if(data === 0 || data === false) { // no notification
+    if(data === 0 || data === false || data === "X") { // no notification
         return (
             <div className="relative max-w-max">
                 {props.children}

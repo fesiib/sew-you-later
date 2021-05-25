@@ -9,14 +9,10 @@ import OrderNextStep from '../components/OrderNextStep';
 import Sidebar from '../components/Sidebar';
 import {useSelector} from 'react-redux';
 
-// const propVars = {
-//     numOfReports: 4,
-// };
-
 function OrderDetailsPage(props) {
 
     const orderId = new URLSearchParams(window.location.search).get('orderId');
-    const curOrdersList = useSelector(state => state.curOrdersList.orders);  
+    const curOrdersList = useSelector(state => state.curOrdersList);  
     const curOrder = curOrdersList.find(order => (order.id == orderId));
 
     return (
@@ -27,11 +23,11 @@ function OrderDetailsPage(props) {
             </div>
             <div className="ml-18 flex flex-row justify-center items-center">
                 <div className="flex-col w-3/5">
-                    <OrderProgress vars={curOrder.progressInfo}/>
+                    <OrderProgress vars={curOrder}/>
                     <OrderDetails vars={curOrder}/>
                 </div>
                 <div className="self-start w-1/5">
-                    <OrderNextStep vars={curOrder.progressInfo}/>
+                    <OrderNextStep vars={curOrder}/>
                 </div>`
             </div>
         </div>

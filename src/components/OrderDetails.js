@@ -1,5 +1,6 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import {useSelector} from 'react-redux';
 
 const propConst = {
     refImagesTitle: "Reference Images",
@@ -26,6 +27,10 @@ const propVars = {
 
 function OrderDetails(props) {
 
+    const curRefImages = useSelector(state => state.curRefImages);
+    const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
+    console.log(referenceImages);
+
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
             <h1 className="mt-10 ml-10 mr-10 text-center"> {propConst.orderDetailsTitle} </h1>
@@ -34,14 +39,14 @@ function OrderDetails(props) {
                     <div className="">
                         <h2 className="m-5"> {propConst.orderDescTitle} </h2>
                         <p className="text-black">
-                            {propVars.orderDesc}
+                            {props.vars.orderDesc}
                         </p>    
                     </div>
                     <div className="">
                         <h2 className="m-5"> {propConst.refImagesTitle} </h2>
                         <div className = "flex gap-5 flex-wrap">
-                            {props.vars.referenceImages.map((src) => (
-                                <img className="w-36 h-36 thumbnail" src={src}/>
+                            {referenceImages.map((refImage) => (
+                                <img className="w-36 h-36 thumbnail" src={refImage.src}/>
                             ))}
                             {/* <ImageWithText/>
                             <ImageWithText/>

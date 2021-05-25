@@ -48,7 +48,7 @@ const propUtils = {
 
 function NewOrdersPage(props) {
 
-    const newOrdersList = useSelector(state => state.newOrdersList.orders);
+    const newOrdersList = useSelector(state => state.newOrdersList);    
     const [newOrdersOrganization, setNewOrdersOrganization] = useState(newOrdersList);
 
     const updateOrganization = (option) => {

@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewOrder, removeNewOrder } from '../reducers/NewOrdersList';
-import { useState } from 'react';
+import { addNewOrder, removeNewOrder } from '../reducers/newOrdersList';
+import { makeNewOrderAvId } from '../reducers/newOrdersId';
+import { useEffect, useState } from 'react';
+import { addNewRefImage } from '../reducers/newRefImages';
 
 const propConst = {
     header: "New Orders",
 };
 
-let propVars = {
+const propVars = {
     orderTitle: "T shirt with Pocket",
     orderDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
     Phasellus condimentum commodo eros ac dapibus. 
@@ -18,34 +20,27 @@ let propVars = {
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
+    customerEmail: "beyaldiz@kaist.ac.kr",
     unseen: true,
-    referenceImages: ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"],
-    id: 0,
 };
+
+const referenceImages = ["https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"];
 
 function TestNewOrdersPage(props) {
 
-    const [id, setId] = useState(0);
-
     const dispatch = useDispatch();
-
+    const newOrdersId = useSelector(state => state.newOrdersId);
+    
     const _addNewOrder = () => {
-        propVars.id = id;
-        setId(id + 1);
-        dispatch(addNewOrder(propVars));
-    };
-
-    const _removeNewOrder = () => {
-        if(id > 0) {
-            dispatch(removeNewOrder(id - 1));
-            setId(id - 1);
-        }
+        dispatch(addNewOrder(propVars, newOrdersId.avId));
+        referenceImages.forEach(src => dispatch(addNewRefImage(src, newOrdersId.avId)));
+        dispatch(makeNewOrderAvId());
     };
 
     return (
         <div>
             <div onClick={_addNewOrder}> +1 </div>
-            <div onClick={_removeNewOrder}> -1 </div>
+            {/* <div onClick={_removeNewOrder}> -1 </div> */}
         </div>
     );
 

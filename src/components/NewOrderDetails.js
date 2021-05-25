@@ -1,5 +1,11 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import {useSelector, useDispatch} from 'react-redux';
+import { removeNewOrder } from '../reducers/newOrdersList';
+import {removeNewRefImage} from '../reducers/newRefImages';
+import {addCurOrder} from '../reducers/curOrdersList';
+import {addCurRefImage} from '../reducers/curRefImages';
+import {makeCurOrderAvId} from '../reducers/curOrdersId';
 
 const propConst = {
     refImagesTitle: "Reference Images",
@@ -11,22 +17,46 @@ const propConst = {
     declineText: "Decline",
 };
 
-const propVars = {
-    orderTitle: "T shirt with Pocket",
-    orderDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Phasellus condimentum commodo eros ac dapibus. 
-    Mauris convallis turpis ac turpis dapibus, at malesuada quam molestie. 
-    Mauris sed ex sagittis, dapibus mauris a, rhoncus felis. 
-    Proin tempus enim ac tincidunt luctus. Suspendisse eu turpis vel erat vehicula scelerisque eget at nisi. 
-    In odio lacus, laoreet vel rutrum eu, pharetra in quam. 
-    Quisque non tincidunt mauris. `,
-    customerName: "Mehmet Hamza Erol",
-    customerInfo: "Male, 19",
-    customerLocation: "Korea/Daejeon",
-    customerEmail: "beyaldiz@kaist.ac.kr",
-};
-
 function NewOrderDetails(props) {
+
+    const newRefImages = useSelector(state => state.newRefImages);    
+    const curOrdersId = useSelector(state => state.curOrdersId);
+    const dispatch = useDispatch();
+    const referenceImages = newRefImages.filter(refImage => refImage.parentId == props.vars.id);
+
+    const appendCurOrder = (curOrder) => {
+        dispatch(addCurOrder(curOrder, curOrdersId.avId));
+        newRefImages.filter(refImage => refImage.parentId == props.vars.id).forEach(refImage => dispatch(addCurRefImage(refImage.src, curOrdersId.avId)));
+        props.setAcceptedOrder(curOrdersId.avId);
+        dispatch(makeCurOrderAvId());
+    };
+
+    const transformToCurOrder = () => {
+        return {
+            ...props.vars,
+            estimatedDue: "2021-05-29", // YYYY-MM-DD Now it is a default value, fix it later
+            steps: "Order Confirmation-Customer's Response-Discussion-Measurement Record-Production-Delivery",
+            curStepIndex: 1,
+            curStepStatus: "incomplete", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
+            nextStepDesc: "You will have a discussion with the customer, after the customer responds",
+            curStepDesc: "Waiting for customer's response for a video call date",
+            notificationPage: "X", // another possible options: "measurement...." (depending on) also "" if no notification
+        }
+    };
+
+    const removeTheNewOrder = () => {
+        dispatch(removeNewRefImage(props.vars.id));
+        dispatch(removeNewOrder(props.vars.id));
+    };
+
+    const declineTheOrder = () => {
+        removeTheNewOrder();
+    };
+
+    const acceptTheOrder = () => {
+        appendCurOrder(transformToCurOrder());
+        removeTheNewOrder();
+    };
 
     return (
         <div className="m-10 min-w-min flex flex-col bg-white rounded-xl">
@@ -42,17 +72,9 @@ function NewOrderDetails(props) {
                     <div className="">
                         <h2 className="m-5"> {propConst.refImagesTitle} </h2>
                         <div className = "flex gap-5 flex-wrap">
-                            {props.vars.referenceImages.map((src) => (
-                                <img className="w-36 h-36 thumbnail" src={src}/>
+                            {referenceImages.map((refImage) => (
+                                <img className="w-36 h-36 thumbnail" src={refImage.src}/>
                             ))}
-                            {/* <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/>
-                            <ImageWithText/> */}
                         </div>
                     </div>
                 </div>
@@ -75,8 +97,12 @@ function NewOrderDetails(props) {
                 </div>
             </div>
             <div className="h-20 flex flex-row">
-                <button className="flex-grow bg-green-500 active:bg-green-700 cursor-pointer"> {propConst.acceptText} </button>
-                <button className="flex-grow bg-red-500 active:bg-red-700 cursor-pointer"> {propConst.declineText} </button>
+                <button className="flex-grow bg-green-500 active:bg-green-700 cursor-pointer" onClick={() => acceptTheOrder()}> 
+                    {propConst.acceptText} 
+                </button>
+                <button className="flex-grow bg-red-500 active:bg-red-700 cursor-pointer" onClick={() => declineTheOrder()}> 
+                    {propConst.declineText} 
+                </button>
             </div>
         </div>
     );

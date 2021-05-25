@@ -24,8 +24,8 @@ function OrderNextStep(props) {
                 </a>
             </div>
             <div className="m-5 col-span-3 row-span-1 row-start-2">
-                <h2 className="">{props.vars.steps[props.vars.curStep.stepIndex]}</h2>
-                <p>{props.vars.curStep.nextStepDesc}</p>
+                <h2 className="">{props.vars.steps.split('-')[props.vars.curStepIndex]}</h2>
+                <p>{props.vars.nextStepDesc}</p>
             </div>
         </div>
     );

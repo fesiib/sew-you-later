@@ -2,6 +2,7 @@ import ImageWithText from './ImageWithText';
 import ProgressBar from './ProgressBar';
 import Notification from './Notification';
 import { CalendarIcon } from '@heroicons/react/outline';
+import {useSelector} from 'react-redux';
 
 const propConst = {
     estimatedDue: "Estimated Due:",
@@ -10,6 +11,9 @@ const propConst = {
 
 function CurOrderItem(props) {
 
+    const curRefImages = useSelector(state => state.curRefImages);
+    const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
+
     const moveTo = (href, params) => {
         return () => {
             window.location = "/" + href + "?" + new URLSearchParams(params);
@@ -17,7 +21,7 @@ function CurOrderItem(props) {
     }
 
     return (
-        <Notification position="top-left" size="h-6 w-6" data={props.vars.hasNotification}>
+        <Notification position="top-left" size="h-6 w-6" data={props.vars.notificationPage}>
             <div className="inline-flex bg-white rounded-xl hover:bg-gray-300">
                 <div className="text-black ml-4 mt-4 mr-4">
                     <div className="flex flex-col h-36">
@@ -33,19 +37,19 @@ function CurOrderItem(props) {
                                 </div>
                             </div>
                             <div className="mr-2">
-                                <ProgressBar vars={props.vars.progressInfo} />
+                                <ProgressBar vars={props.vars} />
                             </div>
                         </div>
                         <div className="text-right -mt-2">
                             <a href="#" className="flex flex-row justify-end items-center text-green-500 hover:text-green-800">
-                                <CalendarIcon className="h-6" />
-                                <p className="text-sm">{propConst.estimatedDue + parseInt(((new Date(props.vars.progressInfo.estimatedDue).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))) + " days left"}</p>
-                            </a>
+                                <CalendarIcon className="h-6"/>
+                                <p className="text-sm">{propConst.estimatedDue + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</p>
+                            </a>                           
                         </div>
                     </div>
                 </div>
                 <div className="m-4">
-                    <ImageWithText vars={{ referenceImage: props.vars.referenceImages[0], text: props.vars.referenceImages.length - 1 }} />
+                    <ImageWithText vars={{referenceImage: referenceImages[0].src, text: referenceImages.length - 1}}/>
                 </div>
             </div>
         </Notification>

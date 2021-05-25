@@ -1,28 +1,33 @@
 import Navbar from '../components/Navbar'; 
 import NewOrderDetails from '../components/NewOrderDetails';
 import {useSelector} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import { useState } from 'react';
 
-// const propVars = {
-//     numOfReports: 4,
-// };
-
-function OrderDetailsPage(props) {
+function NewOrderDetailsPage(props) {
 
     const orderId = new URLSearchParams(window.location.search).get('orderId');
-    const newOrdersList = useSelector(state => state.newOrdersList.orders);  
+    const newOrdersList = useSelector(state => state.newOrdersList);  
     const newOrder = newOrdersList.find(order => (order.id == orderId));
+    const [acceptedOrder, setAcceptedOrder] = useState("");
 
-    return (
-        <div>
-            <Navbar className="top"/>
-            <div className="ml-18 flex flex-row justify-center items-center">
-                <div className="flex-col w-3/5">
-                    <NewOrderDetails vars={newOrder}/>
+    if(newOrder) {
+        return (
+            <div>
+                <Navbar className="top"/>
+                <div className="ml-18 flex flex-row justify-center items-center">
+                    <div className="flex-col w-3/5">
+                        <NewOrderDetails vars={newOrder} setAcceptedOrder={setAcceptedOrder}/>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-
+        );
+    }
+    if(acceptedOrder === "") {
+        return <Redirect to={"/new-orders"}/>
+    }
+    return <Redirect to={"/order-details/?orderId=" + acceptedOrder}/>;
+    
 };
 
-export default OrderDetailsPage;
+export default NewOrderDetailsPage;
