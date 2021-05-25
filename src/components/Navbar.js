@@ -110,7 +110,7 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="#"
+                                                                href="/"
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
@@ -123,7 +123,7 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="#"
+                                                                href="/"
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
@@ -136,7 +136,7 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="#"
+                                                                href="/"
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'

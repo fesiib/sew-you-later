@@ -3,20 +3,17 @@ import { addNewOrder, removeNewOrder } from '../reducers/newOrdersList';
 import { makeNewOrderAvId } from '../reducers/newOrdersId';
 import { useEffect, useState } from 'react';
 import { addNewRefImage } from '../reducers/newRefImages';
+import { resetApp } from '../reducers';
 
 const propConst = {
     header: "New Orders",
 };
 
 const propVars = {
-    orderTitle: "T shirt with Pocket",
-    orderDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Phasellus condimentum commodo eros ac dapibus. 
-    Mauris convallis turpis ac turpis dapibus, at malesuada quam molestie. 
-    Mauris sed ex sagittis, dapibus mauris a, rhoncus felis. 
-    Proin tempus enim ac tincidunt luctus. Suspendisse eu turpis vel erat vehicula scelerisque eget at nisi. 
-    In odio lacus, laoreet vel rutrum eu, pharetra in quam. 
-    Quisque non tincidunt mauris. `,
+    orderTitle: "T-shirt with Pocket",
+    orderDesc: `Hello! I want to order a T-Shirt. I have attached some images as references as
+    I want it to look similar to the images. The collar and the arm part as shown in the images
+    are just right! Can you finish it in two weeks?`,
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
@@ -37,9 +34,14 @@ function TestNewOrdersPage(props) {
         dispatch(makeNewOrderAvId());
     };
 
+    const _resetApp = () => {
+        dispatch(resetApp());
+    }
+
     return (
         <div>
             <div onClick={_addNewOrder}> +1 </div>
+            <div onClick={_resetApp}>Reset</div>
             {/* <div onClick={_removeNewOrder}> -1 </div> */}
         </div>
     );

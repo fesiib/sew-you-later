@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 //import user from "./user";
 
 import counter from "./counter";
+import measurementsReducer from './measurements';
 import orderReports from "./orderReports";
 import reportImages from "./reportImages";
 import imageNotes from "./imageNotes";
@@ -14,6 +15,8 @@ import curRefImages from './curRefImages';
 import discussionImages from './discussionImages';
 import discussionImageNotes from './discussionImageNotes';
 
+const RESET_APP = "RESET_APP";
+
 const appReducer = combineReducers({
     counter: counter,
     orderReports: orderReports,
@@ -21,6 +24,7 @@ const appReducer = combineReducers({
     imageNotes: imageNotes,
     newOrdersList: newOrdersList,
     curOrdersList: curOrdersList,
+    measurementsReducer,
     newOrdersId: newOrdersId,
     newRefImages: newRefImages,
     curOrdersId: curOrdersId,
@@ -29,7 +33,14 @@ const appReducer = combineReducers({
     discussionImageNotes: discussionImageNotes,
 });
 
+export const resetApp = () => ({
+    type: RESET_APP,
+});
+
 const rootReducer = (state, action) => {
+    if (action.type == RESET_APP) {
+        return appReducer(undefined, action);
+    }
     return appReducer(state, action);
 }
 

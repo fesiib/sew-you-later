@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar'; 
+import FAQButton from '../components/FAQButton';
 import ReportBrief from '../components/ReportBrief'; 
 import ReportMessage from '../components/ReportMessage'; 
 import ReportImages from '../components/ReportImages'; 
@@ -6,6 +7,7 @@ import Popup from 'reactjs-popup';
 import OrderDetails from '../components/OrderDetails';
 import OrderProgress from '../components/OrderProgress';
 import OrderNextStep from '../components/OrderNextStep';
+import MeasurementReceived from '../components/MeasurementReceived';
 import Sidebar from '../components/Sidebar';
 import {useSelector} from 'react-redux';
 
@@ -18,6 +20,7 @@ function OrderDetailsPage(props) {
     return (
         <div>
             <Navbar className="top"/>
+            <FAQButton />
             <div className="absolute left-0">
                 <Sidebar/>
             </div>
@@ -26,8 +29,9 @@ function OrderDetailsPage(props) {
                     <OrderProgress vars={curOrder}/>
                     <OrderDetails vars={curOrder}/>
                 </div>
-                <div className="self-start w-1/5">
+                <div className="self-start w-1/4">
                     <OrderNextStep vars={curOrder}/>
+                    <MeasurementReceived vars={"orderDetails"}/>
                 </div>`
             </div>
         </div>
