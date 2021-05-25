@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar'; 
+import FAQButton from '../components/FAQButton';
 import ReportBrief from '../components/ReportBrief'; 
 import ReportMessage from '../components/ReportMessage'; 
 import ReportImages from '../components/ReportImages'; 
@@ -18,6 +19,7 @@ function OrderDetailsPage(props) {
     return (
         <div>
             <Navbar className="top"/>
+            <FAQButton />
             <div className="absolute left-0">
                 <Sidebar/>
             </div>

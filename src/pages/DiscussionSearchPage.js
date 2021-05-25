@@ -2,6 +2,7 @@ import ImageSearchTopBar from '../components/ImageSearchTopBar';
 import Notification from '../components/Notification';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import FAQButton from '../components/FAQButton';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -36,6 +37,7 @@ function DiscussionSearchPage(props) {
 
         <div className="h-screen w-screen">
             <Navbar />
+            <FAQButton />
             <Sidebar />
             <div className="h-5/6 ml-20 mt-8">
                 <div className="inline-flex w-full h-5/6">

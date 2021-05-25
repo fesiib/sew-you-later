@@ -1,7 +1,8 @@
 import Navbar from '../components/Navbar'; 
+import FAQButton from '../components/FAQButton';
 import NewOrderDetails from '../components/NewOrderDetails';
-import {useSelector} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useState } from 'react';
 
 function NewOrderDetailsPage(props) {
@@ -15,6 +16,7 @@ function NewOrderDetailsPage(props) {
         return (
             <div>
                 <Navbar className="top"/>
+                <FAQButton />
                 <div className="ml-18 flex flex-row justify-center items-center">
                     <div className="flex-col w-3/5">
                         <NewOrderDetails vars={newOrder} setAcceptedOrder={setAcceptedOrder}/>

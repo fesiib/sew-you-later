@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import MeasurementBody from '../components/MeasurementBody';
 import MeasurementTags from '../components/MeasurementTags';
 import MeasurementMessage from '../components/MeasurementMessage';
+import FAQButton from '../components/FAQButton';
 
 const propVars = {
     numOfReports: 4,
@@ -16,6 +17,7 @@ function OrderMeasurementsPage(props) {
     return (
         <div className="">
             <Navbar className="absolute top-0"/>
+            <FAQButton />
             <div className="absolute left-0">
                 <Sidebar/>
             </div>
