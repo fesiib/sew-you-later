@@ -53,7 +53,6 @@ export const allBPs = [
     propsConst.shoulderLabel
 ];
 
-
 export const addBP = (payload) => ({
     type: ADD_BP,
     payload,
@@ -88,6 +87,7 @@ export const resetBP = () => ({
 
 const initialState = {
     bodyParts: [],
+    measurements: [],
     message: "",
     status: 0,
 };
@@ -141,6 +141,7 @@ const measurementsReducer = (state = initialState, action) => {
             }
         }
         case RECEIVE_RQ: {
+            //update measurements
             return {
                 ...state,
                 status: 3,

@@ -141,7 +141,6 @@ function MeasurementBody(props) {
         if (status == IMMUTABLE) {
             return;
         }
-        console.log(event);
         if (containsObject(value, bodyParts)) {
             //remove
             _removeBP(value);

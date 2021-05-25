@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 import MeasurementBody from '../components/MeasurementBody';
 import MeasurementTags from '../components/MeasurementTags';
 import MeasurementMessage from '../components/MeasurementMessage';
+import MeasurementReceived from '../components/MeasurementReceived';
 
 const propVars = {
     numOfReports: 4,
@@ -24,6 +25,9 @@ function OrderMeasurementsPage(props) {
                     <MeasurementBody />
                 </div>
                 <div className="flex-col w-2/5">
+                    <div className="w-1/2">
+                        <MeasurementReceived/>
+                    </div>
                     <MeasurementTags />
                     <MeasurementMessage />
                 </div>`
