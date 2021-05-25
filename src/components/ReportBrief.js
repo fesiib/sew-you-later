@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import ImageWithText from './ImageWithText';
 import ReportMessage from '../components/ReportMessage'; 
 import ReportImages from '../components/ReportImages'; 
@@ -11,6 +13,22 @@ const propVars = {
 };
 
 function ReportBrief({id, report}) {
+    const images = useSelector(state => state.reportImages.filter(image => image.parentReportId === id));
+    const n = images.length;
+
+    var imgRendered = [];
+    if(n >= 1)
+        imgRendered.push(<img className="thumbnail w-36 h-36" src={images[0].src}/>);
+    if(n === 2)
+        imgRendered.push(<img className="thumbnail w-36 h-36" src={images[1].src}/>);
+    if(n > 2)
+        imgRendered.push(<ImageWithText vars={
+            {
+                referenceImage: images[1].src,
+                text: n - 2,
+            }
+        }/>);
+
     return (
         <div className="card w-96 p-5 shadow-lg">
             <div className="flex mb-4">
@@ -38,8 +56,7 @@ function ReportBrief({id, report}) {
                 <p className="line-clamp-5">{report.body}</p>
             </div> 
             <div className="flex justify-evenly">
-                <img className="thumbnail w-36 h-36" src={propVars.imgLink}/>
-                <ImageWithText/>
+                {imgRendered}
             </div>
         </div>
     );
