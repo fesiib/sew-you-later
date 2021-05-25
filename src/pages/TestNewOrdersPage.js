@@ -21,16 +21,41 @@ const propVars = {
     unseen: true,
 };
 
-const referenceImages = ["https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"];
+const referenceImages = [
+            '/ref_images/1.png', 
+            '/ref_images/2.png', 
+            '/ref_images/3.png', 
+            '/ref_images/4.png', 
+            '/ref_images/5.png', 
+            '/ref_images/6.png', 
+            '/ref_images/7.png', 
+            '/ref_images/8.png', 
+            '/ref_images/9.png'
+];
 
 function TestNewOrdersPage(props) {
 
     const dispatch = useDispatch();
     const newOrdersId = useSelector(state => state.newOrdersId);
     
+    /* Randomize array in-place using Durstenfeld shuffle algorithm */
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+    
     const _addNewOrder = () => {
+        shuffleArray(referenceImages);
         dispatch(addNewOrder(propVars, newOrdersId.avId));
-        referenceImages.forEach(src => dispatch(addNewRefImage(src, newOrdersId.avId)));
+        referenceImages.forEach((src, index) => {
+            if(index < 4) {
+                dispatch(addNewRefImage(src, newOrdersId.avId))
+            }
+        });
         dispatch(makeNewOrderAvId());
     };
 
