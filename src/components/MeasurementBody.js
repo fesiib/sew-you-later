@@ -1,5 +1,4 @@
 // add send and title
-// add reset button
 // fix null problem
 
 import React, {useEffect, useRef} from 'react';
@@ -101,7 +100,8 @@ function MeasurementBody(props) {
             }
         }
         if (status == IMMUTABLE) {
-            resetRef.current.disable = true;
+            resetRef.current.disabled = true;
+            resetRef.current.className = "invisible";
         }
     };
 
@@ -122,8 +122,10 @@ function MeasurementBody(props) {
         }
         else {
             highlightLeaveTimeout = setTimeout(() => {
-                selectionRef.current.innerHTML = allBPs[0];
-                selectionRef.current.className=propConst.placeholderClassName;
+                if (selectionRef.current != null) {
+                    selectionRef.current.innerHTML = allBPs[0];
+                    selectionRef.current.className=propConst.placeholderClassName;
+                }
                 if (status != IMMUTABLE && !containsObject(value, bodyParts)) {
                     event.target.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
                     //BPRefs[value].current.setAttribute('style', PLACEHOLDER_ELLIPSE_STYLE_CSS);
@@ -156,7 +158,6 @@ function MeasurementBody(props) {
         event.stopPropagation();
         event.preventDefault();
         _resetBP();
-        _setupBP();
     };
 
     useEffect(_setupBP);
