@@ -21,7 +21,7 @@ function ProgressBar(props) {
                 {props.vars.steps.split('-').map((title, index) => 
                     <div style={{ width: "17%" }} className="flex flex-col my-0.5 mx-0.5 text-center border border-gray-400">
                         <div className={`h-2 shadow-none text-black justify-center ${progressBarColorMapping[(getStatus(index))]}`}>
-                            <div className="mt-3">
+                            <div className="mt-3 text-sm">
                                 {title}
                             </div>
                         </div>
