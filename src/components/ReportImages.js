@@ -52,7 +52,9 @@ function ReportImages({reportId}) {
     }
 
     function uploadImage() {
-        var src = "/report_images/" + (getRandomInt(8) + 1).toString() + ".png";
+        var src = "/report_images/tshirt.jpg"
+        dispatch(addImage(src, reportId));
+        src = "/report_images/pocket.png"
         dispatch(addImage(src, reportId));
     }
 
