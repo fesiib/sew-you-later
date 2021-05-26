@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { addNewRefImage } from '../reducers/newRefImages';
 import { resetApp } from '../reducers';
 import { receiveRq } from '../reducers/measurements';
+import { updateCurOrder } from '../reducers/curOrdersList';
 
 const propConst = {
     header: "New Orders",
@@ -23,9 +24,9 @@ const propVars = {
 };
 
 const referenceImages = [
-            '/ref_images/1.png', 
-            '/ref_images/2.png', 
-            '/ref_images/3.png', 
+    '/ref_images/1.png',
+    '/ref_images/2.png',
+    '/ref_images/3.png',
 ];
 
 const BUTTON_STYLE = "m-10 flex-end right-0 -mr-4 green cursor-pointer";
@@ -34,7 +35,7 @@ function TestNewOrdersPage(props) {
 
     const dispatch = useDispatch();
     const newOrdersId = useSelector(state => state.newOrdersId);
-    
+
     /* Randomize array in-place using Durstenfeld shuffle algorithm */
     function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {
@@ -44,12 +45,12 @@ function TestNewOrdersPage(props) {
             array[j] = temp;
         }
     }
-    
+
     const _addNewOrder = () => {
         shuffleArray(referenceImages);
         dispatch(addNewOrder(propVars, newOrdersId.avId));
         referenceImages.forEach((src, index) => {
-            if(index < 3) {
+            if (index < 3) {
                 dispatch(addNewRefImage(src, newOrdersId.avId))
             }
         });
@@ -64,9 +65,34 @@ function TestNewOrdersPage(props) {
         window.location = '/new-orders'
     }
 
+    const orderId = 0;
+    const curOrdersList = useSelector(state => state.curOrdersList);
+    const curOrder = curOrdersList.find(order => (order.id == orderId));
+
+    // For progress bar
+    const updateTheOrder = () => {
+        dispatch(updateCurOrder(updateProgress(), orderId));
+    };
+
+    const updateProgress = () => {
+        const nextStepIndex = curOrder.curStepIndex + 1;
+
+        return {
+            ...curOrder,
+            curStepIndex: nextStepIndex,
+            curStepStatus: "ongoing",
+            curStepDesc: "Under production",
+            nextStepDesc:
+                `Any updates on the product? Click the arrow above to start sending progress report 
+                to the customer.`,
+            nextStepPage: "order-reports"
+        }
+    }
+
     const _receiveMeasurements = () => {
         console.log("receiving");
         dispatch(receiveRq([22, 66, 60, 80, 25, 70]));
+        updateTheOrder();
     }
 
     return (
