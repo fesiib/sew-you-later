@@ -80,7 +80,7 @@ function Sidebar(props) {
 
     const classOnDisabled = (moveToHref) => {
         if (checkDisabled(moveToHref) === "") return "bg-indigo-900 hover:bg-indigo-700 rounded-lg w-full h-14 justify-start space-x-2";
-        else return "bg-indigo-900 rounded-lg w-full h-14 justify-start space-x-2"
+        else return "bg-indigo-900 text-indigo-700 rounded-lg w-full h-14 justify-start space-x-2"
     }
 
     return (
