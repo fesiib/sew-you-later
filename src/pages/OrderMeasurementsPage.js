@@ -28,31 +28,16 @@ function OrderMeasurementsPage(props) {
     };
 
     const updateProgress = () => {
-        const curStepPage = curOrder.nextStepPage;
         const nextStepIndex = curOrder.curStepIndex + 1;
-        const descArray = {
-            "discussion-search": [
-                "About to create a measurements form",
-                "You will create a measurements form that will be sent to the customer by choosing the body parts that you need the measurements.",
-            ],
-            "order-measurements": [
-                "Under production",
-                "You can send your first progress report to the customer so they can see the updates. Click the arrow when you are ready!",
-            ]
-        }
-
-        const nextStepArray = {
-            "discussion-search": "order-measurements",
-            "order-measurements": "order-reports",
-        }
 
         return {
             ...curOrder,
             curStepIndex: nextStepIndex,
-            curStepStatus: "incomplete",
-            curStepDesc: descArray[curStepPage][0],
-            nextStepDesc: descArray[curStepPage][1],
-            nextStepPage: nextStepArray[curStepPage],
+            curStepStatus: "ongoing",
+            curStepDesc: "Waiting for measurements from the customer's response",
+            nextStepDesc:
+                `You have already sent a form to the customer. Right now there is nothing
+                much to do. You may want to re-check form if you like.`,
         }
     }
 
