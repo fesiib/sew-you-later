@@ -17,7 +17,7 @@ function NewOrderDetailsPage(props) {
             <div>
                 <Navbar className="top"/>
                 <FAQButton />
-                <div className="ml-18 flex flex-row justify-center items-center">
+                <div className="flex flex-row justify-center items-center">
                     <div className="flex-col w-3/5">
                         <NewOrderDetails vars={newOrder} setAcceptedOrder={setAcceptedOrder}/>
                     </div>

@@ -98,10 +98,10 @@ function NewOrderDetails(props) {
                 </div>
             </div>
             <div className="h-20 flex flex-row space-x-4 mx-10 mb-8 -mt-2">
-                <button className="flex-grow red cursor-pointer" onClick={() => declineTheOrder()}>
+                <button className="flex-grow red cursor-pointer text-xl" onClick={() => declineTheOrder()}>
                     {propConst.declineText}
                 </button>
-                <button className="flex-grow green cursor-pointer" onClick={() => acceptTheOrder()}>
+                <button className="flex-grow green cursor-pointer text-xl" onClick={() => acceptTheOrder()}>
                     {propConst.acceptText}
                 </button>
             </div>
