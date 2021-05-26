@@ -28,7 +28,7 @@ function NewOrderDetailsPage(props) {
     if(acceptedOrder === "") {
         return <Redirect to={"/new-orders"}/>
     }
-    return <Redirect to={"/order-details/?orderId=" + acceptedOrder}/>;
+    return <Redirect to={"/order-details?orderId=" + acceptedOrder}/>;
     
 };
 
