@@ -130,7 +130,7 @@ function MeasurementBody(props) {
                     event.target.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
                     //BPRefs[value].current.setAttribute('style', PLACEHOLDER_ELLIPSE_STYLE_CSS);
                 }
-            }, 200);
+            }, 0);
             highlightLeaveTimeout = null;
         }
     };
