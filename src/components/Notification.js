@@ -16,6 +16,9 @@ function Notification(props) {
         );
     }
 
+    if(isNaN(data))
+        data = "";
+
     let typeSetup = "rounded-full notification-red text-center text-white";
     if(props.type && props.type == "check") {
         typeSetup = "bg-green-400 text-black";
