@@ -4,6 +4,7 @@ import { makeNewOrderAvId } from '../reducers/newOrdersId';
 import { useEffect, useState } from 'react';
 import { addNewRefImage } from '../reducers/newRefImages';
 import { resetApp } from '../reducers';
+import { receiveRq } from '../reducers/measurements';
 
 const propConst = {
     header: "New Orders",
@@ -26,6 +27,8 @@ const referenceImages = [
             '/ref_images/2.png', 
             '/ref_images/3.png', 
 ];
+
+const BUTTON_STYLE = "m-10 flex-end right-0 -mr-4 green cursor-pointer";
 
 function TestNewOrdersPage(props) {
 
@@ -61,11 +64,17 @@ function TestNewOrdersPage(props) {
         window.location = '/new-orders'
     }
 
+    const _receiveMeasurements = () => {
+        console.log("receiving");
+        dispatch(receiveRq([22, 66, 60, 80, 25, 70]));
+    }
+
     return (
         <div>
-            <div onClick={_addNewOrder}> +1 </div>
-            <div onClick={_resetApp}>Reset</div>
-            <div onClick={_gotoNewOrder}>Go to New Orders</div>
+            <button className={BUTTON_STYLE} onClick={_addNewOrder}> +1 </button>
+            <button className={BUTTON_STYLE} onClick={_resetApp}>Reset</button>
+            <button className={BUTTON_STYLE} onClick={_gotoNewOrder}>Go to New Orders</button>
+            <button className={BUTTON_STYLE} onClick={_receiveMeasurements}> Receive Measurements</button>
             {/* <div onClick={_removeNewOrder}> -1 </div> */}
         </div>
     );

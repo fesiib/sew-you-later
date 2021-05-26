@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCurOrder, removeCurOrder, updateCurOrder } from '../reducers/curOrdersList';
 import { useState } from 'react';
 import { resetApp } from '../reducers';
+import { receiveRq } from '../reducers/measurements';
 
 const propVars = {
     orderTitle: "T-shirt with Pocket",
@@ -25,6 +26,8 @@ const propVars = {
 
 const referenceImages = ["https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg", "https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"];
 
+const BUTTON_STYLE = "m-10 flex-end right-0 -mr-4 green cursor-pointer";
+
 function TestCurrentOrdersPage(props) {
 
     const dispatch = useDispatch();
@@ -42,16 +45,22 @@ function TestCurrentOrdersPage(props) {
         dispatch(updateCurOrder({...curOrdersList.find((order) => order.id == 0), notificationPage: "Measurements"}, 0));
     };
 
+    const _receiveMeasurements = () => {
+        console.log("receiving");
+        dispatch(receiveRq([22, 66, 60, 80, 25, 70]));
+    }
+
     const _resetApp = () => {
         dispatch(resetApp());
     }
 
     return (
         <div>
-            <div onClick={_addCurOrder}> +1 </div>
-            <div onClick={_removeCurOrder}> -1 </div>
-            <div onClick={_updateCurOrder}>U</div>
-            <div onClick={_resetApp}>Reset</div>
+            <button className={BUTTON_STYLE} onClick={_addCurOrder}> +1 </button>
+            <button className={BUTTON_STYLE} onClick={_removeCurOrder}> -1 </button>
+            <button className={BUTTON_STYLE} onClick={_updateCurOrder}>U</button>
+            <button className={BUTTON_STYLE} onClick={_receiveMeasurements}>Receive Measurements</button>
+            <button className={BUTTON_STYLE} onClick={_resetApp}>Reset</button>
         </div>
     );
 
