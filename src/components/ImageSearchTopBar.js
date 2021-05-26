@@ -15,7 +15,7 @@ function ImageSearchTopBar(props) {
     return (
         <div className="flex flex-wrap">
             <div className="flex-shrink-0 w-116 my-4 mr-4">
-                <SearchBar />
+                <SearchBar setSearchResults={props.setSearchResults}/>
             </div>
             <div className="flex justify-between">
                 <div className="flex">

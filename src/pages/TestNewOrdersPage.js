@@ -25,12 +25,6 @@ const referenceImages = [
             '/ref_images/1.png', 
             '/ref_images/2.png', 
             '/ref_images/3.png', 
-            '/ref_images/4.png', 
-            '/ref_images/5.png', 
-            '/ref_images/6.png', 
-            '/ref_images/7.png', 
-            '/ref_images/8.png', 
-            '/ref_images/9.png'
 ];
 
 function TestNewOrdersPage(props) {
@@ -52,7 +46,7 @@ function TestNewOrdersPage(props) {
         shuffleArray(referenceImages);
         dispatch(addNewOrder(propVars, newOrdersId.avId));
         referenceImages.forEach((src, index) => {
-            if(index < 4) {
+            if(index < 3) {
                 dispatch(addNewRefImage(src, newOrdersId.avId))
             }
         });
