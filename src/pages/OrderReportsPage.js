@@ -86,12 +86,12 @@ function OrderReportsPage(props) {
                         }
                     </Popup>
                 </div>
-                {reports.length > 0 &&
+                {renderedReports.length > 0 &&
                     <div className="order-reports">
                         {renderedReports}
                     </div>
                 }
-                {reports.length === 0 &&
+                {renderedReports.length === 0 &&
                     <div className="w-full my-auto text-center">
                         <h1>There is no reports.</h1>
                         <div className="flex justify-center w-full mx-auto">
