@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar'; 
+import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import FAQButton from '../components/FAQButton';
 import MeasurementBody from '../components/MeasurementBody';
@@ -7,6 +7,7 @@ import MeasurementMessage from '../components/MeasurementMessage';
 import MeasurementReceived from '../components/MeasurementReceived';
 import { useDispatch, useSelector } from 'react-redux';
 import { resendRq, sendRq } from '../reducers/measurements';
+import { updateCurOrder } from '../reducers/curOrdersList';
 
 const propsConst = {
     send: "Send",
@@ -16,11 +17,45 @@ const propsConst = {
 
 function OrderMeasurementsPage(props) {
     const dispatch = useDispatch();
-    
+
     const orderId = new URLSearchParams(window.location.search).get('orderId');
-    const curOrdersList = useSelector(state => state.curOrdersList);  
+    const curOrdersList = useSelector(state => state.curOrdersList);
     const curOrder = curOrdersList.find(order => (order.id == orderId));
-    
+
+    // For progress bar, currently not working
+    const updateTheOrder = () => {
+        dispatch(updateCurOrder(updateProgress(), curOrdersList.id));
+    };
+
+    const updateProgress = () => {
+        const curStepPage = curOrder.nextStepPage;
+        const nextStepIndex = curOrder.curStepIndex + 1;
+        const descArray = {
+            "discussion-search": [
+                "About to create a measurements form",
+                "You will create a measurements form that will be sent to the customer by choosing the body parts that you need the measurements.",
+            ],
+            "order-measurements": [
+                "Under production",
+                "You can send your first progress report to the customer so they can see the updates. Click the arrow when you are ready!",
+            ]
+        }
+
+        const nextStepArray = {
+            "discussion-search": "order-measurements",
+            "order-measurements": "order-reports",
+        }
+
+        return {
+            ...curOrder,
+            curStepIndex: nextStepIndex,
+            curStepStatus: "incomplete",
+            curStepDesc: descArray[curStepPage][0],
+            nextStepDesc: descArray[curStepPage][1],
+            nextStepPage: nextStepArray[curStepPage],
+        }
+    }
+
     const {
         status,
     } = useSelector(state => state.measurementsReducer);
@@ -37,6 +72,7 @@ function OrderMeasurementsPage(props) {
         //show alert message
         if (status == 0) {
             _sendRq();
+            updateTheOrder(); // currently not working, it doesn't update the redux
         }
         else if (status == 1) {
             _resendRq();
@@ -50,30 +86,30 @@ function OrderMeasurementsPage(props) {
     };
     return (
         <div className="">
-            <Navbar className="absolute top-0"/>
+            <Navbar className="absolute top-0" />
             <FAQButton />
             <div className="absolute left-0">
-                <Sidebar/>
+                <Sidebar />
             </div>
             <div>
-                <FAQButton/>
+                <FAQButton />
             </div>
             <div className="ml-20 flex flex-col">
-                <div className="ml-44 mr-44 mt-10 flex flex-row justify-between">
+                <div className="ml-32 mr-44 mt-10 flex flex-row justify-between">
                     <h1>{propsConst.orderTitle + curOrder.orderTitle} </h1>
-                    <button onClick={onSend} className="h-16 w-32 flex-end right-0 bg-green-500 active:bg-green-700 cursor-pointer text-2xl">
+                    <button onClick={onSend} className="h-12 w-32 flex-end right-0 green cursor-pointer text-xl">
                         {
-                            (status==0) ? propsConst.send : propsConst.resend
+                            (status == 0) ? propsConst.send : propsConst.resend
                         }
-                    </button>     
+                    </button>
                 </div>
                 <div className="flex flex-row justify-center items-center">
                     <div className="w-2/5">
                         <MeasurementBody />
                     </div>
                     <div className="flex-col w-2/5">
-                        <div className="w-1/2">
-                            <MeasurementReceived vars={"measurements"}/>
+                        <div className="">
+                            <MeasurementReceived vars={"measurements"} />
                         </div>
                         <MeasurementTags />
                         <MeasurementMessage />

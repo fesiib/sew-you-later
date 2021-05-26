@@ -3,7 +3,7 @@ import { allBPs, editMsg, IMMUTABLE } from "../reducers/measurements";
 
 const propsConst = {
     measurementsTitle: "Measurements",
-    measurementsPlaceholderSent: "Waiting for cusomter's response...",
+    measurementsPlaceholderSent: "Waiting for customer's response...",
     measurementsPlaceholderReceived: "No Measurements",
 };
 
@@ -38,7 +38,7 @@ function MeasurementReceived(props) {
         }
         return indexes.map((index, id) => {
             return (
-                <div className="flex flex row justify-between">
+                <div className="flex row justify-between">
                     <span className="flex-start"> {allBPs[index]}: </span>
                     <span className="flex-end"> {values[id]} </span>
                 </div>);
