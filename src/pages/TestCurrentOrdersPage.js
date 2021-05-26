@@ -13,7 +13,7 @@ const propVars = {
     customerLocation: "Korea/Daejeon",
     customerEmail: "beyaldiz@kaist.ac.kr",
     estimatedDue: "2021-05-29", // YYYY-MM-DD
-    steps: "Order Confirmation-Customer's Response-Discussion-Measurement Record-Production-Delivery",
+    steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
     curStepIndex: 2,
     curStepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
     nextStepDesc: "You will discuss stuff with the customer",
