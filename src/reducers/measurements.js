@@ -77,8 +77,9 @@ export const resendRq = () => ({
     type: RESEND_RQ,
 });
 
-export const receiveRq = () => ({
+export const receiveRq = (payload) => ({
     type: RECEIVE_RQ,
+    payload,
 });
 
 export const resetBP = () => ({
@@ -145,6 +146,7 @@ const measurementsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: 3,
+                measurements: action.payload,
             }
         }
         case RESET_BP: {
