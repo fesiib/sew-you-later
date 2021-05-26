@@ -22,9 +22,9 @@ function OrderMeasurementsPage(props) {
     const curOrdersList = useSelector(state => state.curOrdersList);
     const curOrder = curOrdersList.find(order => (order.id == orderId));
 
-    // For progress bar, currently not working
+    // For progress bar
     const updateTheOrder = () => {
-        dispatch(updateCurOrder(updateProgress(), curOrdersList.id));
+        dispatch(updateCurOrder(updateProgress(), orderId));
     };
 
     const updateProgress = () => {
@@ -72,7 +72,7 @@ function OrderMeasurementsPage(props) {
         //show alert message
         if (status == 0) {
             _sendRq();
-            updateTheOrder(); // currently not working, it doesn't update the redux
+            updateTheOrder();
         }
         else if (status == 1) {
             _resendRq();
