@@ -58,7 +58,7 @@ function MeasurementReceived(props) {
         }
         return indexes.map((index, id) => {
             return (
-                <div className="flex flex row justify-between">
+                <div className="flex row justify-between">
                     <span className="flex-start"> {allBPs[index]}: </span>
                     <span className="flex-end"> {values[id]} </span>
                 </div>);
@@ -66,18 +66,17 @@ function MeasurementReceived(props) {
     };
 
     if (props != undefined && props.vars == "orderDetails") {
-        //my-10 grid grid-rows-2 grid-cols-3 place-content-evenly bg-white rounded-xl
         return (
-            <div className=" min-w-min grid auto-rows-auto grid-cols-3 place-content-evenly bg-white rounded-xl p-3">
-                <h1 className="min-w-min  ml-5 row-span-1 col-span-3"> {propsConst.measurementsTitle} </h1>
-                <div className="ml-5 col-span-3">
+            <div className="min-w-min bg-white rounded-xl p-4">
+                <h1 className="min-w-min mb-2"> {propsConst.measurementsTitle} </h1>
+                <div className="">
                     {formatMeasurementsOrderDetails(bodyParts, measurements)}
                 </div>
             </div>
         );    
     }
     return (
-        <div className="card m-10 p-3">
+        <div className="card ml-2 p-4">
             <h2> {propsConst.measurementsTitle} </h2>
             {formatMeasurements(bodyParts, measurements)}
         </div>

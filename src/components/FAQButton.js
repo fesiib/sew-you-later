@@ -13,7 +13,7 @@ function FAQButton(props) {
         <Disclosure className="">
             {({ open }) => (
                 <>
-                    <div id="faqButton" className="transform duration-500 bottom-0 right-0 mr-8 mb-8 fixed z-20 h-14 w-14 hover:w-48 rounded-full bg-green-400 hover:bg-green-500 shadow-2xl flex flex-wrap content-center">
+                    <div id="faqButton" className="transform duration-500 bottom-0 right-0 mr-8 mb-8 fixed z-20 h-14 w-14 hover:w-48 rounded-full bg-green-500 hover:bg-green-600 shadow-2xl flex flex-wrap content-center">
                         <button onClick={moveToFAQ} className="w-full">
                             <p id="label" className="mr-2">How to Use?</p>
                             <div>
