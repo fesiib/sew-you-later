@@ -28,6 +28,7 @@ const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", 
 function DiscussionSearchPage(props) {
 
     const [gallerySize, setGallerySize] = useState('medium');
+    const [searchResults, setSearchResults] = useState([]);
 
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const allDiscussionImages = useSelector(state => state.discussionImages);
@@ -47,11 +48,19 @@ function DiscussionSearchPage(props) {
                 close();
     };
 
-    const getImageId = (img) => {
-        const res = curDiscussionImages.find(image => image.src == img.src); 
-        if(res != undefined) 
-            return res.id; 
-        return undefined;
+    const getImageId = (img, isImgObj=true) => {
+        if(isImgObj) {
+            const res = curDiscussionImages.find(image => image.src == img.src); 
+            if(res != undefined) 
+                return res.id; 
+            return undefined;
+        }
+        else {
+            const res = curDiscussionImages.find(image => image.src == img); 
+            if(res != undefined) 
+                return res.id; 
+            return undefined;
+        }
     };
 
     return (
@@ -118,9 +127,50 @@ function DiscussionSearchPage(props) {
                             {propConst.searchImagesHeader}
                         </h3>
                         <div className="relative justify-between items-center px-4">
-                            <ImageSearchTopBar className="w-full" setGallerySize={setGallerySize} parentOrganizationUpdate={parentOrganizationUpdate} />
+                            <ImageSearchTopBar className="w-full" setGallerySize={setGallerySize} parentOrganizationUpdate={parentOrganizationUpdate} setSearchResults={setSearchResults}/>
                         </div>
                         <div style={{height: "calc(100% - 125px)"}} className={`gallery-${gallerySize} pt-4 px-8 justify-around overflow-scroll`}>
+                            {searchResults.map((src, index) => (
+                                    getImageId(src, false) != undefined 
+                                        ?
+                                    <Notification type="check" position="top-right">
+                                        <Popup
+                                                key={index} 
+                                                trigger={<img className="thumbnail border-4 border-green-400 cursor-pointer" src={src}/>}
+                                                modal
+                                                nested
+                                                position="center center"
+                                                contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
+                                            >
+                                                {close => (
+                                                        <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                                            <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                                                <NotesDiscussionImage imageId={getImageId(src, false)} imageSrc={src} closePopup={close} orderId={orderId}/>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
+                                        </Popup>
+                                    </Notification> 
+                                        :
+                                        <Popup
+                                            key={index} 
+                                            trigger={<img className="thumbnail cursor-pointer" src={src}/>}
+                                            modal
+                                            nested
+                                            position="center center"
+                                            contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
+                                        >
+                                            {close => (
+                                                    <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                                        <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                                            <NotesDiscussionImage imageId={undefined} imageSrc={src} closePopup={close} orderId={orderId}/>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        </Popup>
+                                        ))}
                             {/* <img className="thumbnail " src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg"/>      
                             <Notification type="check" position="top-right">
                                 <img className="thumbnail border-4 border-green-400" src="https://www.istockphoto.com/resources/images/HomePage/Hero/1204187820.jpg" />
