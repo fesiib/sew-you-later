@@ -63,10 +63,15 @@ function TestNewOrdersPage(props) {
         dispatch(resetApp());
     }
 
+    const _gotoNewOrder = () => {
+        window.location = '/new-orders'
+    }
+
     return (
         <div>
             <div onClick={_addNewOrder}> +1 </div>
             <div onClick={_resetApp}>Reset</div>
+            <div onClick={_gotoNewOrder}>Go to New Orders</div>
             {/* <div onClick={_removeNewOrder}> -1 </div> */}
         </div>
     );
