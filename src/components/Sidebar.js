@@ -28,16 +28,18 @@ function Sidebar(props) {
     const [measurementsNotification, setMeasurementsNotification] = useState(false);
 
     useEffect(() => {
+        const notifyOrderDetailsPage = curOrder.notificationPage == propConst.orderDetails;
+        const notifyMeasuementsPage = curOrder.notificationPage == propConst.measurements;
         const updateNotificationPage = 
-        (curOrder.notificationPage == propConst.orderDetails && pathName == "/order-details") ||
-        (curOrder.notificationPage == propConst.measurements && pathName == "/order-measurements");
+        ((notifyOrderDetailsPage || notifyMeasuementsPage) && pathName == "/order-details") ||
+        (notifyMeasuementsPage && pathName == "/order-measurements");
         if(updateNotificationPage) {
             dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
         }
-        else if(!orderDetailsNotification && curOrder.notificationPage == propConst.orderDetails) {
+        else if(!orderDetailsNotification && notifyOrderDetailsPage) {
             setOrderDetailsNotification(true);
         }
-        else if(!measurementsNotification && curOrder.notificationPage == propConst.measurements) {
+        else if(!measurementsNotification && (notifyMeasuementsPage || notifyOrderDetailsPage)) {
             setMeasurementsNotification(true);
         }
     }, []);
@@ -51,19 +53,6 @@ function Sidebar(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
         </svg>;
-
-    // if (!orderDetailsNotification && curOrder.notificationPage == propConst.orderDetails) {
-    //     setOrderDetailsNotification(true);
-    //     if (pathName == "/order-details") {
-    //         dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
-    //     }
-    // }
-    // if (!measurementsNotification && curOrder.notificationPage == propConst.measurements) {
-    //     setMeasurementsNotification(true);
-    //     if (pathName == "/order-measurements") {
-    //         dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
-    //     }
-    // }
 
     function moveTo(href) {
         return () => {
@@ -91,7 +80,7 @@ function Sidebar(props) {
             }
         }
     }
-
+    
     const classOnDisabled = (moveToHref) => {
         if (checkDisabled(moveToHref) === "") return "bg-indigo-900 hover:bg-indigo-700 rounded-lg w-full h-14 justify-start space-x-2";
         else return "bg-indigo-900 text-indigo-700 rounded-lg w-full h-14 justify-start space-x-2"
