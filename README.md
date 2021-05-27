@@ -9,17 +9,17 @@ Inside [`src`](https://github.com/fesiib/sew-you-later/tree/main/src), there are
 
 - `src/components`: Implementations of base components can be found here, for example, the navigation bar, the progress bar, image placeholder, measurement canvas, and etc. These components will be combined later in pages. Basically, after we have been through the process of lo-fi prototyping, we jump into this in the early stages.
 - `src/pages`: After we finished implementing base components, we start to arrange things into pages. Most of the interaction supports are implemented here. These pages are also routed between each other.
-- `src/reducers`: We decide to store a copy of the database of one user when the session is established. This way, we do not have to frequently update the database which it might reduce the speed performance via saving since we do support drafting feature (when a user adds a note). The reducers will store states and will be accessible across all pages.
+- `src/reducers`: We decide to store a copy of the database of one user when the session is established. This way, we do not have to frequently update the database which it might reduce the speed performance via saving since we do support drafting feature (when a user adds a note). Our solution is to use the reducers, which will store states and will be accessible across all pages.
 
 ### Prototype URL
-Our prototype is now live at [link](https://google.com).
+Our prototype is now live at [link](#).
 
 ## Simulating End-to-End Scenario
 This is our additional section for those who wants to try out our website.
 
 Since our system focuses on the producers' side (those who make handmade cloth products), we are not supporting the interfaces for the customers' side. For example, to have a discussion in real scenario, there might be a feature that supports live video call and screen sharing as well. In this case, we assume that the video call and the screen sharing are already settled up. And since the producers need the measurements from the customers, we provide an extra page that one can simulate the measurement records sending. 
 
-After the producer has sent a measurement form, to proceed, you have to send the measurements by going to [this link](#). This will respond to the measurement form automatically.
+After the producer has sent a measurement form, to proceed, you have to send the measurements by going to `[BASE_URL]/test/new-orders`. This will respond to the measurement form automatically. Note that it will update the most recent sent form only.
 
 ****
 
