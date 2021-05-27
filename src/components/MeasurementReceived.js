@@ -24,7 +24,7 @@ function MeasurementReceived(props) {
         return (<div></div>);
     }
 
-    const formatMeasurementsOrderDetails = (indexes, values) => {
+    const formatMeasurementsOrderDetails = (indexes, {unit, values}) => {
         console.log(indexes, values);
         if (values.length == 0) {
             if (status == 3) {
@@ -38,13 +38,13 @@ function MeasurementReceived(props) {
         }
         return indexes.map((index, id) => {
             return (
-                <div className="flex row justify-between">
+                <div key={id} className="flex row justify-between">
                     <span className="flex-start"> {allBPs[index]}: </span>
-                    <span className="flex-end"> {values[id]} </span>
+                    <span className="flex-end"> {values[id]} {unit} </span>
                 </div>);
         });
     };
-    const formatMeasurements = (indexes, values) => {
+    const formatMeasurements = (indexes, {unit, values}) => {
         console.log(indexes, values);
         if (values.length == 0) {
             if (status == 3) {
@@ -58,9 +58,9 @@ function MeasurementReceived(props) {
         }
         return indexes.map((index, id) => {
             return (
-                <div className="flex row justify-between">
+                <div key={id} className="flex row justify-between">
                     <span className="flex-start"> {allBPs[index]}: </span>
-                    <span className="flex-end"> {values[id]} </span>
+                    <span className="flex-end"> {values[id]} {unit} </span>
                 </div>);
         });
     };

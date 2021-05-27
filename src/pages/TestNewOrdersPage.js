@@ -1,14 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewOrder, removeNewOrder } from '../reducers/newOrdersList';
 import { makeNewOrderAvId } from '../reducers/newOrdersId';
-import { useEffect, useState } from 'react';
 import { addNewRefImage } from '../reducers/newRefImages';
 import { resetApp } from '../reducers';
 import { receiveRq } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
-const propConst = {
-    header: "New Orders",
+const propsConst = {
+    measurements: {
+        unit: "cm",
+        values: [
+            -1,
+            22.2,
+            70.3,
+            60.0,
+            65,
+            45.5,
+            20.8,
+            10.1,
+            95.4,
+            10,
+            100.1,
+            52,
+            //propsConst.waistBackLabel,
+            75,
+            //propsConst.neckBackLabel,
+            91,
+            5,
+            110.2,
+            25.1,
+        ],
+    }
 };
 
 const propVars = {
@@ -90,8 +112,23 @@ function TestNewOrdersPage(props) {
         }
     }
 
+    const {
+        id,
+        status,
+        requestedBodyParts
+    } = useSelector(state => state.measurementsReducer);
+
     const _receiveMeasurements = () => {
-        dispatch(receiveRq([22, 66, 60, 80, 25, 70]));
+        if (status != 1 && status != 2) {
+            alert("Order ID " + id + ": No measurements Request sent to the Customer");
+            return;
+        }
+        dispatch(receiveRq({
+            unit: propsConst.measurements.unit,
+            values: requestedBodyParts.map((value, index) => {
+                return propsConst.measurements.values[value];
+            }),
+        }));
         updateTheOrder();
     }
 

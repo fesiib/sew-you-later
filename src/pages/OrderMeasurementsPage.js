@@ -6,7 +6,7 @@ import MeasurementTags from '../components/MeasurementTags';
 import MeasurementMessage from '../components/MeasurementMessage';
 import MeasurementReceived from '../components/MeasurementReceived';
 import { useDispatch, useSelector } from 'react-redux';
-import { resendRq, sendRq } from '../reducers/measurements';
+import { resendRq, sendRq, setId } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
 const propsConst = {
@@ -43,7 +43,12 @@ function OrderMeasurementsPage(props) {
 
     const {
         status,
+        id,
     } = useSelector(state => state.measurementsReducer);
+
+    if (orderId != id) {
+        dispatch(setId(orderId));
+    }
 
     const _sendRq = () => {
         dispatch(sendRq());

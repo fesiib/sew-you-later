@@ -9,13 +9,23 @@ import OrderProgress from '../components/OrderProgress';
 import OrderNextStep from '../components/OrderNextStep';
 import MeasurementReceived from '../components/MeasurementReceived';
 import Sidebar from '../components/Sidebar';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { setId } from '../reducers/measurements';
 
 function OrderDetailsPage(props) {
-
+    const dispatch = useDispatch();
+    
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const curOrdersList = useSelector(state => state.curOrdersList);  
     const curOrder = curOrdersList.find(order => (order.id == orderId));
+
+    const {
+        id,
+    } = useSelector(state => state.measurementsReducer);
+
+    if (orderId != id) {
+        dispatch(setId(orderId));
+    }
 
     return (
         <div>

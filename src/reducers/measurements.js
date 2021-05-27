@@ -5,6 +5,7 @@ const SEND_RQ = "measurements/sendRq"; // status: 0 -> 1
 const RESEND_RQ = "measurements/resendRq"; // status: 1 -> 2
 const RECEIVE_RQ = "measurements/receiveRq"; // status: 1 or 2 -> 3
 const RESET_BP = "measurements/reset";
+const SET_ID = "measurements/setId";
 
 export const IMMUTABLE = 4;
 
@@ -86,17 +87,70 @@ export const resetBP = () => ({
     type: RESET_BP,
 });
 
+export const setId = (payload) => ({
+    type: SET_ID,
+    payload,
+});
+
 const initialState = {
+    id: '',
     bodyParts: [],
     requestedBodyParts: [],
-    measurements: [],
+    measurements: {
+        unit: '',
+        values: [],
+    },
     message: "",
     status: 0,
+    measurementsDB: {
+        '': {
+            bodyParts: [],
+            requestedBodyParts: [],
+            measurements: {
+                unit: '',
+                values: [],
+            },
+            message: "",
+            status: 0,        
+        },
+    },
 };
-
 
 const measurementsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_ID: {
+            let newObj = state.measurementsDB[action.payload];
+            if (state.measurementsDB[action.payload] == undefined) {
+                newObj =  {
+                    bodyParts: [],
+                    requestedBodyParts: [],
+                    measurements: {
+                        unit: '',
+                        values: [],
+                    },
+                    message: "",
+                    status: 0,        
+                };
+            }
+            const updateDB = {
+                ...state.measurementsDB
+            };
+            if (state.id != '') {
+                updateDB[state.id] = {
+                    bodyParts: [...state.bodyParts],
+                    requestedBodyParts: [...state.requestedBodyParts],
+                    measurements: {...state.measurements},
+                    message: state.message.slice(0),
+                    status: state.status,        
+                }    
+            }
+            return {
+                ...state,
+                id: action.payload,
+                ...newObj,
+                measurementsDB: updateDB,            
+            }
+        }
         case ADD_BP: {
             if (action.payload < 0 || action.payload >= allBPs.length) {
                 return state;
@@ -135,7 +189,10 @@ const measurementsReducer = (state = initialState, action) => {
                 ...state,
                 status: 1,
                 requestedBodyParts: [...state.bodyParts],
-                measurements: [],
+                measurements: {
+                    unit: '',
+                    values: [],
+                },
             }
         }
         case RESEND_RQ: {
@@ -143,15 +200,17 @@ const measurementsReducer = (state = initialState, action) => {
                 ...state,
                 status: 2,
                 requestedBodyParts: [...state.bodyParts],
-                measurements: [],
+                measurements: {
+                    unit: '',
+                    values: [],
+                },
             }
         }
         case RECEIVE_RQ: {
-            //update measurements
             return {
                 ...state,
                 status: 3,
-                measurements: action.payload,
+                measurements: {...action.payload},
             }
         }
         case RESET_BP: {
