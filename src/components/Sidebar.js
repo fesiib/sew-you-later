@@ -1,5 +1,5 @@
 import { Disclosure } from '@headlessui/react'
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import Notification from './Notification';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
@@ -27,6 +27,21 @@ function Sidebar(props) {
     const [orderDetailsNotification, setOrderDetailsNotification] = useState(false);
     const [measurementsNotification, setMeasurementsNotification] = useState(false);
 
+    useEffect(() => {
+        const updateNotificationPage = 
+        (curOrder.notificationPage == propConst.orderDetails && pathName == "/order-details") ||
+        (curOrder.notificationPage == propConst.measurements && pathName == "/order-measurements");
+        if(updateNotificationPage) {
+            dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
+        }
+        else if(!orderDetailsNotification && curOrder.notificationPage == propConst.orderDetails) {
+            setOrderDetailsNotification(true);
+        }
+        else if(!measurementsNotification && curOrder.notificationPage == propConst.measurements) {
+            setMeasurementsNotification(true);
+        }
+    }, []);
+
     const orderDetailsComponent =
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
@@ -37,18 +52,18 @@ function Sidebar(props) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
         </svg>;
 
-    if (!orderDetailsNotification && curOrder.notificationPage == propConst.orderDetails) {
-        setOrderDetailsNotification(true);
-        if (pathName == "/order-details") {
-            dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
-        }
-    }
-    if (!measurementsNotification && curOrder.notificationPage == propConst.measurements) {
-        setMeasurementsNotification(true);
-        if (pathName == "/order-measurements") {
-            dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
-        }
-    }
+    // if (!orderDetailsNotification && curOrder.notificationPage == propConst.orderDetails) {
+    //     setOrderDetailsNotification(true);
+    //     if (pathName == "/order-details") {
+    //         dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
+    //     }
+    // }
+    // if (!measurementsNotification && curOrder.notificationPage == propConst.measurements) {
+    //     setMeasurementsNotification(true);
+    //     if (pathName == "/order-measurements") {
+    //         dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
+    //     }
+    // }
 
     function moveTo(href) {
         return () => {
@@ -63,7 +78,6 @@ function Sidebar(props) {
                 else return "true";
             }
             case "discussion-notes": {
-                console.log("hello");
                 if (curStep >= 1) return "";
                 else return "true";
             }

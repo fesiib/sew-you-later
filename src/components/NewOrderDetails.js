@@ -1,11 +1,12 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { useSelector, useDispatch } from 'react-redux';
-import { removeNewOrder } from '../reducers/newOrdersList';
+import { removeNewOrder, updateNewOrder } from '../reducers/newOrdersList';
 import { removeNewRefImage } from '../reducers/newRefImages';
 import { addCurOrder } from '../reducers/curOrdersList';
 import { addCurRefImage } from '../reducers/curRefImages';
 import { makeCurOrderAvId } from '../reducers/curOrdersId';
+import {useEffect} from 'react';
 
 const propConst = {
     refImagesTitle: "Reference Images",
@@ -23,6 +24,10 @@ function NewOrderDetails(props) {
     const curOrdersId = useSelector(state => state.curOrdersId);
     const dispatch = useDispatch();
     const referenceImages = newRefImages.filter(refImage => refImage.parentId == props.vars.id);
+
+    useEffect(() => {
+        dispatch(updateNewOrder({...props.vars, unseen: false}, props.vars.id));
+    });
 
     const appendCurOrder = (curOrder) => {
         dispatch(addCurOrder(curOrder, curOrdersId.avId));

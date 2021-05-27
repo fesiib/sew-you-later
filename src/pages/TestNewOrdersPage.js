@@ -85,7 +85,8 @@ function TestNewOrdersPage(props) {
             nextStepDesc:
                 `Any updates on the product? Click the arrow above to start sending progress report 
                 to the customer.`,
-            nextStepPage: "order-reports"
+            nextStepPage: "order-reports",
+            notificationPage: "Measurements",
         }
     }
 

@@ -1,5 +1,6 @@
 const ADD_NEW_ORDER = "ADD_NEW_ORDER";
 const REMOVE_NEW_ORDER = "REMOVE_NEW_ORDER";
+const UPDATE_NEW_ORDER = "UPDATE_NEW_ORDER";
 
 export const addNewOrder = (newOrder, id) => ({
     type: ADD_NEW_ORDER,
@@ -9,10 +10,17 @@ export const addNewOrder = (newOrder, id) => ({
     }
 });
 
-
 export const removeNewOrder = (id) => ({
     type: REMOVE_NEW_ORDER,
     payload: id,
+});
+
+export const updateNewOrder = (newOrder, id) => ({
+    type: UPDATE_NEW_ORDER,
+    payload: {
+        newOrder: newOrder,
+        id: id,
+    }
 });
 
 const initialState = [];
@@ -34,6 +42,9 @@ const newOrdersList = (state = initialState, action) => {
         }
         case REMOVE_NEW_ORDER: {
             return state.filter((order) => order.id !== action.payload);
+        }
+        case UPDATE_NEW_ORDER: {
+            return state.map((order) => order.id != action.payload.id ? {...order} : {...action.payload.newOrder});
         }
         default:
             return state;
