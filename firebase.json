@@ -9,6 +9,13 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/new-orders",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "**",
