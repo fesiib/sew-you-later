@@ -2,12 +2,13 @@ const ADD_IMAGE = "ADD_IMAGE";
 const DELETE_IMAGE = "DELETE_IMAGE"
 const SEND_DRAFT_IMAGES = "SEND_DRAFT_IMAGES"
 
-export function addImage(src, parentId) {
+export function addImage(src, parentId, orderId) {
     return {
         type: ADD_IMAGE,
         payload: {
             src: src,
             parentReportId: parentId,
+            orderId: orderId,
         }
     };
 };
@@ -19,10 +20,13 @@ export function deleteImage(id) {
     };
 };
 
-export function sendDraftImages(id) {
+export function sendDraftImages(parentReportId, orderId) {
     return {
         type: SEND_DRAFT_IMAGES,
-        payload: id,
+        payload: {
+            parentReportId: parentReportId,
+            orderId: orderId,
+        }
     };
 }
 
@@ -53,7 +57,8 @@ export default function reportImages(state = initialState, action) {
                     if(image.parentReportId === -1)
                         return {
                             ...image,
-                            parentReportId: action.payload
+                            parentReportId: action.payload.parentReportId,
+                            orderId: action.payload.orderId,
                         };
                     return image;
                 }

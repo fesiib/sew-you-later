@@ -87,13 +87,19 @@ function TestNewOrdersPage(props) {
         window.location = '/new-orders'
     }
 
-    const orderId = 0;
+    const {
+        id,
+        status,
+        requestedBodyParts
+    } = useSelector(state => state.measurementsReducer);
+
+    const orderId = id;
     const curOrdersList = useSelector(state => state.curOrdersList);
     const curOrder = curOrdersList.find(order => (order.id == orderId));
 
     // For progress bar
     const updateTheOrder = () => {
-        dispatch(updateCurOrder(updateProgress(), orderId));
+        dispatch(updateCurOrder(updateProgress(id), orderId));
     };
 
     const updateProgress = () => {
@@ -111,12 +117,6 @@ function TestNewOrdersPage(props) {
             notificationPage: "Measurements",
         }
     }
-
-    const {
-        id,
-        status,
-        requestedBodyParts
-    } = useSelector(state => state.measurementsReducer);
 
     const _receiveMeasurements = () => {
         if (status != 1 && status != 2) {

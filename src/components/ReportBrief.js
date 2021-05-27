@@ -12,8 +12,8 @@ const propVars = {
     imgLink: "https://v1.tailwindcss.com/img/card-top.jpg"
 };
 
-function ReportBrief({ id, report }) {
-    const images = useSelector(state => state.reportImages.filter(image => image.parentReportId === id));
+function ReportBrief({ id, report, orderId }) {
+    const images = useSelector(state => state.reportImages.filter(image => (image.parentReportId === id && image.orderId === orderId)));
     const n = images.length;
 
     var imgRendered = [];
@@ -43,8 +43,8 @@ function ReportBrief({ id, report }) {
                     }
                     popupContent={
                         <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                            <ReportImages reportId={id} />
-                            <ReportMessage reportId={id} />
+                            <ReportImages reportId={id} orderId={orderId}/>
+                            <ReportMessage reportId={id} orderId={orderId}/>
                         </div>
                     }
                 />
