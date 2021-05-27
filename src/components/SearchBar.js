@@ -16,6 +16,9 @@ function SearchBar(props) {
             response.json().then(data => {
                 setTextInput("");
                 props.setSearchResults(data.filter((val, index) => index < 20));
+            }).catch(reason => {
+                setTextInput("Error: Problem Occured While Fetching Images :(");
+                console.log(reason);
             });  
         })
         setTextInput("Searching...");
