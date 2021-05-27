@@ -18,8 +18,9 @@ const reduxStateSyncConfig = {
 const enhancedReducer = persistReducer(persistConfig, reducers);
 
 const composedEnhancers = compose(
-    composeWithDevTools(),
-    applyMiddleware(createStateSyncMiddleware(reduxStateSyncConfig)));
+    composeWithDevTools,
+    applyMiddleware(createStateSyncMiddleware(reduxStateSyncConfig))
+);
 
 export default function configureStore() {
     const store = createStore(
