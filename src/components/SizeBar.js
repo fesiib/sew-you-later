@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const largeIcons = 
 
 <svg className="m-2" width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,15 +20,30 @@ const smallIcons =
 
 function SizeBar(props) {
 
+    const [chosen, setChosen] = useState('medium');
+
+    const choose = (size) => {
+        props.setGallerySize(size);
+        setChosen(size);
+    };
+
+    const getClassName = (size) => {
+        let result = "cursor-pointer ";
+        if(size == chosen) {
+            return result + "bg-gray-400";
+        }
+        return result;
+    };
+
     return (
         <div className="inline-flex">
-            <div className="cursor-pointer" onClick={() => props.setGallerySize('large')}>
+            <div className={getClassName('large')} onClick={() => choose('large')}>
                 {largeIcons}  
             </div>
-            <div className="cursor-pointer" onClick={() => props.setGallerySize('medium')}>
+            <div className={getClassName('medium')} onClick={() => choose('medium')}>
                 {mediumIcons}
             </div>
-            <div className="cursor-pointer" onClick={() => props.setGallerySize('small')}>
+            <div className={getClassName('small')} onClick={() => choose('small')}>
                 {smallIcons}
             </div>
         </div>
