@@ -88,6 +88,7 @@ export const resetBP = () => ({
 
 const initialState = {
     bodyParts: [],
+    requestedBodyParts: [],
     measurements: [],
     message: "",
     status: 0,
@@ -133,12 +134,16 @@ const measurementsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: 1,
+                requestedBodyParts: [...state.bodyParts],
+                measurements: [],
             }
         }
         case RESEND_RQ: {
             return {
                 ...state,
                 status: 2,
+                requestedBodyParts: [...state.bodyParts],
+                measurements: [],
             }
         }
         case RECEIVE_RQ: {

@@ -59,7 +59,7 @@ function TestCurrentOrdersPage(props) {
             <button className={BUTTON_STYLE} onClick={_addCurOrder}> +1 </button>
             <button className={BUTTON_STYLE} onClick={_removeCurOrder}> -1 </button>
             <button className={BUTTON_STYLE} onClick={_updateCurOrder}>U</button>
-            <button className={BUTTON_STYLE} onClick={_receiveMeasurements}>Receive Measurements</button>
+            {/* <button className={BUTTON_STYLE} onClick={_receiveMeasurements}>Receive Measurements</button> */}
             <button className={BUTTON_STYLE} onClick={_resetApp}>Reset</button>
         </div>
     );
