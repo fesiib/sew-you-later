@@ -11,12 +11,12 @@ export function addImage(src, parentId) {
     };
 };
 
-export function deleteImage(src="", parentId="", id="") {
+export function deleteImage(src=undefined, parentId=undefined, id=undefined) {
     return {
         type: DELETE_DISCUSSION_IMAGE,
         payload: {
-            parentId: parentId,
             src: src,
+            parentId: parentId,
             id: id,
         }
     };
@@ -40,6 +40,9 @@ export default function discussionImages(state = initialState, action) {
         }
 
         case DELETE_DISCUSSION_IMAGE: {
+            //console.log(state);
+            //console.log(action.payload);
+            //console.log(state.filter((image) => (image.id != action.payload.id && (image.parentId != action.payload.parentId || image.src != action.payload.src))));
             return state.filter((image) => (image.id != action.payload.id && (image.parentId != action.payload.parentId || image.src != action.payload.src)));
         }
 

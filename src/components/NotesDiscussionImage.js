@@ -10,34 +10,52 @@ import ConfirmCard from './ConfirmCard';
 
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
-function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId}) {
+function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpState, status}) {
     const notes = useSelector(state => state.discussionImageNotes.filter((note) => note.parentId == imageId));
-    // const discussionImage = useSelector(state => state.discussionImages.find(img => img.id == imageId));
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     if(imageId != undefined && notes.length == 0) {
-    //         dispatch(addNote("", "", imageId));
-    //     } 
-    // }, [imageId]);
-
-    // useEffect(() => {
-    //     if(imageId != undefined && notes.length == 0) {
-    //         dispatch(deleteImage("", "", imageId));
-    //     }
-    // }, [notes.length]);
+    useEffect(() => {
+        //console.log('HI with', imageSrc);
+        if(imageId != undefined && notes.length == 0) {
+            if(status == "NOTE") {
+                //console.log("undef, length:0, note");
+                dispatch(addNote("", "", imageId))
+            }
+            else {
+                //console.log("undef, length:0, no note", status);
+                setPopUpState({
+                    imgSrc: imageSrc,
+                    status: "DEL",
+                });
+            }
+        }
+        else if(status == "NOTE") {        
+            //console.log("only note");
+            setPopUpState({
+                imgSrc: imageSrc,
+                status: "",
+            });
+        }
+    }, [notes]);
 
     const _deleteImage = () => {
-        dispatch(deleteImage("", "", imageId));
+        setPopUpState({
+            imgSrc: imageSrc,
+            status: "DEL",
+        });
+        //console.log("begin note erase");
         notes.forEach(note => {
             dispatch(deleteNote(note.id));
         });
-        closePopup();
+        //console.log("end note erase");
     }
 
     const _addNote = () => {
         if(imageId == undefined) {
-            dispatch(addImage(imageSrc, orderId));
+            setPopUpState({
+                imgSrc: imageSrc,
+                status: "ADD",
+            });
         }
         else {
             dispatch(addNote("", "", imageId))
@@ -50,13 +68,16 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId}) {
 
     function popupClick(e, close) {
         if(typeof e.target.className.includes === "function")
-            if(e.target.className.includes("back"))
+            if(e.target.className.includes("back")) {
                 close();
+            }
     };
 
+    const borderColor = notes.length > 0 ? " border-green-400" : " border-gray-200";
+
     return (
-        <div className="max-w-5xl w-full lg:flex card overflow-hidden">
-            <img className="mx-auto lg:mx-0 h-96 w-96 object-cover" src={imageSrc}/>
+        <div className={`max-w-5xl w-full lg:flex card overflow-hidden border-4 border-opacity-50 ${borderColor}`}>
+            <img className={`mx-auto lg:mx-0 h-96 w-96 object-cover`} src={imageSrc}/>
             <div className="flex flex-col w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 pb-0 leading-normal">
                 <div>
                     {
@@ -89,8 +110,8 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId}) {
                                                         <ConfirmCard 
                                                         onConfirm={_deleteImage}
                                                         onDecline={close} 
-                                                        title="Delete image?" 
-                                                        body="Deleting the image will permanently delete all the notes taken for this image."
+                                                        title="Delete Notes?" 
+                                                        body="This will permanently delete all the notes taken for this image."
                                                         decline="Cancel"
                                                         confirm="Delete"
                                                     />
@@ -100,7 +121,7 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId}) {
                                     </Popup>
                                 </div>
                                 <div>
-                                    <button onClick={closePopup} className="text-black p-0 mx-2 shadow-none">
+                                    <button onClick={() => setPopUpState({imgSrc: "", status: "",})} className="text-black p-0 mx-2 shadow-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                         </svg>
@@ -120,7 +141,7 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId}) {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                             icon</h2>
+                            icon</h2>
                             :
                             renderedNotes
                         }
@@ -129,6 +150,7 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId}) {
             </div>
         </div>
     );
+    
 }
 
 export default NotesDiscussionImage;
