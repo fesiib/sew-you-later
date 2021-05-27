@@ -98,7 +98,7 @@ function OrderMeasurementsPage(props) {
                         <MeasurementBody />
                     </div>
                     <div className="flex-col w-2/5">
-                        <div className="">
+                        <div className="mt-6 mx-8">
                             <MeasurementReceived vars={"measurements"} />
                         </div>
                         <MeasurementTags />
