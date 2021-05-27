@@ -48,7 +48,7 @@ function OrderReportsPage(props) {
         <div>
             <Navbar />
             <FAQButton />
-            {/* <Sidebar /> */}
+            <Sidebar />
             <div className="m-8 mt-6 ml-28">
                 <div className="flex mb-8">
                     <h1 className="text-black mr-1 my-auto">Order Reports</h1>

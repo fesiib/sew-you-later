@@ -39,5 +39,4 @@ export const logOut = () => {
   })
 }
 
-export {signInWithGoogle, logOut};
-export {db, auth,analytics, firebaseApp, firebase};
+export default {db, auth, analytics, firebaseApp, firebase};
