@@ -17,16 +17,13 @@ const reduxStateSyncConfig = {
 
 const enhancedReducer = persistReducer(persistConfig, reducers);
 
-const composedEnhancers = compose(
-    composeWithDevTools,
-    applyMiddleware(createStateSyncMiddleware(reduxStateSyncConfig))
-);
-
 export default function configureStore() {
     const store = createStore(
         enhancedReducer,
         undefined,
-        composedEnhancers,
+        composeWithDevTools(
+            applyMiddleware(createStateSyncMiddleware(reduxStateSyncConfig))
+        ),
     );
     initStateWithPrevTab(store);
     const persistor = persistStore(store);
