@@ -1,5 +1,9 @@
 # Sew you later!
 
+## Development Notes
+
+`redux-state-sync` requires to pass payloads for actions in reducers to be `JSON.stringify`-able. **Do not pass functions as payloads**
+
 ## Dependencies
 Install all the dependencies running the following command in the project directory.
 ```
