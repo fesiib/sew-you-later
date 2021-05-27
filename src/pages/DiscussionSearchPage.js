@@ -73,6 +73,13 @@ function DiscussionSearchPage(props) {
                 //console.log("Del, undef");
             }
         }
+        else if(popUpState.status == "DEL-CLOSE") {
+            dispatch(deleteImage(popUpState.imgSrc, orderId));
+            setPopUpState({
+                imgSrc: "",
+                status: "",
+            });
+        }
     }, [popUpState]);
 
     const parentOrganizationUpdate = (option) => {
