@@ -17,9 +17,37 @@ Our prototype is now live at [link](#).
 ## Simulating End-to-End Scenario
 This is our additional section for those who wants to try out our website.
 
-Since our system focuses on the producers' side (those who make handmade cloth products), we are not supporting the interfaces for the customers' side. For example, to have a discussion in real scenario, there might be a feature that supports live video call and screen sharing as well. In this case, we assume that the video call and the screen sharing are already settled up. And since the producers need the measurements from the customers, we provide an extra page that one can simulate the measurement records sending. 
+Since our system focuses on the producers' side (those who make handmade cloth products), we are not supporting the interfaces for the customers' side. For example, to have a discussion in real scenario, there might be a feature that supports live video call and screen sharing as well. In this case, we assume that the video call and the screen sharing are already settled up. 
 
-After the producer has sent a measurement form, to proceed, you have to send the measurements by going to `[BASE_URL]/test/new-orders`. This will respond to the measurement form automatically. Note that it will update the most recent sent form only.
+There are totally two steps that require an action from the customer's side: **creating a new order** and **sending the measurement**.
+
+### Creating a New Order
+
+To begin the entire process, you have to first create a new order which will appear in the "New Orders" tab in the main page. 
+
+1. Go to `[BASE_URL]/test/new-orders`
+2. Click "+1" button to add *one* new order
+3. Click "Go to New Orders" to come back to the main pages
+
+### Sending the Measurements
+
+Since the producers need the measurements from the customers, we provide an extra page that one can simulate the measurement records sending. 
+
+After the producer has sent a measurement form, to proceed, you have to simulate sending the measurements to the producer. 
+
+1. Send the measurement form as a user
+2. Go to `[BASE_URL]/test/new-orders`
+3. Click "Receive Measurements"
+4. Click "Go to New Orders" to come back to the main pages
+
+This will respond to the measurement form automatically. Note that it will update the most recent sent form only.
+
+### Resetting the Environment
+
+If you want to start over (erasing all orders), do the following.
+
+1. Go to `[BASE_URL]/test/new-orders`
+2. Click "Reset" to get a clean start
 
 ****
 
