@@ -4,6 +4,7 @@ import { deleteImage } from '../reducers/discussionImages';
 import {addImage} from '../reducers/discussionImages';
 import Popup from 'reactjs-popup';
 import {useEffect, useState} from 'react';
+import Notification from '../components/Notification';
 
 import SingleNoteDiscussionImage from './SingleNoteDiscussionImage';
 import ConfirmCard from './ConfirmCard';
@@ -84,8 +85,7 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpS
     };
 
     const borderColor = notes.length > 0 ? " border-green-400" : " border-gray-200";
-
-    return (
+    const noteBox = 
         <div className={`max-w-5xl w-full lg:flex card overflow-hidden border-4 border-opacity-50 ${borderColor}`}>
             <img className={`mx-auto lg:mx-0 h-96 w-96 object-cover`} src={imageSrc}/>
             <div className="flex flex-col w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 pb-0 leading-normal">
@@ -158,7 +158,15 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpS
                     </div>
                 }
             </div>
-        </div>
+        </div>;
+    
+    return (
+        notes.length > 0 ?
+            <Notification type="check" position="top-left" size="h-9 w-9">
+                {noteBox}
+            </Notification>
+        :
+        noteBox
     );
     
 }
