@@ -113,8 +113,6 @@ function DiscussionNotesPage(props) {
                 <div className="p-4 m-4 gallery-large">
 
                 {
-                    popUpState.imgSrc == ""
-                    ?
                     curDiscussionImages.map((img, index) => (
 
                         <div>                            
@@ -141,30 +139,32 @@ function DiscussionNotesPage(props) {
                         </div>
     
                     ))
-                    :
-                    <div>                            
-                        <Notification type="check" position="top-right">
-                            <img className="thumbnail border-4 border-green-400 cursor-pointer" src={popUpState.imgSrc} onClick={() => viewTheImage(popUpState.imgSrc)}/>
-                        </Notification>
-                        <Popup
-                            key={0} 
-                            open={true}
-                            modal
-                            nested
-                            position="center center"
-                            contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
-                        >
-                            {close => (
-                                    <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
-                                        <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                                            <NotesDiscussionImage imageId={getImageId(popUpState.imgSrc, false)} imageSrc={popUpState.imgSrc} closePopup={close} orderId={orderId} setPopUpState={setPopUpState} status={popUpState.status}/>
+                    }
+                    {
+                        popUpState.imgSrc != "" && curDiscussionImages.find(img => img.src == popUpState.imgSrc) == undefined
+                    ?
+                        <div>                            
+                            <Popup
+                                key={0} 
+                                open={true}
+                                modal
+                                nested
+                                position="center center"
+                                contentStyle={{width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}}
+                            >
+                                {close => (
+                                        <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                            <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                                <NotesDiscussionImage imageId={getImageId(popUpState.imgSrc, false)} imageSrc={popUpState.imgSrc} closePopup={close} orderId={orderId} setPopUpState={setPopUpState} status={popUpState.status}/>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            }
-                        </Popup>
-                    </div>
-                }
+                                    )
+                                }
+                            </Popup>
+                        </div>
+                    :
+                        <></>
+                    }
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ export function addImage(src, parentId) {
     };
 };
 
-export function deleteImage(src=undefined, parentId=undefined, id=undefined) {
+export function deleteImage(src="-1", parentId="-1", id="-1") {
     return {
         type: DELETE_DISCUSSION_IMAGE,
         payload: {
