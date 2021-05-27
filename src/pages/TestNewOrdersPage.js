@@ -95,7 +95,7 @@ function TestNewOrdersPage(props) {
 
     const orderId = id;
     const curOrdersList = useSelector(state => state.curOrdersList);
-    const curOrder = curOrdersList.find(order => (order.id == orderId));
+    const curOrder = curOrdersList.find(order => (order.id === parseInt(orderId)));
 
     // For progress bar
     const updateTheOrder = () => {
