@@ -90,7 +90,6 @@ function TestNewOrdersPage(props) {
     }
 
     const _receiveMeasurements = () => {
-        console.log("receiving");
         dispatch(receiveRq([22, 66, 60, 80, 25, 70]));
         updateTheOrder();
     }

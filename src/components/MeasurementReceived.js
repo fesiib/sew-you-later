@@ -10,7 +10,7 @@ const propsConst = {
 function MeasurementReceived(props) {
     const dispatch = useDispatch();
     const {
-        bodyParts,
+        requestedBodyParts,
         measurements,
         status
     } = useSelector(state => state.measurementsReducer);
@@ -70,7 +70,7 @@ function MeasurementReceived(props) {
             <div className="min-w-min bg-white rounded-xl p-4">
                 <h1 className="min-w-min mb-2"> {propsConst.measurementsTitle} </h1>
                 <div className="">
-                    {formatMeasurementsOrderDetails(bodyParts, measurements)}
+                    {formatMeasurementsOrderDetails(requestedBodyParts, measurements)}
                 </div>
             </div>
         );    
@@ -78,7 +78,7 @@ function MeasurementReceived(props) {
     return (
         <div className="card ml-2 p-4">
             <h2> {propsConst.measurementsTitle} </h2>
-            {formatMeasurements(bodyParts, measurements)}
+            {formatMeasurements(requestedBodyParts, measurements)}
         </div>
     );
 };

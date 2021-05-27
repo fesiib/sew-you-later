@@ -1,10 +1,40 @@
 # Sew you later!
 
+## Implementation Details
+
+### Code Structure
+Since we are using React as our framework, most of our codes reside inside [`src`](https://github.com/fesiib/sew-you-later/tree/main/src) folder. Inside the folder, there are files that are used for setting ups the project. Here, we want to note that [`index.css`](https://github.com/fesiib/sew-you-later/blob/main/src/index.css) is imported to most of our templates. [`Routes.js`](https://github.com/fesiib/sew-you-later/blob/main/src/Routes.js) is powered by `react-router-dom` library to support routing between pages.
+
+Inside [`src`](https://github.com/fesiib/sew-you-later/tree/main/src), there are three folders that we heavily put effort into.
+
+- `src/components`: Implementations of base components can be found here, for example, the navigation bar, the progress bar, image placeholder, measurement canvas, and etc. These components will be combined later in pages. Basically, after we have been through the process of lo-fi prototyping, we jump into this in the early stages.
+- `src/pages`: After we finished implementing base components, we start to arrange things into pages. Most of the interaction supports are implemented here. These pages are also routed between each other.
+- `src/reducers`: We decide to store a copy of the database of one user when the session is established. This way, we do not have to frequently update the database which it might reduce the speed performance via saving since we do support drafting feature (when a user adds a note). The reducers will store states and will be accessible across all pages.
+
+### Prototype URL
+Our prototype is now live at [link](https://google.com).
+
+## Simulating End-to-End Scenario
+This is our additional section for those who wants to try out our website.
+
+Since our system focuses on the producers' side (those who make handmade cloth products), we are not supporting the interfaces for the customers' side. For example, to have a discussion in real scenario, there might be a feature that supports live video call and screen sharing as well. In this case, we assume that the video call and the screen sharing are already settled up. And since the producers need the measurements from the customers, we provide an extra page that one can simulate the measurement records sending. 
+
+After the producer has sent a measurement form, to proceed, you have to send the measurements by going to [this link](#). This will respond to the measurement form automatically.
+
+****
+
+## Development Notes
+
+`redux-state-sync` requires to pass payloads for actions in reducers to be `JSON.stringify`-able. **Do not pass functions as payloads**
+
 ## Dependencies
 Install all the dependencies running the following command in the project directory.
 ```
 npm install
 ```
+
+****
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
