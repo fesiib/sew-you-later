@@ -8,6 +8,7 @@ import { useState } from 'react';
 const propConst = {
     header: "Current Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
+    noCurrentOrders: "No Current Orders",
 };
 
 const propUtils = {
@@ -71,13 +72,19 @@ function CurrentOrderspage(props) {
                     <SortBy options={propConst.sortByOptions} parentUpdate={updateOrganization} />
                 </div>
                 <div className="flex justify-center mb-2">
-                    <ul>
-                        {curOrdersOrganization.map((val) => (
-                            <div className="mb-6">
-                                <CurOrderItem vars={val} />
-                            </div>
-                        ))}
-                    </ul>
+                    {
+                        curOrdersOrganization.length > 0 
+                        ?
+                        <ul>
+                            {curOrdersOrganization.map((val) => (
+                                <div className="mb-6">
+                                    <CurOrderItem vars={val} />
+                                </div>
+                            ))}
+                        </ul>
+                        :
+                        <h3>{propConst.noCurrentOrders}</h3>
+                    }
                 </div>
             </div>
         </div>

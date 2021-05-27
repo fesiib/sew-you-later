@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 const propConst = {
     header: "New Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Customer", "Location"],
+    noNeworders: "No New Orders",
 };
 
 
@@ -70,13 +71,19 @@ function NewOrdersPage(props) {
                     <SortBy options={propConst.sortByOptions} parentUpdate={updateOrganization} />
                 </div>
                 <div className="flex justify-center mb-2">
-                    <ul>
-                        {newOrdersOrganization.map((val) => (
-                            <div className="mb-6">
-                                <NewOrderItem vars={val} />
-                            </div>
-                        ))}
-                    </ul>
+                    {
+                        newOrdersOrganization.length > 0
+                        ?
+                        <ul>
+                            {newOrdersOrganization.map((val) => (
+                                <div className="mb-6">
+                                    <NewOrderItem vars={val} />
+                                </div>
+                            ))}
+                        </ul>
+                        :
+                        <h3>{propConst.noNeworders}</h3>
+                    }
                 </div>
             </div>
         </div>
