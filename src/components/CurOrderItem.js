@@ -13,7 +13,7 @@ const propConst = {
 function CurOrderItem(props) {
 
     const curRefImages = useSelector(state => state.curRefImages);
-    const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
+    const referenceImages = curRefImages.filter((refImage) => refImage.parentId === props.vars.id);
 
     const moveTo = (href, params) => {
         return () => {
@@ -42,7 +42,7 @@ function CurOrderItem(props) {
                             </div>
                         </div>
                         <div className="text-right -mt-2">
-                            <a href="#" className="flex flex-row justify-end items-center font-bold text-green-500 cursor-default">
+                            <a className="flex flex-row justify-end items-center font-bold text-green-500 cursor-default">
                                 <CalendarIcon className="h-6 text-blue-h2"/>
                                 <p className="text-sm">{propConst.estimatedDue + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</p>
                             </a>                           
@@ -51,7 +51,7 @@ function CurOrderItem(props) {
                 </div>
                 <div className="m-4">
                     {
-                        referenceImages[0] == undefined
+                        referenceImages[0] === undefined
                         ?
                         <ImageWithText vars={{referenceImage: propConst.imagePlaceholderLink, text: 0}}/>
                         :

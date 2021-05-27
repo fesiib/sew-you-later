@@ -32,7 +32,7 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
 
     return (
         <div className="max-w-5xl w-full lg:flex card overflow-hidden">
-            <img className="mx-auto lg:mx-0 h-96 w-96 object-cover" src={imageSrc}/>
+            <img alt="" className="mx-auto lg:mx-0 h-96 w-96 object-cover" src={imageSrc}/>
             <div className="flex flex-col w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 pb-0 leading-normal">
                 <div>
                     {reportId === -1 ?

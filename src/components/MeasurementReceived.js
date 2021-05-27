@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { allBPs, editMsg, IMMUTABLE } from "../reducers/measurements";
+import { allBPs} from "../reducers/measurements";
 
 const propsConst = {
     measurementsTitle: "Measurements",
@@ -8,7 +8,6 @@ const propsConst = {
 };
 
 function MeasurementReceived(props) {
-    const dispatch = useDispatch();
     const {
         requestedBodyParts,
         measurements,
@@ -16,18 +15,14 @@ function MeasurementReceived(props) {
     } = useSelector(state => state.measurementsReducer);
 
 
-    const onChange = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-    }
     if (status == 0) {
         return (<div></div>);
     }
 
     const formatMeasurementsOrderDetails = (indexes, {unit, values}) => {
         console.log(indexes, values);
-        if (values.length == 0) {
-            if (status == 3) {
+        if (values.length === 0) {
+            if (status === 3) {
                 return (
                     <p className="row-span-1"> {propsConst.measurementsPlaceholderReceived} </p>
                 );
@@ -46,8 +41,8 @@ function MeasurementReceived(props) {
     };
     const formatMeasurements = (indexes, {unit, values}) => {
         console.log(indexes, values);
-        if (values.length == 0) {
-            if (status == 3) {
+        if (values.length === 0) {
+            if (status === 3) {
                 return (
                     <p> {propsConst.measurementsPlaceholderReceived} </p>
                 );

@@ -1,9 +1,9 @@
 // add send and title
 // fix null problem
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import measurementsReducer, { allBPs, IMMUTABLE, addBP, removeBP, receiveRq, resetBP } from '../reducers/measurements';
+import { allBPs, IMMUTABLE, addBP, removeBP, resetBP } from '../reducers/measurements';
 import MenBody from './MenBody';
 
 
@@ -99,7 +99,7 @@ function MeasurementBody(props) {
                 BPRefsShadow[value].current.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
             }
         }
-        if (status == IMMUTABLE) {
+        if (status === IMMUTABLE) {
             resetRef.current.disabled = true;
             resetRef.current.className = "invisible";
         }
@@ -115,7 +115,7 @@ function MeasurementBody(props) {
         if (show) {
             selectionRef.current.innerHTML = allBPs[value];
             selectionRef.current.className = propConst.selectedClassName;
-            if (status != IMMUTABLE && !containsObject(value, bodyParts)) {
+            if (status !== IMMUTABLE && !containsObject(value, bodyParts)) {
                 event.target.setAttribute('style', ON_SHADOW_STYLE_CSS);
                 //BPRefs[value].current.setAttribute('style', SELECTED_ELLIPSE_STYLE_CSS);
             }
@@ -126,7 +126,7 @@ function MeasurementBody(props) {
                     selectionRef.current.innerHTML = allBPs[0];
                     selectionRef.current.className = propConst.placeholderClassName;
                 }
-                if (status != IMMUTABLE && !containsObject(value, bodyParts)) {
+                if (status !== IMMUTABLE && !containsObject(value, bodyParts)) {
                     event.target.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
                     //BPRefs[value].current.setAttribute('style', PLACEHOLDER_ELLIPSE_STYLE_CSS);
                 }
@@ -138,7 +138,7 @@ function MeasurementBody(props) {
     const onClick = (event, value) => {
         event.stopPropagation();
         event.preventDefault();
-        if (status == IMMUTABLE) {
+        if (status === IMMUTABLE) {
             return;
         }
         if (containsObject(value, bodyParts)) {

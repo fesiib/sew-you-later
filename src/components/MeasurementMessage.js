@@ -19,13 +19,13 @@ function MeasurementMessage(props) {
     const onChange = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (event.target.value != undefined)
+        if (event.target.value !== undefined)
             _editMsg(event.target.value);
     }
     return (
         <div className="max-w-2xl m-10">
             <textarea 
-                readOnly={status==IMMUTABLE}
+                readOnly={status===IMMUTABLE}
                 value={message}
                 onChange={onChange}
                 placeholder={propVars.measurementNotesPlaceholder}
