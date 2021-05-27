@@ -50,6 +50,16 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpS
         //console.log("end note erase");
     }
 
+    const _deleteImageAndClose = () => {
+        setPopUpState({
+            imgSrc: imageSrc,
+            status: "DEL-CLOSE",
+        });
+        notes.forEach(note => {
+            dispatch(deleteNote(note.id));
+        });
+    };
+
     const _addNote = () => {
         if(imageId == undefined) {
             setPopUpState({
@@ -108,10 +118,10 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpS
                                         {close => (
                                                     <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
                                                         <ConfirmCard 
-                                                        onConfirm={_deleteImage}
+                                                        onConfirm={_deleteImageAndClose}
                                                         onDecline={close} 
                                                         title="Delete Notes?" 
-                                                        body="This will permanently delete all the notes taken for this image."
+                                                        body="This will permanently delete all the notes taken for this image and will close the pop-up."
                                                         decline="Cancel"
                                                         confirm="Delete"
                                                     />
