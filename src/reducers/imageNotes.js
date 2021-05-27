@@ -4,7 +4,7 @@ const UPDATE_DRAFT_NOTE_TITLE = "UPDATE_DRAFT_NOTE_TITLE";
 const UPDATE_DRAFT_NOTE_BODY = "UPDATE_DRAFT_NOTE_BODY";
 const SEND_DRAFT_NOTES = "SEND_DRAFT_NOTES";
 
-export function addNote(title, body, parentId, reportId) {
+export function addNote(title, body, parentId, reportId, orderId) {
     return {
         type: ADD_NOTE,
         payload: {
@@ -12,6 +12,7 @@ export function addNote(title, body, parentId, reportId) {
             body: body,
             parentImageId: parentId,
             reportId: reportId,
+            orderId: orderId,
         }
     }
 };
@@ -43,10 +44,13 @@ export function updateDraftNoteBody(id, body) {
     }
 };
 
-export function sendDraftNotes(id) {
+export function sendDraftNotes(reportId, orderId) {
     return {
         type: SEND_DRAFT_NOTES,
-        payload: id,
+        payload: {
+            reportId: reportId,
+            orderId: orderId,
+        },
     }
 };
 
@@ -95,10 +99,10 @@ export default function imageNotes(state = initialState, action) {
         }
         case SEND_DRAFT_NOTES: {
             return state.map(note => {
-                    if(note.reportId === -1)
+                    if(note.reportId === -1 && note.orderId === action.payload.orderId)
                         return {
                             ...note,
-                            reportId: action.payload
+                            reportId: action.payload.reportId,
                         };
                     return note;
                 }

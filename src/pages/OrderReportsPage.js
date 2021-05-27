@@ -15,11 +15,12 @@ import FAQButton from '../components/FAQButton';
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function OrderReportsPage(props) {
+    const orderId = parseInt(new URLSearchParams(window.location.search).get('orderId'));
     const reports = useSelector(state => state.orderReports);
     const dispatch = useDispatch();
     
-    const renderedReports = reports.filter(report => report.id !== -1).map(report => {
-        return <ReportBrief key={report.id} id={report.id} report={report} />
+    const renderedReports = reports.filter(report => (report.id !== -1 && report.orderId === orderId)).map(report => {
+        return <ReportBrief key={report.id} id={report.id} orderId={orderId} report={report} />
     }).reverse();
 
     function popupClick(e, close) {
@@ -28,27 +29,26 @@ function OrderReportsPage(props) {
                 close();
     };
 
+    function getAvailableId(reports) {
+        let filtered = reports.filter(report => (report.id !== -1));
+        if(filtered.length === 0)
+            return 0;
+        return filtered[filtered.length - 1].id + 1;
+    }
+
     const _submitReport = () => {
-        if(reports.length == 1) {
-            let date = (new Date()).toLocaleString();
-            dispatch(sendDraftReport(0, date));
-            dispatch(sendDraftImages(0));
-            dispatch(sendDraftNotes(0));
-        }
-        else {
-            let setId = reports[reports.length - 2].id + 1;
-            let date = (new Date()).toLocaleString();
-            dispatch(sendDraftReport(setId, date));
-            dispatch(sendDraftImages(setId));
-            dispatch(sendDraftNotes(setId));
-        }
+        let availableId = getAvailableId(reports);
+        let date = (new Date()).toLocaleString();
+        dispatch(sendDraftReport(availableId, orderId, date));
+        dispatch(sendDraftImages(availableId, orderId));
+        dispatch(sendDraftNotes(availableId, orderId));
     }
     
     return (
         <div>
             <Navbar />
             <FAQButton />
-            <Sidebar />
+            {/* <Sidebar /> */}
             <div className="m-8 mt-6 ml-28">
                 <div className="flex mb-8">
                     <h1 className="text-black mr-1 my-auto">Order Reports</h1>
@@ -74,8 +74,8 @@ function OrderReportsPage(props) {
                                     </button>
                                     <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
                                         <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                                            <ReportImages reportId={-1}/>
-                                            <ReportMessage reportId={-1}/>
+                                            <ReportImages reportId={-1} orderId={orderId}/>
+                                            <ReportMessage reportId={-1} orderId={orderId}/>
                                         </div>
                                     </div>
                                     <div className="fixed bottom-8 right-8">

@@ -14,9 +14,8 @@ const propVars = {
 
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
-function ReportImages({reportId}) {
-    const report = useSelector(state => state.orderReports.find((report) => report.id === reportId));
-    const images = useSelector(state => state.reportImages.filter((image) => image.parentReportId === reportId));
+function ReportImages({reportId, orderId}) {
+    const images = useSelector(state => state.reportImages.filter((image) => (image.parentReportId === reportId && image.orderId === orderId)));
     const dispatch = useDispatch();
 
     function popupClick(e, close) {
@@ -39,7 +38,7 @@ function ReportImages({reportId}) {
                     {close => (
                             <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
                                 <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                                    <ImageNotes imageId={image.id} imageSrc={image.src} reportId={reportId} closePopup={close}/>
+                                    <ImageNotes imageId={image.id} imageSrc={image.src} reportId={reportId} orderId={orderId} closePopup={close}/>
                                 </div>
                             </div>
                         )
@@ -53,9 +52,9 @@ function ReportImages({reportId}) {
 
     function uploadImage() {
         var src = "/report_images/tshirt.jpg"
-        dispatch(addImage(src, reportId));
+        dispatch(addImage(src, reportId, orderId));
         src = "/report_images/pocket.png"
-        dispatch(addImage(src, reportId));
+        dispatch(addImage(src, reportId, orderId));
     }
 
     return (

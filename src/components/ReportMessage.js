@@ -9,8 +9,8 @@ const placeholder = {
 
 var editable = false;
 
-function ReportMessage({reportId}) {
-    const report = useSelector(state => state.orderReports.find((report) => report.id === reportId));
+function ReportMessage({reportId, orderId}) {
+    const report = useSelector(state => state.orderReports.find((report) => (report.id === reportId && report.orderId === orderId)));
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const dispatch = useDispatch();
@@ -22,18 +22,18 @@ function ReportMessage({reportId}) {
         }
         else {
             const date = (new Date()).toLocaleString();
-            dispatch(addBlankReport(date));
+            dispatch(addBlankReport(date, orderId));
         }
     }, []);
 
     function onChangeTitle(e) {
         setTitle(e.target.value);
-        dispatch(updateDraftReportTitle(e.target.value));
+        dispatch(updateDraftReportTitle(e.target.value, orderId));
     }
 
     function onChangeBody(e) {
         setBody(e.target.value);
-        dispatch(updateDraftReportBody(e.target.value));
+        dispatch(updateDraftReportBody(e.target.value, orderId));
     }
     
     return (

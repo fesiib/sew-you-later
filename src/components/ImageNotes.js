@@ -8,12 +8,12 @@ import ConfirmCard from './ConfirmCard';
 
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
-function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
-    const notes = useSelector(state => state.imageNotes.filter((note) => note.parentImageId === imageId));
+function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
+    const notes = useSelector(state => state.imageNotes.filter((note) => (note.parentImageId === imageId && note.orderId === orderId)));
     const dispatch = useDispatch();
 
     const renderedNotes = notes.map(note => {
-        return <SingleNote key={note.id} id={note.id} reportId={reportId} imageId={imageId}/>
+        return <SingleNote key={note.id} id={note.id} reportId={reportId} orderId={orderId} imageId={imageId}/>
     }).reverse();
 
     const _deleteImage = () => {
@@ -39,7 +39,7 @@ function ImageNotes({imageId, imageSrc, reportId, closePopup}) {
                         <div className="flex justify-between">
                             <div className="flex mb-3">
                                 <h2 className="text-black mr-1 my-auto">Notes</h2>
-                                <button onClick={() => dispatch(addNote("", "", imageId, reportId))} className="text-black p-0 rounded-full shadow-none my-auto">
+                                <button onClick={() => dispatch(addNote("", "", imageId, reportId, orderId))} className="text-black p-0 rounded-full shadow-none my-auto">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>

@@ -5,14 +5,15 @@ const UPDATE_DRAFT_REPORT_TITLE = "UPDATE_DRAFT_REPORT_TITLE";
 const UPDATE_DRAFT_REPORT_BODY = "UPDATE_DRAFT_REPORT_BODY";
 const SEND_DRAFT_REPORT = "SEND_DRAFT_REPORT";
 
-export function addReport(title, body, date) {
+export function addBlankReport(date, orderId) {
     return {
-        type: ADD_REPORT,
+        type: ADD_BLANK_REPORT,
         payload: {
             postDate: date,
-            title: title,
-            body: body,
-        }
+            title: "",
+            body: "",
+            orderId: orderId,
+        },
     };
 }
 
@@ -23,37 +24,33 @@ export function deleteReport(id) {
     };
 }
 
-export function addBlankReport(date) {
-    return {
-        type: ADD_BLANK_REPORT,
-        payload: {
-            postDate: date,
-            title: "",
-            body: "",
-        },
-    };
-}
-
-export function updateDraftReportTitle(title) {
+export function updateDraftReportTitle(title, orderId) {
     return {
         type: UPDATE_DRAFT_REPORT_TITLE,
-        payload: title,
+        payload: {
+            title: title,
+            orderId: orderId,
+        } 
     };
 }
 
-export function updateDraftReportBody(body) {
+export function updateDraftReportBody(body, orderId) {
     return {
         type: UPDATE_DRAFT_REPORT_BODY,
-        payload: body,
+        payload: {
+            body: body,
+            orderId: orderId,
+        } 
     };
 }
 
-export function sendDraftReport(id, date) {
+export function sendDraftReport(availableId, orderId, date) {
     return {
         type: SEND_DRAFT_REPORT,
         payload: {
-            id: id,
+            orderId: orderId,
             postDate: date,
+            id: availableId,
         },
     };
 }
@@ -62,22 +59,6 @@ const initialState = [];
 
 export default function orderReports(state = initialState, action) {
     switch (action.type) {
-        case ADD_REPORT: {
-            var newid = 0;
-            if(state.length !== 0)
-                newid = state[state.length - 1].id + 1;
-            
-            return [
-                ...state,
-                {
-                    ...action.payload,
-                    id: newid,
-                }
-            ];
-        }
-        case DELETE_REPORT: {
-            return state.filter((report) => report.id !== action.payload);
-        }
         case ADD_BLANK_REPORT: {
             return [
                 ...state,
@@ -87,35 +68,37 @@ export default function orderReports(state = initialState, action) {
                 }
             ];
         }
+        case DELETE_REPORT: {
+            return state.filter((report) => report.id !== action.payload);
+        }
+        
         case UPDATE_DRAFT_REPORT_TITLE: {
             return [
-                ...state.filter((report) => report.id !== -1),
+                ...state.filter((report) => (report.id !== -1 || report.orderId !== action.payload.orderId)),
                 {
-                    ...state[state.length - 1],
-                    title: action.payload
+                    ...state.find((report) => (report.id === -1 && report.orderId === action.payload.orderId)),
+                    title: action.payload.title,
                 }
             ];
         }
         case UPDATE_DRAFT_REPORT_BODY: {
             return [
-                ...state.filter((report) => report.id !== -1),
+                ...state.filter((report) => (report.id !== -1 || report.orderId !== action.payload.orderId)),
                 {
-                    ...state[state.length - 1],
-                    body: action.payload
+                    ...state.find((report) => (report.id === -1 && report.orderId === action.payload.orderId)),
+                    body: action.payload.body,
                 }
             ];
         }
         case SEND_DRAFT_REPORT: {
-            return state.map(report => {
-                    if(report.id === -1)
-                        return {
-                            ...report,
-                            id: action.payload.id,
-                            postDate: action.payload.postDate,
-                        };
-                    return report;
-                }
-            )
+            return [
+                ...state.filter(report => (report.id !== -1)),
+                {
+                    ...state.find((report) => (report.id === -1 && report.orderId === action.payload.orderId)),
+                    id: action.payload.id,
+                },
+                ...state.filter(report => (report.id === -1 && report.orderId !== action.payload.orderId)),
+            ]
         }
         default:
             return state;
