@@ -4,8 +4,6 @@ import { useState } from 'react';
 
 function SearchBar(props) {
 
-    // const axios = require("axios")
-    
     const [textInput, setTextInput] = useState("");
 
     const handleEvent = (e) => {
@@ -13,22 +11,18 @@ function SearchBar(props) {
     };
 
     async function search()  {
-        const url = `http://pilgrim.wtf:25565/?search=${textInput}`;
-        // const { data } = await axios.get(url);
-        // console.log(data);
-        setTextInput("");
+        const url = `http://pilgrim.wtf:25565/?search=${textInput} clothes`;
+        fetch(url).then(response => {
+            response.json().then(data => {
+                setTextInput("");
+                props.setSearchResults(data.filter((val, index) => index < 20));
+            });  
+        })
+        setTextInput("Searching...");
     };
 
     const makeSearch = () => {
         search();
-        props.setSearchResults([
-            '/image_database/1.png',
-            '/image_database/2.png',
-            '/image_database/3.png',
-            '/image_database/4.png',
-            '/image_database/5.png',
-            '/image_database/6.png',
-        ]);
     };
 
     return (
