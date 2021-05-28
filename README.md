@@ -12,7 +12,7 @@ Inside [`src`](https://github.com/fesiib/sew-you-later/tree/main/src), there are
 - `src/reducers`: We decide to store a copy of the database of one user when the session is established. This way, we do not have to frequently update the database which it might reduce the speed performance via saving since we do support drafting feature (when a user adds a note). Our solution is to use the reducers, which will store states and will be accessible across all pages.
 
 ### Prototype URL
-Our prototype is now live at [link](#).
+Our prototype is now live at [link](https://sew-you-later.web.app/).
 
 ## Simulating End-to-End Scenario
 This is our additional section for those who wants to try out our website.
