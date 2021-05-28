@@ -1,13 +1,23 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
-import {useSelector} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeCurOrder } from '../reducers/curOrdersList';
+import Popup from 'reactjs-popup';
+import ReportCard from './ReportCard';
 
 const propConst = {
     refImagesTitle: "Reference Images",
     orderDescTitle: "Order Description",
     orderDetailsTitle: "Order Details",
     customerInfoTitle: "Customer Information",
-    reportText: "Report"
+    reportText: "Report",
+
+    reportTitle: "Report this order?",
+    reportBody: `Looks like this order is not appropriate. You can report this order back to the 
+                 customer and delete this order from your list. To do that, please specify the 
+                 reason below.`,
+    reportDecline: "Decline",
+    reportDelete: "Report & Delete",
 };
 
 const propVars = {
@@ -30,6 +40,22 @@ function OrderDetails(props) {
     const curRefImages = useSelector(state => state.curRefImages);
     const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
 
+    const dispatch = useDispatch();
+
+    // Report
+    function popupClick(e, close) {
+        if (typeof e.target.className.includes === "function")
+            if (e.target.className.includes("back")) {
+            }
+    };
+
+    const deleteOrder = () => {
+        dispatch(removeCurOrder(props.vars.id));
+        setTimeout(function () {
+            window.location = "/current-orders";
+        }, 0)
+    }
+
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
             <h1 className="mt-10 ml-10 mr-10 text-center"> {propConst.orderDetailsTitle} </h1>
@@ -39,13 +65,13 @@ function OrderDetails(props) {
                         <h2 className="my-5"> {propConst.orderDescTitle} </h2>
                         <p className="text-black">
                             {props.vars.orderDesc}
-                        </p>    
+                        </p>
                     </div>
                     <div className="">
                         <h2 className="my-5"> {propConst.refImagesTitle} </h2>
-                        <div className = "flex gap-5 flex-wrap">
+                        <div className="flex gap-5 flex-wrap">
                             {referenceImages.map((refImage) => (
-                                <img className="w-36 h-36 thumbnail" src={refImage.src}/>
+                                <img className="w-36 h-36 thumbnail" src={refImage.src} />
                             ))}
                         </div>
                     </div>
@@ -61,14 +87,39 @@ function OrderDetails(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <button href="#" className="flex flex-row justify-end items-center red">
-                            <ExclamationCircleIcon className="h-5"/>
-                            <p>{propConst.reportText}</p>
-                        </button>
+                        <Popup
+                            // key={index}
+                            // open={popUpState.imgSrc == img.src}
+                            trigger={
+                                <button href="#" className="flex flex-row justify-end items-center red">
+                                    <ExclamationCircleIcon className="h-5" />
+                                    <p>{propConst.reportText}</p>
+                                </button>
+                            }
+                            modal
+                            nested
+                            position="center center"
+                            contentStyle={{ width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)" }}
+                        >
+                            {close => (
+                                <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                    <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                        <ReportCard
+                                            title={propConst.reportTitle}
+                                            body={propConst.reportBody}
+                                            onDecline={close}
+                                            onDelete={deleteOrder}
+                                            decline={propConst.reportDecline}
+                                            delete={propConst.reportDelete} />
+                                    </div>
+                                </div>
+                            )
+                            }
+                        </Popup>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     );
 

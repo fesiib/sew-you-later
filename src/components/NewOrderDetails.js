@@ -6,7 +6,9 @@ import { removeNewRefImage } from '../reducers/newRefImages';
 import { addCurOrder } from '../reducers/curOrdersList';
 import { addCurRefImage } from '../reducers/curRefImages';
 import { makeCurOrderAvId } from '../reducers/curOrdersId';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
+import Popup from 'reactjs-popup';
+import ReportCard from './ReportCard';
 
 const propConst = {
     refImagesTitle: "Reference Images",
@@ -16,6 +18,13 @@ const propConst = {
     reportText: "Report",
     acceptText: "Accept",
     declineText: "Decline",
+
+    reportTitle: "Report this order?",
+    reportBody: `Looks like this order is not appropriate. You can report this order back to the 
+                 customer and delete this order from your list. To do that, please specify the 
+                 reason below.`,
+    reportDecline: "Decline",
+    reportDelete: "Report & Delete",
 };
 
 function NewOrderDetails(props) {
@@ -26,7 +35,7 @@ function NewOrderDetails(props) {
     const referenceImages = newRefImages.filter(refImage => refImage.parentId == props.vars.id);
 
     useEffect(() => {
-        dispatch(updateNewOrder({...props.vars, unseen: false}, props.vars.id));
+        dispatch(updateNewOrder({ ...props.vars, unseen: false }, props.vars.id));
     });
 
     const appendCurOrder = (curOrder) => {
@@ -64,6 +73,21 @@ function NewOrderDetails(props) {
         removeTheNewOrder();
     };
 
+    // Report
+    function popupClick(e, close) {
+        if (typeof e.target.className.includes === "function")
+            if (e.target.className.includes("back")) {
+
+            }
+    };
+
+    const deleteOrder = () => {
+        dispatch(removeNewOrder(props.vars.id));
+        setTimeout(function () {
+            window.location = "/new-orders";
+        }, 0)
+    }
+
     return (
         <div className="m-10 min-w-min flex flex-col bg-white rounded-xl">
             <h1 className="mt-10 mx-5 text-center"> {propConst.orderDetailsTitle} </h1>
@@ -95,10 +119,35 @@ function NewOrderDetails(props) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <button href="#" className="flex flex-row justify-end items-center red">
-                            <ExclamationCircleIcon className="h-5" />
-                            <p>{propConst.reportText}</p>
-                        </button>
+                        <Popup
+                            // key={index}
+                            // open={popUpState.imgSrc == img.src}
+                            trigger={
+                                <button href="#" className="flex flex-row justify-end items-center red">
+                                    <ExclamationCircleIcon className="h-5" />
+                                    <p>{propConst.reportText}</p>
+                                </button>
+                            }
+                            modal
+                            nested
+                            position="center center"
+                            contentStyle={{ width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)" }}
+                        >
+                            {close => (
+                                <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                    <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                        <ReportCard
+                                            title={propConst.reportTitle}
+                                            body={propConst.reportBody}
+                                            onDecline={close}
+                                            onDelete={deleteOrder}
+                                            decline={propConst.reportDecline}
+                                            delete={propConst.reportDelete} />
+                                    </div>
+                                </div>
+                            )
+                            }
+                        </Popup>
                     </div>
                 </div>
             </div>
