@@ -24,10 +24,10 @@ function OrderProgress(props) {
                 <ProgressBar vars={props.vars}/>
             </div>
             <div className="mb-4 mr-6 -mt-4 flex justify-end">
-                <a href="#" className="flex flex-row justify-end items-center font-bold text-green-500 cursor-default">
+                <div href="#" className="flex flex-row justify-end items-center font-bold text-blue-h2 cursor-default">
                     <CalendarIcon className="h-10 text-blue-h2"/>
                     <h2 className="text-base ml-2">{propConst.deadlineTitle + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</h2>
-                </a>
+                </div>
             </div>
         </div>
     );

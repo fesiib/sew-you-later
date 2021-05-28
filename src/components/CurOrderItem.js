@@ -42,10 +42,10 @@ function CurOrderItem(props) {
                             </div>
                         </div>
                         <div className="text-right -mt-2">
-                            <a className="flex flex-row justify-end items-center font-bold text-green-500 cursor-default">
-                                <CalendarIcon className="h-6 text-blue-h2"/>
-                                <p className="text-sm">{propConst.estimatedDue + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</p>
-                            </a>                           
+                            <div className="flex flex-row justify-end items-center font-bold text-blue-h2 cursor-default">
+                                <CalendarIcon className="h-6"/>
+                                <p className="text-sm">{propConst.estimatedDue + " " + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</p>
+                            </div>                           
                         </div>
                     </div>
                 </div>

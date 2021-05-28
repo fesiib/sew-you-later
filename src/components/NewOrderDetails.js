@@ -48,7 +48,7 @@ function NewOrderDetails(props) {
     const transformToCurOrder = () => {
         return {
             ...props.vars,
-            estimatedDue: "2021-05-29", // YYYY-MM-DD Now it is a default value, fix it later
+            estimatedDue: "2021-06-29", // YYYY-MM-DD Now it is a default value, fix it later
             steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
             curStepIndex: 1,
             curStepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
