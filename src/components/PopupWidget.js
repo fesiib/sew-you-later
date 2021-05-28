@@ -1,18 +1,5 @@
 import Popup from 'reactjs-popup';
 
-// const propVars = {
-//     popupButton: <button className="w-16 h-16 rounded-full green text-4xl">
-//                     <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-//                     </svg>
-//                 </button>,
-    
-//     popupContent:   <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-//                         <ReportImages/>
-//                         <ReportMessage/>
-//                     </div>
-// };
-
 function PopupWidget(props) {
     // this is to check whether clicked outside the popup widget.
     // the topmost wrapping div should have 'back' class

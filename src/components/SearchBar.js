@@ -25,7 +25,7 @@ function SearchBar(props) {
     }
 
     async function search()  {
-        const url = `http://pilgrim.wtf:25565/?search=${textInput} clothes`;
+        const url = `https://pilgrim.wtf:25565/?search=${textInput} clothes`;
         fetch(url).then(response => {
             response.json().then(data => {
                 setPlaceHolder(defaultPlaceholder);
