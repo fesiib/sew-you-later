@@ -92,6 +92,8 @@
     @apply border border-transparent rounded-md shadow-sm text-base font-medium text-white;
   }
 
+  
+
   .green {
     @apply bg-green-400 hover:bg-green-500;
   }
@@ -178,6 +180,7 @@
   .gallery-small button {
     @apply h-36 w-36;
   }
+  
   .gallery-small img {
     @apply h-36 w-36;
   }
