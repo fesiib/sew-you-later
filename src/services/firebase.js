@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 console.log("here " + process.env.REACT_APP_projectId);
 
@@ -21,6 +22,8 @@ const db = firebaseApp.firestore();
 
 const analytics = firebaseApp.analytics();
 
+const storage = firebaseApp.storage();
+
 const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 export const signInWithGoogle = () => {
@@ -39,4 +42,4 @@ export const logOut = () => {
   })
 }
 
-export default {db, auth, analytics, firebaseApp, firebase};
+export {db, storage, auth, analytics, firebaseApp, firebase as default};

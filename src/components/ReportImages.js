@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage } from '../reducers/reportImages';
+import { storage } from '../services/firebase';
 
 import Popup from 'reactjs-popup';
 import ImageNotes from './ImageNotes';
@@ -51,11 +52,28 @@ function ReportImages({reportId, orderId}) {
     }
 
     const uploadImage = e => {
-        console.log(e.target.files);
-        // var src = "/report_images/tshirt.jpg"
-        // dispatch(addImage(src, reportId, orderId));
-        // src = "/report_images/pocket.png"
-        // dispatch(addImage(src, reportId, orderId));
+        for(var i = 0; i < e.target.files.length; i++) {
+            var image = e.target.files[i];
+            const uploadTask = storage.ref(`report_images/${image.name}`).put(image);
+            uploadTask.on(
+                "state_changed",
+                snapshot => {
+
+                },
+                error => {
+                    console.log(error);
+                },
+                () => {
+                    storage
+                    .ref("report_images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        dispatch(addImage(url, reportId, orderId));
+                    });
+                }
+            )
+        }
     }
 
     return (

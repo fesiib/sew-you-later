@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addNote, deleteNote } from '../reducers/imageNotes';
 import { deleteImage } from '../reducers/reportImages';
 import Popup from 'reactjs-popup';
+import { storage } from '../services/firebase';
 
 import SingleNote from './SingleNote';
 import ConfirmCard from './ConfirmCard';
@@ -18,6 +19,9 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
 
     const _deleteImage = () => {
         dispatch(deleteImage(imageId));
+        // var filename = imageSrc.substring(imageSrc.lastIndexOf('/')+1);
+        // console.log(filename);
+        // storage.ref("report_images").child(filename).delete();
         notes.forEach(note => {
             dispatch(deleteNote(note.id));
         });
