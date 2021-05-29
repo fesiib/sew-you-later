@@ -16,6 +16,7 @@ Our prototype is now live at [link](https://sew-you-later.web.app/).
 
 ## Simulating End-to-End Scenario
 This is our additional section for those who wants to try out our website.
+> :warning: Safari's private mode does not share cache between tabs which result in unexpected behaviour. We recommend using **Google Chrome**. Or if really necessary use it in normal mode.
 
 Since our system focuses on the producers' side (those who make handmade cloth products), we are not supporting the interfaces for the customers' side. For example, to have a discussion in real scenario, there might be a feature that supports live video call and screen sharing as well. In this case, we assume that the video call and the screen sharing are already settled up. 
 
