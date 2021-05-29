@@ -10,7 +10,7 @@ import Routes from './Routes';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import {db, auth,analytics, firebaseApp, firebase} from './services/firebase';
+import {db, auth, analytics, firebaseApp, firebase} from './services/firebase';
 
 const {store, persistor} = configureStore();
 
