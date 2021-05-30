@@ -1,5 +1,5 @@
 import { Disclosure } from '@headlessui/react'
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Notification from './Notification';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
@@ -30,16 +30,16 @@ function Sidebar(props) {
     useEffect(() => {
         const notifyOrderDetailsPage = curOrder.notificationPage == propConst.orderDetails;
         const notifyMeasuementsPage = curOrder.notificationPage == propConst.measurements;
-        const updateNotificationPage = 
-        ((notifyOrderDetailsPage || notifyMeasuementsPage) && pathName == "/order-details") ||
-        (notifyMeasuementsPage && pathName == "/order-measurements");
-        if(updateNotificationPage) {
+        const updateNotificationPage =
+            ((notifyOrderDetailsPage || notifyMeasuementsPage) && pathName == "/order-details") ||
+            (notifyMeasuementsPage && pathName == "/order-measurements");
+        if (updateNotificationPage) {
             dispatch(updateCurOrder({ ...curOrder, notificationPage: "X" }, orderId));
         }
-        else if(!orderDetailsNotification && notifyOrderDetailsPage) {
+        else if (!orderDetailsNotification && notifyOrderDetailsPage) {
             setOrderDetailsNotification(true);
         }
-        else if(!measurementsNotification && (notifyMeasuementsPage || notifyOrderDetailsPage)) {
+        else if (!measurementsNotification && (notifyMeasuementsPage || notifyOrderDetailsPage)) {
             setMeasurementsNotification(true);
         }
     }, []);
@@ -56,7 +56,29 @@ function Sidebar(props) {
 
     function moveTo(href) {
         return () => {
-            window.location = "/" + href + window.location.search;
+            // For progress bar: only toggled when discussion notes is clicked
+            if (href === "discussion-notes" && curOrder.curStepIndex === 1) {
+                const updateProgress = () => {
+                    const nextStepIndex = curOrder.curStepIndex + 1;
+
+                    return {
+                        ...curOrder,
+                        curStepIndex: nextStepIndex,
+                        curStepStatus: "ongoing",
+                        curStepDesc: "About to create a measurements form",
+                        nextStepDesc:
+                            `You will create a measurements form that will be sent to the customer by choosing 
+                            the body parts that you need the measurements. Feel free to add any additional
+                            notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+                        nextStepPage: "order-measurements",
+                    }
+                }
+                dispatch(updateCurOrder(updateProgress(), orderId));
+
+                window.location = "/discussion-search" + window.location.search;
+            }
+
+            else { window.location = "/" + href + window.location.search; }
         }
     }
 
@@ -80,7 +102,7 @@ function Sidebar(props) {
             }
         }
     }
-    
+
     const classOnDisabled = (moveToHref) => {
         if (checkDisabled(moveToHref) === "") return "bg-indigo-900 hover:bg-indigo-700 rounded-lg w-full h-14 justify-start space-x-2";
         else return "bg-indigo-900 text-indigo-700 rounded-lg w-full h-14 justify-start space-x-2"
