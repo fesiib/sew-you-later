@@ -8,7 +8,7 @@ const moveToFAQ = () => {
 };
 
 const propConst = {
-    howToUse = "How to Use?"
+    howToUse: "How to Use?"
 }
 
 function FAQButton(props) {
