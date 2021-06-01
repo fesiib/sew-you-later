@@ -39,6 +39,7 @@ function OrderDetails(props) {
 
     const curRefImages = useSelector(state => state.curRefImages);
     const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);
+    const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
 
     const dispatch = useDispatch();
 
@@ -86,37 +87,39 @@ function OrderDetails(props) {
                             <p>{props.vars.customerEmail}</p>
                         </div>
                     </div>
-                    <div className="flex justify-end">
-                        <Popup
-                            // key={index}
-                            // open={popUpState.imgSrc == img.src}
-                            trigger={
-                                <button href="#" className="flex flex-row justify-end items-center red">
-                                    <ExclamationCircleIcon className="h-5" />
-                                    <p>{propConst.reportText}</p>
-                                </button>
-                            }
-                            modal
-                            nested
-                            position="center center"
-                            contentStyle={{ width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)" }}
-                        >
-                            {close => (
-                                <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
-                                    <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                                        <ReportCard
-                                            title={propConst.reportTitle}
-                                            body={propConst.reportBody}
-                                            onDecline={close}
-                                            onDelete={deleteOrder}
-                                            decline={propConst.reportDecline}
-                                            delete={propConst.reportDelete} />
+                    {!isPrevOrder && 
+                        <div className="flex justify-end">
+                            <Popup
+                                // key={index}
+                                // open={popUpState.imgSrc == img.src}
+                                trigger={
+                                    <button href="#" className="flex flex-row justify-end items-center red">
+                                        <ExclamationCircleIcon className="h-5" />
+                                        <p>{propConst.reportText}</p>
+                                    </button>
+                                }
+                                modal
+                                nested
+                                position="center center"
+                                contentStyle={{ width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)" }}
+                            >
+                                {close => (
+                                    <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                        <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                            <ReportCard
+                                                title={propConst.reportTitle}
+                                                body={propConst.reportBody}
+                                                onDecline={close}
+                                                onDelete={deleteOrder}
+                                                decline={propConst.reportDecline}
+                                                delete={propConst.reportDelete} />
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                            }
-                        </Popup>
-                    </div>
+                                )
+                                }
+                            </Popup>
+                        </div>
+                    }
                 </div>
             </div>
 

@@ -19,6 +19,7 @@ function OrderDetailsPage(props) {
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const curOrdersList = useSelector(state => state.curOrdersList);  
     const curOrder = curOrdersList.find(order => (order.id == orderId));
+    const isPrevOrder = (curOrder.curStepIndex === 4 && curOrder.curStepStatus == "complete");
 
     const {
         id,
@@ -50,7 +51,7 @@ function OrderDetailsPage(props) {
                 <div className="self-start w-1/4">
                     <OrderNextStep vars={curOrder}/>
                     <MeasurementReceived vars={"orderDetails"}/>
-                    <ShowFinish />
+                    {!isPrevOrder && <ShowFinish />}
                 </div>
             </div>
         </div>

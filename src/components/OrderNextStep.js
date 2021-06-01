@@ -17,6 +17,7 @@ const propConst = {
 
 function OrderNextStep(props) {
     const orderId = new URLSearchParams(window.location.search).get('orderId');
+    const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
 
     const dispatch = useDispatch();
 
@@ -82,11 +83,17 @@ function OrderNextStep(props) {
                 <div className="flex">
                     <h1 className="">{propConst.nextStepTitle}</h1>
                 </div>
-                <div className="flex cursor-pointer">
-                    <a onClick={() => updateTheOrder()} className="text-green-500 hover:text-green-600">
-                        <ArrowCircleRightIcon className="h-16 mt-3" />
-                    </a>
-                </div>
+                {!isPrevOrder &&
+                    <div className="flex cursor-pointer">
+                        <a onClick={() => updateTheOrder()} className="text-green-500 hover:text-green-600">
+                            <ArrowCircleRightIcon className="h-16 mt-3" />
+                        </a>
+                    </div>
+                }
+                {isPrevOrder && 
+                    <div className="h-16 mt-3">
+                    </div>
+                }
             </div>
             <div className="mx-5 pb-3">
                 <h2 className="mb-1">{props.vars.steps.split('-')[props.vars.curStepIndex]}</h2>

@@ -25,7 +25,7 @@ function MeasurementMessage(props) {
     return (
         <div className="max-w-2xl m-10">
             <textarea 
-                readOnly={status===IMMUTABLE}
+                readOnly={(status===IMMUTABLE || props.isPrevOrder)}
                 value={message}
                 onChange={onChange}
                 placeholder={propVars.measurementNotesPlaceholder}

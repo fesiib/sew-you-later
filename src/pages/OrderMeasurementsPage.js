@@ -21,6 +21,7 @@ function OrderMeasurementsPage(props) {
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const curOrdersList = useSelector(state => state.curOrdersList);
     const curOrder = curOrdersList.find(order => (order.id == orderId));
+    const isPrevOrder = (curOrder.curStepIndex === 4 && curOrder.curStepStatus == "complete");
 
     // For progress bar
     const updateTheOrder = () => {
@@ -87,22 +88,24 @@ function OrderMeasurementsPage(props) {
             <div className="ml-20 flex flex-col">
                 <div className="ml-32 mr-44 mt-10 flex flex-row justify-between">
                     <h1>{propsConst.orderTitle + curOrder.orderTitle} </h1>
-                    <button onClick={onSend} className="h-12 w-32 flex-end right-0 green cursor-pointer text-xl">
-                        {
-                            (status == 0) ? propsConst.send : propsConst.resend
-                        }
-                    </button>
+                    {!isPrevOrder &&
+                        <button onClick={onSend} className="h-12 w-32 flex-end right-0 green cursor-pointer text-xl">
+                            {
+                                (status == 0) ? propsConst.send : propsConst.resend
+                            }
+                        </button>
+                    }
                 </div>
                 <div className="flex flex-row justify-center items-center">
                     <div className="w-2/5">
-                        <MeasurementBody />
+                        <MeasurementBody isPrevOrder={isPrevOrder}/>
                     </div>
                     <div className="flex-col w-2/5">
                         <div className="mt-6 mx-8">
-                            <MeasurementReceived vars={"measurements"} />
+                            <MeasurementReceived vars={"measurements"} isPrevOrder={isPrevOrder}/>
                         </div>
-                        <MeasurementTags />
-                        <MeasurementMessage />
+                        <MeasurementTags isPrevOrder={isPrevOrder}/>
+                        <MeasurementMessage isPrevOrder={isPrevOrder}/>
                     </div>`
                 </div>
             </div>

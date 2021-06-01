@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 const propConst = {
-    header: "Current Orders",
+    header: "Previous Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
-    noCurrentOrders: "No Current Orders",
+    noPreviousOrders: "No Previous Orders",
 };
 
 const propUtils = {
@@ -48,15 +48,15 @@ const propUtils = {
     ]
 };
 
-function CurrentOrderspage(props) {
+function PreviousOrdersPage(props) {
 
-    const curOrdersList = useSelector(state => state.curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")));   
-    const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
+    const prevOrdersList = useSelector(state => state.curOrdersList.filter((val) => (val.curStepIndex === 4 && val.curStepStatus == "complete")));   
+    const [prevOrdersOrganization, setPrevOrdersOrganization] = useState(prevOrdersList);
 
     const updateOrganization = (option) => {
         for (let i = 0; i < propConst.sortByOptions.length; i++) {
             if (option === propConst.sortByOptions[i]) {
-                setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
+                setPrevOrdersOrganization([...prevOrdersOrganization].sort(propUtils.sortByCmps[i]));
                 break;
             }
         }
@@ -73,17 +73,17 @@ function CurrentOrderspage(props) {
                 </div>
                 <div className="flex justify-center mb-2">
                     {
-                        curOrdersOrganization.length > 0 
+                        prevOrdersOrganization.length > 0 
                         ?
                         <ul>
-                            {curOrdersOrganization.map((val) => (
+                            {prevOrdersOrganization.map((val) => (
                                 <div className="mb-6">
                                     <CurOrderItem vars={val} />
                                 </div>
                             ))}
                         </ul>
                         :
-                        <h3>{propConst.noCurrentOrders}</h3>
+                        <h3>{propConst.noPreviousOrders}</h3>
                     }
                 </div>
             </div>
@@ -91,4 +91,4 @@ function CurrentOrderspage(props) {
     );
 };
 
-export default CurrentOrderspage;
+export default PreviousOrdersPage;
