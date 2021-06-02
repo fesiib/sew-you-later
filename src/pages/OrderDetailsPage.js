@@ -38,7 +38,7 @@ function OrderDetailsPage(props) {
 
     function ShowNextStep() {
         if (curOrder.curStepIndex === 4 && curOrder.curStepStatus === "complete") return <div className="mt-10"></div>;
-        else return <div></div>;
+        else return <OrderNextStep vars={curOrder}/>;
     }
 
     return (
