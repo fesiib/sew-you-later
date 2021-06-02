@@ -37,7 +37,7 @@ function SizeBar(props) {
 
     return (
         <div className="inline-flex">
-            <div className={getClassName('large')} onClick={() => choose('large')}>
+            <div className={getClassName('xlarge')} onClick={() => choose('xlarge')}>
                 {largeIcons}  
             </div>
             <div className={getClassName('medium')} onClick={() => choose('medium')}>
