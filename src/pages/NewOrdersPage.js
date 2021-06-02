@@ -145,9 +145,6 @@ function NewOrdersPage(props) {
         if (newOrdersList.length == 0) {
             _addNewOrder();
         }
-        if (status > 0 && status < 3) {
-            _receiveMeasurements();
-        }
     }, SIMULATION_DELAY);
     /// End of Simulation
 
