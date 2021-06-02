@@ -141,14 +141,10 @@ function NewOrdersPage(props) {
         updateTheOrder();
     }
 
-
     setTimeout(() => {
         if (newOrdersList.length == 0) {
             _addNewOrder();
         }
-    }, SIMULATION_DELAY * 2);
-
-    setTimeout(() => {
         if (status > 0 && status < 3) {
             _receiveMeasurements();
         }
