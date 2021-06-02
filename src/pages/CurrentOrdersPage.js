@@ -5,6 +5,14 @@ import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
+/// Simulation
+import { propsConst} from './TestNewOrdersPage';
+import { useDispatch} from 'react-redux';
+import { receiveRq } from '../reducers/measurements';
+import { updateCurOrder } from '../reducers/curOrdersList';
+const SIMULATION_DELAY = 1000;
+// End of Simulation
+
 const propConst = {
     header: "Current Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
@@ -61,6 +69,63 @@ function CurrentOrderspage(props) {
             }
         }
     };
+
+    /// Simulation
+    const dispatch = useDispatch();
+
+    const {
+        id,
+        status,
+        requestedBodyParts
+    } = useSelector(state => state.measurementsReducer);
+
+    const orderId = id;
+    const curOrder = curOrdersList.find(order => (order.id === parseInt(orderId)));
+
+    // For progress bar
+    const updateTheOrder = () => {
+        dispatch(updateCurOrder(updateProgress(id), orderId));
+    };
+
+    const updateProgress = () => {
+        let nextStepIndex = curOrder.curStepIndex + 1;
+        if (status == 2) {
+            nextStepIndex = curOrder.curStepIndex;
+        }
+        return {
+            ...curOrder,
+            curStepIndex: nextStepIndex,
+            curStepStatus: "ongoing",
+            curStepDesc: "Under production",
+            nextStepDesc:
+                `Any updates on the product? Click the arrow above to start sending progress report 
+                to the customer.`,
+            nextStepPage: "order-reports",
+            notificationPage: "Measurements",
+        }
+    }
+
+    const _receiveMeasurements = () => {
+        if (status != 1 && status != 2) {
+            alert("Order ID " + id + ": No measurements Request sent to the Customer");
+            return;
+        }
+        dispatch(receiveRq({
+            unit: propsConst.measurements.unit,
+            values: requestedBodyParts.map((value, index) => {
+                return propsConst.measurements.values[value];
+            }),
+        }));
+        updateTheOrder();
+        
+    }
+
+    setTimeout(() => {
+        if (status > 0 && status < 3) {
+            _receiveMeasurements();
+        }
+    }, SIMULATION_DELAY);
+    /// End of Simulation
 
     return (
         <div className="relative">
