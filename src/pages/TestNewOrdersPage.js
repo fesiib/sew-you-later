@@ -35,9 +35,9 @@ const propsConst = {
 
 const propVars = {
     orderTitle: "T-shirt with Pocket",
-    orderDesc: `Hello! I want to order a T-Shirt. I have attached some images as references as
-    I want it to look similar to the images. The collar and the arm part as shown in the images
-    are just right! Can you finish it in two weeks?`,
+    orderDesc: `Hello! I want to order a gray T-Shirt with a pocket. I have attached images as references. 
+    The collar should be like in the first image. The color of the T-shirt can be  
+    similar to the third picture but not sure about its tone yet. Can you finish it in two weeks?`,
     customerName: "Mehmet Hamza Erol",
     customerInfo: "Male, 19",
     customerLocation: "Korea/Daejeon",
