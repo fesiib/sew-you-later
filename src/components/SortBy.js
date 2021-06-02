@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
@@ -15,9 +15,13 @@ function SortBy(props) {
 
     const [chosenOption, setChosenOption] = useState(props.options[0]);
 
+    useEffect(() => {
+        // console.log('sorted');
+        props.parentUpdate(chosenOption);
+    }, [chosenOption]);
+
     const chooseOption = (option) => {
         setChosenOption(option);
-        props.parentUpdate(option);
         // and call some functions regarding the organization stuff
         // it may make sense to call a function from props
         // that are passed from the parent page (such as discussion or order list pages)

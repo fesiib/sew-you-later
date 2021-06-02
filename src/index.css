@@ -213,6 +213,20 @@
     @apply h-60 w-60;
   }
 
+  .gallery-xlarge {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 18rem);
+    justify-content: space-between;
+    grid-gap: 2rem;
+    @apply pr-8;
+  }
+  .gallery-xlarge button {
+    @apply h-72 w-72;
+  }
+  .gallery-xlarge img {
+    @apply h-72 w-72;
+  }
+
   .order-reports {
     display: grid;
     grid-template-columns: repeat(auto-fill, 24rem);

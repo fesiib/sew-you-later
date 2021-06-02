@@ -5,18 +5,10 @@ import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-/// Simulation
-import { propsConst} from './TestNewOrdersPage';
-import { useDispatch} from 'react-redux';
-import { receiveRq } from '../reducers/measurements';
-import { updateCurOrder } from '../reducers/curOrdersList';
-const SIMULATION_DELAY = 1000;
-// End of Simulation
-
 const propConst = {
-    header: "Current Orders",
+    header: "Previous Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
-    noCurrentOrders: "No Current Orders",
+    noPreviousOrders: "No Previous Orders",
 };
 
 const propUtils = {
@@ -56,72 +48,19 @@ const propUtils = {
     ]
 };
 
-function CurrentOrderspage(props) {
+function PreviousOrdersPage(props) {
 
-    const curOrdersList = useSelector(state => state.curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")));   
-    const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
+    const prevOrdersList = useSelector(state => state.curOrdersList.filter((val) => (val.curStepIndex === 4 && val.curStepStatus == "complete")));   
+    const [prevOrdersOrganization, setPrevOrdersOrganization] = useState(prevOrdersList);
 
     const updateOrganization = (option) => {
         for (let i = 0; i < propConst.sortByOptions.length; i++) {
             if (option === propConst.sortByOptions[i]) {
-                setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
+                setPrevOrdersOrganization([...prevOrdersOrganization].sort(propUtils.sortByCmps[i]));
                 break;
             }
         }
     };
-
-    /// Simulation
-    const dispatch = useDispatch();
-
-    const {
-        id,
-        status,
-        requestedBodyParts
-    } = useSelector(state => state.measurementsReducer);
-
-    const orderId = id;
-    const curOrder = curOrdersList.find(order => (order.id === parseInt(orderId)));
-
-    // For progress bar
-    const updateTheOrder = () => {
-        dispatch(updateCurOrder(updateProgress(id), orderId));
-    };
-
-    const updateProgress = () => {
-        let nextStepIndex = curOrder.curStepIndex + 1;
-        if (status == 2) {
-            nextStepIndex = curOrder.curStepIndex;
-        }
-        return {
-            ...curOrder,
-            curStepIndex: nextStepIndex,
-            curStepStatus: "ongoing",
-            curStepDesc: "Under production",
-            nextStepDesc:
-                `Any updates on the product? Click the arrow above to start sending progress report 
-                to the customer.`,
-            nextStepPage: "order-reports",
-            notificationPage: "Measurements",
-        }
-    }
-
-    const _receiveMeasurements = () => {
-        dispatch(receiveRq({
-            unit: propsConst.measurements.unit,
-            values: requestedBodyParts.map((value, index) => {
-                return propsConst.measurements.values[value];
-            }),
-        }));
-        updateTheOrder();
-        
-    }
-
-    setTimeout(() => {
-        if (status == 1 || status == 2) {
-            _receiveMeasurements();
-        }
-    }, SIMULATION_DELAY);
-    /// End of Simulation
 
     return (
         <div className="relative">
@@ -134,17 +73,17 @@ function CurrentOrderspage(props) {
                 </div>
                 <div className="flex justify-center mb-2">
                     {
-                        curOrdersOrganization.length > 0 
+                        prevOrdersOrganization.length > 0 
                         ?
                         <ul>
-                            {curOrdersOrganization.map((val) => (
+                            {prevOrdersOrganization.map((val) => (
                                 <div className="mb-6">
                                     <CurOrderItem vars={val} />
                                 </div>
                             ))}
                         </ul>
                         :
-                        <h3>{propConst.noCurrentOrders}</h3>
+                        <h3>{propConst.noPreviousOrders}</h3>
                     }
                 </div>
             </div>
@@ -152,4 +91,4 @@ function CurrentOrderspage(props) {
     );
 };
 
-export default CurrentOrderspage;
+export default PreviousOrdersPage;

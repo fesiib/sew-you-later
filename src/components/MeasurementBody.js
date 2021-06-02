@@ -76,15 +76,18 @@ function MeasurementBody(props) {
     const resetRef = React.createRef();
 
     const _addBP = (value) => {
-        dispatch(addBP(value));
+        if(!props.isPrevOrder)
+            dispatch(addBP(value));
     };
 
     const _removeBP = (value) => {
-        dispatch(removeBP(value));
+        if(!props.isPrevOrder)
+            dispatch(removeBP(value));
     };
 
     const _resetBP = () => {
-        dispatch(resetBP());
+        if(!props.isPrevOrder)
+            dispatch(resetBP());
     }
 
     const _setupBP = () => {
@@ -167,10 +170,11 @@ function MeasurementBody(props) {
                 <div ref={selectionRef} className={propConst.placeholderClassName}>
                     {allBPs[0]}
                 </div>
-
-                <button ref={resetRef} onClick={onClickReset} className="flex-end right-0 -mr-4 green cursor-pointer">
-                    Reset
-                </button>
+                {!props.isPrevOrder &&
+                    <button ref={resetRef} onClick={onClickReset} className="flex-end right-0 -mr-4 green cursor-pointer">
+                        Reset
+                    </button>
+                }
             </div>
 
             <div className="-mt-6">

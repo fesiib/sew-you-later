@@ -17,6 +17,8 @@ const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", 
 function OrderReportsPage(props) {
     const orderId = parseInt(new URLSearchParams(window.location.search).get('orderId'));
     const reports = useSelector(state => state.orderReports);
+    const curOrder = useSelector(state => state.curOrdersList.find((val) => val.id == orderId));
+    const isPrevOrder = (curOrder.curStepIndex === 4 && curOrder.curStepStatus == "complete");
     const dispatch = useDispatch();
     
     const renderedReports = reports.filter(report => (report.id !== -1 && report.orderId === orderId)).map(report => {
@@ -52,39 +54,41 @@ function OrderReportsPage(props) {
             <div className="m-8 mt-6 ml-28">
                 <div className="flex mb-8">
                     <h1 className="text-black mr-1 my-auto">Order Reports</h1>
-                    <Popup
-                        trigger={
-                            <button className="text-black p-0 rounded-full shadow-none my-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </button>
-                        }
-                        modal
-                        nested
-                        position="center center"
-                        contentStyle={popupStyle}
-                    >
-                        {close => (
-                                <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
-                                    <button onClick={close} className="float-right p-0 m-4 shadow-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                    <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                    {!isPrevOrder &&
+                        <Popup
+                            trigger={
+                                <button className="text-black p-0 rounded-full shadow-none my-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </button>
+                            }
+                            modal
+                            nested
+                            position="center center"
+                            contentStyle={popupStyle}
+                        >
+                            {close => (
+                                    <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                        <button onClick={close} className="float-right p-0 m-4 shadow-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
                                         <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
-                                            <ReportImages reportId={-1} orderId={orderId}/>
-                                            <ReportMessage reportId={-1} orderId={orderId}/>
+                                            <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
+                                                <ReportImages reportId={-1} orderId={orderId}/>
+                                                <ReportMessage reportId={-1} orderId={orderId}/>
+                                            </div>
+                                        </div>
+                                        <div className="fixed bottom-8 right-8">
+                                            <button onClick={() => {_submitReport();close();}} className="green h-16">Send to the customer</button>
                                         </div>
                                     </div>
-                                    <div className="fixed bottom-8 right-8">
-                                        <button onClick={() => {_submitReport();close();}} className="green h-16">Send to the customer</button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    </Popup>
+                                )
+                            }
+                        </Popup>
+                    }
                 </div>
                 {renderedReports.length > 0 &&
                     <div className="order-reports">
@@ -94,13 +98,15 @@ function OrderReportsPage(props) {
                 {renderedReports.length === 0 &&
                     <div className="w-full my-auto text-center">
                         <h1>There is no reports.</h1>
-                        <div className="flex justify-center w-full mx-auto">
-                            <h1>You can add a new report clicking the </h1>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <h1> icon</h1>
-                        </div>
+                        {!isPrevOrder &&
+                            <div className="flex justify-center w-full mx-auto">
+                                <h1>You can add a new report clicking the </h1>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <h1> icon</h1>
+                            </div>
+                        }
                     </div>
                 }
             </div>

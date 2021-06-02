@@ -25,7 +25,7 @@ function CurOrderItem(props) {
         <Notification position="top-left" size="h-6 w-6" data={props.vars.notificationPage}>
             <div className="inline-flex bg-white rounded-xl hover:bg-gray-300">
                 <div className="text-black ml-4 mt-4 mr-4">
-                    <div className="flex flex-col h-36">
+                    <div className="flex flex-col h-44">
                         <div className="cursor-pointer" onClick={moveTo('order-details', { orderId: props.vars.id })}>
                             <div className="inline-flex">
                                 <h1 className="w-128 overflow-hidden overflow-ellipsis whitespace-nowrap">{props.vars.orderTitle}</h1>
@@ -41,7 +41,7 @@ function CurOrderItem(props) {
                                 <ProgressBar vars={props.vars} />
                             </div>
                         </div>
-                        <div className="text-right -mt-2">
+                        <div className="text-right mt-2">
                             <div className="flex flex-row justify-end items-center font-bold text-blue-h2 cursor-default">
                                 <CalendarIcon className="h-6"/>
                                 <p className="text-sm">{propConst.estimatedDue + " " + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</p>
@@ -49,7 +49,7 @@ function CurOrderItem(props) {
                         </div>
                     </div>
                 </div>
-                <div className="m-4">
+                <div className="m-4 flex items-center">
                     {
                         referenceImages[0] === undefined
                         ?

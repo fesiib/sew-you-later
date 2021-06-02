@@ -49,7 +49,7 @@ function NewOrderDetails(props) {
         return {
             ...props.vars,
             estimatedDue: "2021-06-29", // YYYY-MM-DD Now it is a default value, fix it later
-            steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
+            steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production", // Removed Delivery
             curStepIndex: 1,
             curStepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
             nextStepDesc: "You will have a discussion with the customer and might want to take notes with so that you can come back to view the notes at anytime.",

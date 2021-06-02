@@ -11,6 +11,7 @@ import MeasurementReceived from '../components/MeasurementReceived';
 import Sidebar from '../components/Sidebar';
 import {useDispatch, useSelector} from 'react-redux';
 import { setId } from '../reducers/measurements';
+import OrderFinish from '../components/OrderFinish';
 
 function OrderDetailsPage(props) {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function OrderDetailsPage(props) {
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const curOrdersList = useSelector(state => state.curOrdersList);  
     const curOrder = curOrdersList.find(order => (order.id == orderId));
+    const isPrevOrder = (curOrder.curStepIndex === 4 && curOrder.curStepStatus == "complete");
 
     const {
         id,
@@ -25,6 +27,18 @@ function OrderDetailsPage(props) {
 
     if (orderId != id) {
         dispatch(setId(orderId));
+    }
+
+    function ShowFinish() {
+        if (curOrder.curStepIndex === 4) {
+            return <OrderFinish orderId={orderId}/>;
+        }
+        else return <div></div>;
+    }
+
+    function ShowNextStep() {
+        if (curOrder.curStepIndex === 4 && curOrder.curStepStatus === "complete") return <div className="mt-10"></div>;
+        else return <div></div>;
     }
 
     return (
@@ -40,9 +54,10 @@ function OrderDetailsPage(props) {
                     <OrderDetails vars={curOrder}/>
                 </div>
                 <div className="self-start w-1/4">
-                    <OrderNextStep vars={curOrder}/>
+                    <ShowNextStep />
                     <MeasurementReceived vars={"orderDetails"}/>
-                </div>`
+                    {!isPrevOrder && <ShowFinish />}
+                </div>
             </div>
         </div>
     );

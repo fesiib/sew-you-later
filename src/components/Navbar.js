@@ -19,7 +19,7 @@ const activeWindow = checkActiveWindow()
 const navigation = [
     { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 0},
     { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 0},
-    { name: 'Previous Orders', href: '#', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
+    { name: 'Previous Orders', href: '/previous-orders', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
 ]
 
 function classNames(...classes) {
