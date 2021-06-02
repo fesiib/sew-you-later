@@ -6,7 +6,7 @@ import { resetApp } from '../reducers';
 import { receiveRq } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
-const propsConst = {
+export const propsConst = {
     measurements: {
         unit: "cm",
         values: [
@@ -33,7 +33,7 @@ const propsConst = {
     }
 };
 
-const propVars = {
+export const propVars = {
     orderTitle: "T-shirt with Pocket",
     orderDesc: `Hello! I want to order a gray T-Shirt with a pocket. I have attached images as references. 
     The collar should be like in the first image. The color of the T-shirt can be  
@@ -45,7 +45,7 @@ const propVars = {
     unseen: true,
 };
 
-const referenceImages = [
+export const referenceImages = [
     '/ref_images/1.png',
     '/ref_images/2.png',
     '/ref_images/3.png',
@@ -103,7 +103,11 @@ function TestNewOrdersPage(props) {
     };
 
     const updateProgress = () => {
-        const nextStepIndex = curOrder.curStepIndex + 1;
+        let nextStepIndex = curOrder.curStepIndex + 1;
+
+        if (status == 2) {
+            nextStepIndex = curOrder.curStepIndex;
+        }
 
         return {
             ...curOrder,
