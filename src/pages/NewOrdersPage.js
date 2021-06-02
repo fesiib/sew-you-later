@@ -64,15 +64,6 @@ function NewOrdersPage(props) {
     const newOrdersList = useSelector(state => state.newOrdersList);    
     const [newOrdersOrganization, setNewOrdersOrganization] = useState(newOrdersList);
 
-    const updateOrganization = (option) => {
-        for (let i = 0; i < propConst.sortByOptions.length; i++) {
-            if (option === propConst.sortByOptions[i]) {
-                setNewOrdersOrganization([...newOrdersOrganization].sort(propUtils.sortByCmps[i]));
-                break;
-            }
-        }
-    };
-
     /// Simulation
     const dispatch = useDispatch();
     const newOrdersId = useSelector(state => state.newOrdersId);
@@ -114,7 +105,7 @@ function NewOrdersPage(props) {
     };
 
     const updateProgress = () => {
-        nextStepIndex = curOrder.curStepIndex + 1;
+        let nextStepIndex = curOrder.curStepIndex + 1;
         if (status == 2) {
             nextStepIndex = curOrder.curStepIndex;
         }
@@ -141,12 +132,21 @@ function NewOrdersPage(props) {
         updateTheOrder();
     }
 
-    setTimeout(() => {
-        if (newOrdersList.length == 0) {
-            _addNewOrder();
-        }
-    }, SIMULATION_DELAY);
     /// End of Simulation
+
+    const updateOrganization = (option) => {
+        setTimeout(() => {
+            if (newOrdersList.length == 0) {
+                _addNewOrder();
+            }
+        }, SIMULATION_DELAY);
+        for (let i = 0; i < propConst.sortByOptions.length; i++) {
+            if (option === propConst.sortByOptions[i]) {
+                setNewOrdersOrganization([...newOrdersOrganization].sort(propUtils.sortByCmps[i]));
+                break;
+            }
+        }
+    };
 
     return (
         <div className="relative">

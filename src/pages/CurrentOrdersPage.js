@@ -61,15 +61,6 @@ function CurrentOrderspage(props) {
     const curOrdersList = useSelector(state => state.curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")));   
     const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
 
-    const updateOrganization = (option) => {
-        for (let i = 0; i < propConst.sortByOptions.length; i++) {
-            if (option === propConst.sortByOptions[i]) {
-                setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
-                break;
-            }
-        }
-    };
-
     /// Simulation
     const dispatch = useDispatch();
 
@@ -115,13 +106,21 @@ function CurrentOrderspage(props) {
         updateTheOrder();
         
     }
-
-    setTimeout(() => {
-        if (status == 1 || status == 2) {
-            _receiveMeasurements();
-        }
-    }, SIMULATION_DELAY);
     /// End of Simulation
+
+    const updateOrganization = (option) => {
+        setTimeout(() => {
+            if (status == 1 || status == 2) {
+                _receiveMeasurements();
+            }
+        }, SIMULATION_DELAY);
+        for (let i = 0; i < propConst.sortByOptions.length; i++) {
+            if (option === propConst.sortByOptions[i]) {
+                setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
+                break;
+            }
+        }
+    };
 
     return (
         <div className="relative">
