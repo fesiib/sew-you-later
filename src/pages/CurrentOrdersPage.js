@@ -106,10 +106,6 @@ function CurrentOrderspage(props) {
     }
 
     const _receiveMeasurements = () => {
-        if (status != 1 && status != 2) {
-            alert("Order ID " + id + ": No measurements Request sent to the Customer");
-            return;
-        }
         dispatch(receiveRq({
             unit: propsConst.measurements.unit,
             values: requestedBodyParts.map((value, index) => {
@@ -121,7 +117,7 @@ function CurrentOrderspage(props) {
     }
 
     setTimeout(() => {
-        if (status > 0 && status < 3) {
+        if (status == 1 || status == 2) {
             _receiveMeasurements();
         }
     }, SIMULATION_DELAY);
