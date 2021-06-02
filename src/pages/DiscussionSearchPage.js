@@ -186,11 +186,11 @@ function DiscussionSearchPage(props) {
                                         imgId != undefined 
                                         ?
                                         <Notification type="check" position="top-right">
-                                            <img className="thumbnail border-4 border-green-400 cursor-pointer" src={src} onClick={() => viewTheImage(src)}/>
+                                            <img className="thumbnail border-4 border-green-400 cursor-pointer" src={src} onClick={() => viewTheImage(src)} alt="Failed to Load"/>
                                         </Notification>
                                         :
                                         <div>
-                                            <img className="thumbnail cursor-pointer" src={src} onClick={() => viewTheImage(src)}/>
+                                            <img className="thumbnail cursor-pointer" src={src} onClick={() => viewTheImage(src)} alt="Failed to Load"/>
                                             <Popup
                                                     key={index} 
                                                     open={popUpState.imgSrc == src}
