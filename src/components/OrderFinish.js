@@ -8,7 +8,7 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 const propConst = {
     nextStepTitle: "Next Step",
     finishDesc: `If this order is already completed, please click the button below so that we will
-    move it to Previous Order tab. Note that you can always come back to look at this order anytime.`,
+    move the order to "Previous Orders" tab.`,
     finishTitle: "Finish", 
 };
 

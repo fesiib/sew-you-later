@@ -36,6 +36,11 @@ function OrderDetailsPage(props) {
         else return <div></div>;
     }
 
+    function ShowNextStep() {
+        if (curOrder.curStepIndex === 4 && curOrder.curStepStatus === "complete") return <div className="mt-10"></div>;
+        else return <div></div>;
+    }
+
     return (
         <div>
             <Navbar className="top"/>
@@ -49,7 +54,7 @@ function OrderDetailsPage(props) {
                     <OrderDetails vars={curOrder}/>
                 </div>
                 <div className="self-start w-1/4">
-                    <OrderNextStep vars={curOrder}/>
+                    <ShowNextStep />
                     <MeasurementReceived vars={"orderDetails"}/>
                     {!isPrevOrder && <ShowFinish />}
                 </div>
