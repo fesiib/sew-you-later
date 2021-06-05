@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addReport, addBlankReport, updateDraftReportTitle, updateDraftReportBody } from "../reducers/orderReports";
 
-const propConst = {
+const propConstUS = {
     report: "Report",
     noDescription: "No description",
     reportTitle: "Please type your report title.",
     reportBody: "Please type your report description.",
 }
+
+const propConstTR = {
+    report: "Raport",
+    noDescription: "Herhangi Bir Açıklama Yok",
+    reportTitle: "Rapor Başlığını Yazınız",
+    reportBody: "Rapor Açıklamasını Yazınız",
+}
+
 
 const placeholder = {
     
@@ -16,6 +24,10 @@ const placeholder = {
 var editable = false;
 
 function ReportMessage({reportId, orderId}) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const report = useSelector(state => state.orderReports.find((report) => (report.id === reportId && report.orderId === orderId)));
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");

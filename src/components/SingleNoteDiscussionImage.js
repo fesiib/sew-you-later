@@ -4,14 +4,25 @@ import { addNote, deleteNote, updateDiscussionNoteTitle, updateDiscussionNoteBod
 
 
 
-const propConst = {
+const propConstUS = {
     noteTitle: "Please type your note title.",
     noteBody: "Please type your note description.",
 };
 
+const propConstTR = {
+
+    noteTitle: "Not Başlığını Giriniz",
+    noteBody: "Not Açıklamasını Giriniz",
+}
+
 var editable = false;
 
 function SingleNoteDiscussionImage({id, imageId, isPrevOrder}) {
+
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const note = useSelector(state => state.discussionImageNotes.find((note) => note.id === id));
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");

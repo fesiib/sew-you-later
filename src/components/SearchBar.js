@@ -1,13 +1,22 @@
 import {SearchIcon} from '@heroicons/react/solid';
 import { useState } from 'react';
 
-const propConst = {
+const propConstUS = {
     defaultPlaceholder: "Search for images here",
     errorPlaceholder: "Error: Problem Occured While Fetching Images :(",
     searching: "Searching...",
 }
 
+const propConstTR = {
+    defaultPlaceholder: "Buradan Resimleri Arayın",
+    errorPlaceholder: "Hata: Resimleri Ararken Bir Sorun Oluştu :(",
+    searching: "Aranıyor...",
+}
+
 function SearchBar(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const [textInput, setTextInput] = useState("");
     const [placeholder, setPlaceHolder] = useState(propConst.defaultPlaceholder);

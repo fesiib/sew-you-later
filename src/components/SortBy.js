@@ -1,10 +1,14 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import {useSelector} from 'react-redux';
 
-const propConst = {
+const propConstUS = {
     desc: "Sort By:",
+}
 
+const propConstTR = {
+    desc: "Göre Sırala",
 }
 
 function classNames(...classes) {
@@ -13,6 +17,8 @@ function classNames(...classes) {
 
 function SortBy(props) {
 
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
     const [chosenOption, setChosenOption] = useState(props.options[0]);
 
     useEffect(() => {
