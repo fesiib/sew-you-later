@@ -1,13 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { allBPs} from "../reducers/measurements";
 
-const propsConst = {
+const propsConstUS = {
     measurementsTitle: "Measurements",
     measurementsPlaceholderSent: "Waiting for customer's response...",
     measurementsPlaceholderReceived: "No Measurements",
 };
+const propsConstTR = {
+    measurementsTitle: "Ölçüler",
+    measurementsPlaceholderSent: "Müşteriden yanıt bekleniyor...",
+    measurementsPlaceholderReceived: "Ölçü yok",
+};
 
 function MeasurementReceived(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propsConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const {
         requestedBodyParts,
         measurements,

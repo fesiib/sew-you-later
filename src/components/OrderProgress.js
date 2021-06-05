@@ -16,6 +16,8 @@ const propConst = {
 // };
 
 function OrderProgress(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
   
     // console.log(props.vars);
     const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");

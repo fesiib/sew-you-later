@@ -8,9 +8,14 @@ import {useDispatch, useSelector } from 'react-redux';
 
 const colorSelected = "blue";
 
-const propConst = {
+const propConstUS = {
     measurementTagsPlaceholder: "Choose Body Parts from left figure",
     noMatchingBodyPart: "Could not find matching Body Part",
+};
+
+const propConstTR = {
+    measurementTagsPlaceholder: "Soldaki şekilden ölçülecek vücut parçalarını seçin",
+    noMatchingBodyPart: "Eşleşen vücut parçası bulunamadı",
 };
 
 const propUtils = {
@@ -79,6 +84,9 @@ const propUtils = {
 };
 
 function MeasurementTags(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const dispatch = useDispatch();
     
     const optionsBP = allBPs.slice(1).map((label, index) => {

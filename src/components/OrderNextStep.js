@@ -5,7 +5,7 @@ import { ArrowCircleRightIcon, ExclamationCircleIcon } from '@heroicons/react/so
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
-const propConst = {
+const propConstUS = {
     nextStepTitle: "Next Step",
 
     curStepDesc1: "About to create a measurements form",
@@ -18,7 +18,23 @@ const propConst = {
     to the customer.`
 };
 
+const propConstTR = {
+    nextStepTitle: "Sonraki Adım",
+
+    curStepDesc1: "Ölçü alımı oluştur",
+    nextStepDesc1: `Ölçüler için ihtiyacınız olan vücut kısımlarını seçerek müşteriye
+     gönderilecek bir ölçü formu oluşturacaksınız. Sol paneldeki "Tartışma Notları"nı
+      tıklayarak istediğiniz zaman tartışma sayfasına herhangi bir not ekleyebilirsiniz.`,
+
+    curStepDesc4: "Üretim altında",
+    nextStepDesc4: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`
+};
+
 function OrderNextStep(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
 

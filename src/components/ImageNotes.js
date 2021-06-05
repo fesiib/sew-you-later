@@ -7,10 +7,10 @@ import { storage } from '../services/firebase';
 import SingleNote from './SingleNote';
 import ConfirmCard from './ConfirmCard';
 
-const propConst = {
+const propConstUS = {
     notes: "Notes",
     confirmCardTitle: "Delete image?",
-    confirmCardBody: "Deleting the image will permanently delete all the notes taken for this image.",
+    confirmCardBody: "Deleting the image will permanently delete all the notes taken for this image!",
     confirmCardCancel: "Cancel",
     confirmCardConfirm: "Delete",
     thereIsNoNotes: "There isn't any notes for this image",
@@ -24,9 +24,28 @@ const propConst = {
     
 };
 
+const propConstTR = {
+    notes: "Notlar",
+    confirmCardTitle: "Resmi sil?",
+    confirmCardBody: "Resmi silmek resim için alınmış bütün notları da silecektir!",
+    confirmCardCancel: "İptal",
+    confirmCardConfirm: "Sil",
+    thereIsNoNotes: "Bu resim için alınmış not bulunmamaktadır",
+    youCanAddNotesGuide: <h2 className="text-gray-400 mt-4 text-center flex justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            butonuna tıklayarak not ekleyebilirsiniz
+                        </h2>,
+    
+};
+
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const notes = useSelector(state => state.imageNotes.filter((note) => (note.parentImageId === imageId && note.orderId === orderId)));
     const dispatch = useDispatch();
 

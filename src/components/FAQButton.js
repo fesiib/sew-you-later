@@ -7,8 +7,12 @@ const moveToFAQ = () => {
     window.location = "/faq";
 };
 
-const propConst = {
+const propConstUS = {
     howToUse: "How to Use?"
+}
+
+const propConstTR = {
+    howToUse: "Nasıl Kullanılır?"
 }
 
 function FAQButton(props) {

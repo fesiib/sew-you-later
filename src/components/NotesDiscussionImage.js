@@ -9,7 +9,7 @@ import Notification from '../components/Notification';
 import SingleNoteDiscussionImage from './SingleNoteDiscussionImage';
 import ConfirmCard from './ConfirmCard';
 
-const propConst = {
+const propConstUS = {
     notesTitle: "Notes",
     popupTitle: "Delete Notes?",
     popupBody: "This will permanently delete all the notes taken for this image and will close the pop-up.",
@@ -20,12 +20,30 @@ const propConst = {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         icon</h2>,
+    noNotes: 'There are no notes for this image',
+
+};
+const propConstTR = {
+    notesTitle: "Notlar",
+    popupTitle: "Notları sil?",
+    popupBody: "Resmi silmek resim için alınmış bütün notları da silecektir!",
+    popupDecline: "İptal",
+    popupConfirm: "Sil",
+    youCanAddNotesGuide: <h2 className="text-gray-400 mt-4 text-center flex justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            butonuna tıklayarak not ekleyebilirsiniz</h2>,
+    noNotes: "Bu resim için alınmış not bulunmamaktadır",
 
 };
 
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpState, status}) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const notes = useSelector(state => state.discussionImageNotes.filter((note) => note.parentId == imageId));
     const dispatch = useDispatch();
     const curOrder = useSelector(state => state.curOrdersList.find((val) => val.id == orderId));
