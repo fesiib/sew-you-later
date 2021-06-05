@@ -17,15 +17,26 @@ function checkActiveWindow() {
 
 const activeWindow = checkActiveWindow()
 
-const propConst = {
+const propConstUS = {
     newOrders: 'New Orders',
     currentOrders: 'Current Orders',
     previousOrders: 'Previous Orders',
 
     language: "Language",
     english: "English (ENG)",
-    turkish: "Turkish (TUR)"
+    turkish: "Türkçe (TUR)"
 }
+
+const propConstTR = {
+    newOrders: 'Yeni Siparişler',
+    currentOrders: 'Mevcut Siparişler',
+    previousOrders: 'Geçmiş Siparişler',
+
+    language: "Dil",
+    english: "English (ENG)",
+    turkish: "Türkçe (TUR)"
+}
+
 
 const navigation = [
     { name: propConst.newOrders, href: '/new-orders', current: activeWindow[0], cntNotifications: 0 },
@@ -38,6 +49,9 @@ function classNames(...classes) {
 }
 
 function Navbar(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const dispatch = useDispatch();
 
     function changeLang(lang) {

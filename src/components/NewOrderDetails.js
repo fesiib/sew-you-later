@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import Popup from 'reactjs-popup';
 import ReportCard from './ReportCard';
 
-const propConst = {
+const propConstUS = {
     refImagesTitle: "Reference Images",
     orderDescTitle: "Order Description",
     orderDetailsTitle: "Order Details",
@@ -26,12 +26,34 @@ const propConst = {
     reportDecline: "Decline",
     reportDelete: "Report & Delete",
     steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
-    nextStepDesc: "You will have a discussion with the customer and might want to take notes with so that you can come back to view the notes at anytime.",
+    nextStepDesc: "You will have a discussion with the customer and might want to come back to view the notes at anytime.",
     curStepDesc: "Start a discussion with the customer",
     
 };
 
+const propConstTR = {
+    refImagesTitle: "Referans Resimler",
+    orderDescTitle: "Sipariş Açıklaması",
+    orderDetailsTitle: "Sipariş Detayı",
+    customerInfoTitle: "Müşteri Bilgileri",
+    reportText: "Kötüye Kullanımı Bildir",
+    acceptText: "Kabul et",
+    declineText: "Reddet",
+
+    reportTitle: "Kötüye kullanım bildir?",
+    reportBody: `Görünüşe göre bu sipariş uygunsuz. Bu siparişi bildirebilir
+     ve listenizden silebilirsiniz. Lütfen aşağıda nedenini belirtiniz.`,
+    reportDecline: "Reddet",
+    reportDelete: "Bildir ve Sil",
+    steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
+    nextStepDesc: "Müşteriyle görüşme yapılacak. İstediğiniz zaman alınan notları görüntülemek için gelebilirsiniz.",
+    curStepDesc: "Müşteri ile görüşmeyi başlat",
+    
+};
+
 function NewOrderDetails(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const newRefImages = useSelector(state => state.newRefImages);
     const curOrdersId = useSelector(state => state.curOrdersId);

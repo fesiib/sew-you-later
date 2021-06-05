@@ -2,11 +2,17 @@ import SearchBar from './SearchBar';
 import SortBy from './SortBy';
 import SizeBar from './SizeBar';
 
-const propConst = {
+const propConstUS = {
     viewNotesButtonText: "View Notes",
+};
+const propConstTR = {
+    viewNotesButtonText: "Notları Görüntüle",
 };
 
 function ImageSearchTopBar(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     function moveTo(href) {
         return () => {
             window.location = "/" + href + window.location.search;

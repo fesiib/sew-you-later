@@ -5,8 +5,14 @@ import { ArrowCircleRightIcon, ExclamationCircleIcon } from '@heroicons/react/so
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
-const propConst = {
+const propConstUS = {
     nextStepTitle: "Next Step",
+    finishDesc: `If this order is already completed, please click the button below so that we will
+    move the order to "Previous Orders" tab.`,
+    finishTitle: "Finish", 
+};
+const propConstTR = {
+    nextStepTitle: "Sonraki Adım",
     finishDesc: `If this order is already completed, please click the button below so that we will
     move the order to "Previous Orders" tab.`,
     finishTitle: "Finish", 
@@ -19,6 +25,9 @@ const propConst = {
 
 
 function OrderFinish(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const orderId = props.orderId;
     const curOrdersList = useSelector(state => state.curOrdersList);  
     const curOrder = curOrdersList.find(order => (order.id == orderId));

@@ -6,7 +6,7 @@ import Popup from 'reactjs-popup';
 import ReportCard from './ReportCard';
 import { removeNewOrder } from '../reducers/newOrdersList';
 
-const propConst = {
+const propConstUS = {
     reportText: "Report",
 
     reportTitle: "Report this order?",
@@ -16,8 +16,19 @@ const propConst = {
     reportDecline: "Decline",
     reportDelete: "Report & Delete",
 };
+const propConstTR = {
+    reportText: "Kötüye kullanım bildir?",
+
+    reportTitle: "Kötüye kullanım bildir?",
+    reportBody: `Görünüşe göre bu sipariş uygunsuz. Bu siparişi bildirebilir
+    ve listenizden silebilirsiniz. Lütfen aşağıda nedenini belirtiniz.`,
+    reportDecline: "Reddet",
+    reportDelete: "Bildir ve Sil",
+};
 
 function NewOrderItem(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const newRefImages = useSelector(state => state.newRefImages);
     const referenceImages = newRefImages.filter((refImage) => refImage.parentId == props.vars.id);
