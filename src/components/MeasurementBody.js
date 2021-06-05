@@ -5,9 +5,35 @@ import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { allBPs, IMMUTABLE, addBP, removeBP, resetBP } from '../reducers/measurements';
 import MenBody from './MenBody';
+import {changeLanguage} from '../reducers/language';
 
+const propConstTR = {
+    placeholderClassName: "invisible resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-gray-300",
+    selectedClassName: "resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black",
+    reset: "Yenile",
+    neck: "boyun",
+    bust: "gogus",
+    waist: "bel",
+    hips: "bel",
+    thigh: "thigh",
+    knee: "knee",
+    calf: "calf",
+    waistToKnee: "waist-to-knee",
+    line: "line",
+    ankle: "ankle",
+    inseam: "inseam",
+    waistBack: "waist-back",
+    outseam: "outseam",
+    neckBack: "neck-back",
+    wrist: "wrist",
+    sleeveLength: "sleeve-length",
+    backLength: "back-length",
+    rise: "rise",
+    shoulder: "shoulder",
+    shadows: "shadows",
+}
 
-const propConst = {
+const propConstUS = {
     placeholderClassName: "invisible resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-gray-300",
     selectedClassName: "resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black",
     reset: "Reset",
@@ -31,8 +57,7 @@ const propConst = {
     rise: "rise",
     shoulder: "shoulder",
     shadows: "shadows",
-
-};
+}
 
 const SHADOW_LINE_DASH_STYLE = {
     stroke: "rgb(0, 0, 0)",
@@ -82,6 +107,9 @@ function containsObject(obj, list) {
 }
 
 function MeasurementBody(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
     const dispatch = useDispatch();
 
     const { bodyParts, status } = useSelector(state => state.measurementsReducer);

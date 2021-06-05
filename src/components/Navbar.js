@@ -17,10 +17,6 @@ function checkActiveWindow() {
 
 const activeWindow = checkActiveWindow()
 
-const propUtils = {
-    languageName: "ENG",
-};
-
 const propConst = {
     newOrders: 'New Orders',
     currentOrders: 'Current Orders',
@@ -48,20 +44,20 @@ function Navbar(props) {
         return () => {
             switch (lang) {
                 case "ENG": {
-                    propUtils.languageName = "ENG";
+                    dispatch(changeLanguage("ENG"));
                     break;
                 }
                 case "TUR": {
-                    propUtils.languageName = "TUR";
+                    dispatch(changeLanguage("TUR"));
                     break;
                 }
                 default: break;
             }
 
-            dispatch(changeLanguage(propUtils.languageName));
         }
     };
 
+    const language = useSelector(state => state.langReducer.language);
     const newOrdersList = useSelector(state => state.newOrdersList);
     const curOrdersList = useSelector(state => state.curOrdersList);
 
@@ -121,7 +117,7 @@ function Navbar(props) {
                                                 <Menu.Button className="bg-indigo-900 flex text-sm rounded-full focus:outline-none">
                                                     <span className="sr-only">{propConst.language}</span>
                                                     <div className="flex flex-row space-x-2">
-                                                        <p>{propUtils.languageName}</p>
+                                                        <p>{language}</p>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                                                         </svg>

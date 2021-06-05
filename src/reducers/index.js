@@ -32,7 +32,7 @@ const appReducer = combineReducers({
     curRefImages: curRefImages,
     discussionImages: discussionImages,
     discussionImageNotes: discussionImageNotes,
-    langReducer,
+    langReducer: langReducer,
 });
 
 export const resetApp = () => ({
