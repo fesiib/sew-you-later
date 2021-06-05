@@ -5,10 +5,16 @@ import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const propConst = {
+const propConstUS = {
     header: "Previous Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
     noPreviousOrders: "No Previous Orders",
+};
+
+const propConstTR = {
+    header: "Önceki Siparişler",
+    sortByOptions: ["Yeniden Eskiye", "A-Z", "Teslim Tarihi", "Müşteri", "Konum"],
+    noPreviousOrders: "Önceki Sipariş Bulunmamaktadır",
 };
 
 const propUtils = {
@@ -49,6 +55,9 @@ const propUtils = {
 };
 
 function PreviousOrdersPage(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const prevOrdersList = useSelector(state => state.curOrdersList.filter((val) => (val.curStepIndex === 4 && val.curStepStatus == "complete")));   
     const [prevOrdersOrganization, setPrevOrdersOrganization] = useState(prevOrdersList);

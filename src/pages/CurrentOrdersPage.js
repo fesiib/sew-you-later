@@ -13,10 +13,21 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 const SIMULATION_DELAY = 1000;
 // End of Simulation
 
-const propConst = {
+const propConstUS = {
     header: "Current Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
     noCurrentOrders: "No Current Orders",
+    underProduction: "Under production",
+    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`,
+};
+
+const propConstTR = {
+    header: "Mevcut Siparişler",
+    sortByOptions: ["Yeniden Eskiye", "A-Z", "Teslim Tarihi", "Müşteri", "Konum"],
+    noCurrentOrders: "Mevcut Sipariş Bulunmamaktadır",
+    underProduction: "Üretim Altında",
+    nextStepDesc: `Ürüne dair herhangi bir güncelleme var mı? Müşteriye ilerleme raporu göndermek için yukarıdaki oka tıklayın.`,
 };
 
 const propUtils = {
@@ -58,6 +69,9 @@ const propUtils = {
 
 function CurrentOrderspage(props) {
 
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const curOrdersList = useSelector(state => state.curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")));   
     const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
 
@@ -87,10 +101,8 @@ function CurrentOrderspage(props) {
             ...curOrder,
             curStepIndex: nextStepIndex,
             curStepStatus: "ongoing",
-            curStepDesc: "Under production",
-            nextStepDesc:
-                `Any updates on the product? Click the arrow above to start sending progress report 
-                to the customer.`,
+            curStepDesc: propConst.underProduction,
+            nextStepDesc: propConst.nextStepDesc,
             nextStepPage: "order-reports",
             notificationPage: "Measurements",
         }

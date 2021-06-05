@@ -12,9 +12,37 @@ import ReportMessage from '../components/ReportMessage';
 import ReportImages from '../components/ReportImages'; 
 import FAQButton from '../components/FAQButton';
 
+const propConstUS = {
+    orderReports: "Order Reports",
+    sendToCustomer: "Send to the customer",
+    thereIsNoReport: "There is no reports.",
+    clickToAddReport: <div className="flex justify-center w-full mx-auto">
+                        <h1>You can add a new report clicking the </h1>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h1> icon</h1>
+                    </div>
+};
+
+const propConstTR = {
+    orderReports: "Order Reports",
+    sendToCustomer: "Send to the customer",
+    thereIsNoReport: "There is no reports.",
+    clickToAddReport: <div className="flex justify-center w-full mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h1> butonuna tıklayarak yeni bir rapor ekleyebilirsiniz</h1>
+                    </div>
+};
+
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function OrderReportsPage(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+    
     const orderId = parseInt(new URLSearchParams(window.location.search).get('orderId'));
     const reports = useSelector(state => state.orderReports);
     const curOrder = useSelector(state => state.curOrdersList.find((val) => val.id == orderId));
@@ -53,7 +81,7 @@ function OrderReportsPage(props) {
             <Sidebar />
             <div className="m-8 mt-6 ml-28">
                 <div className="flex mb-8">
-                    <h1 className="text-black mr-1 my-auto">Order Reports</h1>
+                    <h1 className="text-black mr-1 my-auto">{propConst.orderReports}</h1>
                     {!isPrevOrder &&
                         <Popup
                             trigger={
@@ -82,7 +110,7 @@ function OrderReportsPage(props) {
                                             </div>
                                         </div>
                                         <div className="fixed bottom-8 right-8">
-                                            <button onClick={() => {_submitReport();close();}} className="green h-16">Send to the customer</button>
+                                            <button onClick={() => {_submitReport();close();}} className="green h-16">{propConst.sendToCustomer}</button>
                                         </div>
                                     </div>
                                 )
@@ -97,15 +125,9 @@ function OrderReportsPage(props) {
                 }
                 {renderedReports.length === 0 &&
                     <div className="w-full my-auto text-center">
-                        <h1>There is no reports.</h1>
+                        <h1>{propConst.thereIsNoReport}</h1>
                         {!isPrevOrder &&
-                            <div className="flex justify-center w-full mx-auto">
-                                <h1>You can add a new report clicking the </h1>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <h1> icon</h1>
-                            </div>
+                            propConst.clickToAddReport
                         }
                     </div>
                 }

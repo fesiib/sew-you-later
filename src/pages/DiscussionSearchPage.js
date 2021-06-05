@@ -12,10 +12,16 @@ import ReportMessage from '../components/ReportMessage';
 import NotesDiscussionImage from '../components/NotesDiscussionImage';
 import {deleteImage, addImage} from '../reducers/discussionImages';
 
-const propConst = {
+const propConstUS = {
     refImagesHeader: "Reference Images",
     searchImagesHeader: "Search Images",
     imagesChosenText: "Images Chosen",
+};
+
+const propConstTR = {
+    refImagesHeader: "Referans Resimler",
+    searchImagesHeader: "Resimleri Ara",
+    imagesChosenText: "Seçilmiş Resimler",
 };
 
 /* 
@@ -27,6 +33,9 @@ const propConst = {
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function DiscussionSearchPage(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const dispatch = useDispatch();
 
