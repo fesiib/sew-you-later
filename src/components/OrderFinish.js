@@ -13,9 +13,8 @@ const propConstUS = {
 };
 const propConstTR = {
     nextStepTitle: "Sonraki Adım",
-    finishDesc: `If this order is already completed, please click the button below so that we will
-    move the order to "Previous Orders" tab.`,
-    finishTitle: "Finish", 
+    finishDesc: `Bu sipariş tamamlandıysa, siparişi "Önceki Siparişler" sekmesine taşımamız için lütfen aşağıdaki düğmeyi tıklayın.`,
+    finishTitle: "Tamamlandı", 
 };
 
 // const propVars = {

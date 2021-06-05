@@ -16,6 +16,9 @@ const propConstTR = {
 }
 
 function FAQButton(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+    
     return (
         <Disclosure className="">
             {({ open }) => (
