@@ -16,7 +16,6 @@ const propConst = {
 
 function OrderProgress(props) {
 
-    console.log(props.vars);
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
             <div className="m-5">

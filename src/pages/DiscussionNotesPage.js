@@ -15,8 +15,6 @@ const propConst = {
 };
 
 function DiscussionNotesPage(props) {
-
-    
     const dispatch = useDispatch();
     
     const orderId = new URLSearchParams(window.location.search).get('orderId');
