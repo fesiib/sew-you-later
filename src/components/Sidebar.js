@@ -6,7 +6,7 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 
 import "./Sidebar.css"
 
-const propConst = {
+const propConstUS = {
     orderDetails: "Order Details",
     discussionNotes: "Discussion Notes",
     measurements: "Measurements",
@@ -19,7 +19,23 @@ const propConst = {
         notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
 };
 
+const propConstTR = {
+    orderDetails: "Sipariş Detayı",
+    discussionNotes: "Görüşme Notları",
+    measurements: "Ölçüler",
+    reports: "Raporlar",
+
+    curStepDesc: "Ölçü alımı oluştur",
+    nextStepDesc:
+        `Ölçüler için ihtiyacınız olan vücut kısımlarını seçerek müşteriye
+        gönderilecek bir ölçü formu oluşturacaksınız. Sol paneldeki "Tartışma Notları"nı
+         tıklayarak istediğiniz zaman tartışma sayfasına herhangi bir not ekleyebilirsiniz.`,
+};
+
 function Sidebar(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const dispatch = useDispatch();
 

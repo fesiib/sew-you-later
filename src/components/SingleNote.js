@@ -2,14 +2,23 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addNote, deleteNote, updateDraftNoteBody, updateDraftNoteTitle } from '../reducers/imageNotes';
 
-const propConst = {
+const propConstUS = {
     noteTitle: "Please type your note title.",
     noteBody: "Please type your note description.",
 };
 
+const propConstTR = {
+    noteTitle: "Not Başlığını Giriniz",
+    noteBody: "Not Açıklamasını Giriniz",
+}
+
 var editable = false;
 
 function SingleNote({id, imageId, reportId}) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const note = useSelector(state => state.imageNotes.find((note) => note.id === id));
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
