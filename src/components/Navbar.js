@@ -17,12 +17,16 @@ function checkActiveWindow() {
 
 const activeWindow = checkActiveWindow()
 
+const propUtils = {
+    languageName: "ENG",
+};
+
 const propConst = {
     newOrders: 'New Orders',
     currentOrders: 'Current Orders',
     previousOrders: 'Previous Orders',
 
-    languageName: "ENG",
+    language: "Language",
     english: "English (ENG)",
     turkish: "Turkish (TUR)"
 }
@@ -44,17 +48,17 @@ function Navbar(props) {
         return () => {
             switch (lang) {
                 case "ENG": {
-                    propConst.languageName = "ENG";
+                    propUtils.languageName = "ENG";
                     break;
                 }
                 case "TUR": {
-                    propConst.languageName = "TUR";
+                    propUtils.languageName = "TUR";
                     break;
                 }
                 default: break;
             }
 
-            dispatch(changeLanguage(propConst.languageName));
+            dispatch(changeLanguage(propUtils.languageName));
         }
     };
 
@@ -73,7 +77,7 @@ function Navbar(props) {
                             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                 {/* Mobile menu button*/}
                                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-indigo-400 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                                    <span className="sr-only">Language</span>
+                                    <span className="sr-only">{propConst.language}</span>
                                     {open ? (
                                         <XIcon className="block h-6 w-6" aria-hidden="true" />
                                     ) : (
@@ -115,9 +119,9 @@ function Navbar(props) {
                                         <>
                                             <div>
                                                 <Menu.Button className="bg-indigo-900 flex text-sm rounded-full focus:outline-none">
-                                                    <span className="sr-only">Language</span>
+                                                    <span className="sr-only">{propConst.language}</span>
                                                     <div className="flex flex-row space-x-2">
-                                                        <p>{propConst.languageName}</p>
+                                                        <p>{propUtils.languageName}</p>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                                                         </svg>

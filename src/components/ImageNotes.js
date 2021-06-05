@@ -7,6 +7,23 @@ import { storage } from '../services/firebase';
 import SingleNote from './SingleNote';
 import ConfirmCard from './ConfirmCard';
 
+const propConst = {
+    notes: "Notes",
+    confirmCardTitle: "Delete image?",
+    confirmCardBody: "Deleting the image will permanently delete all the notes taken for this image.",
+    confirmCardCancel: "Cancel",
+    confirmCardConfirm: "Delete",
+    thereIsNoNotes: "There isn't any notes for this image",
+    youCanAddNotesGuide: <h2 className="text-gray-400 mt-4 text-center flex justify-center">
+                            You can add notes by clicking 
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            icon
+                        </h2>,
+    
+};
+
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
@@ -42,7 +59,7 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
                     {reportId === -1 ?
                         <div className="flex justify-between">
                             <div className="flex mb-3">
-                                <h2 className="text-black mr-1 my-auto">Notes</h2>
+                                <h2 className="text-black mr-1 my-auto">{propConst.notes}</h2>
                                 <button onClick={() => dispatch(addNote("", "", imageId, reportId, orderId))} className="text-black p-0 rounded-full shadow-none my-auto">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -69,10 +86,10 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
                                                         <ConfirmCard 
                                                         onConfirm={_deleteImage} 
                                                         onDecline={close} 
-                                                        title="Delete image?" 
-                                                        body="Deleting the image will permanently delete all the notes taken for this image."
-                                                        decline="Cancel"
-                                                        confirm="Delete"
+                                                        title={propConst.confirmCardTitle} 
+                                                        body={propConst.confirmCardBody}
+                                                        decline={propConst.confirmCardCancel}
+                                                        confirm={propConst.confirmCardConfirm}
                                                     />
                                                 </div>
                                             )
@@ -90,7 +107,7 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
                         </div>
                         :
                         <div className="flex justify-between">
-                            <h2 className="text-black mr-1 my-auto">Notes</h2>
+                            <h2 className="text-black mr-1 my-auto">{propConst.notes}</h2>
                             <div>
                                 <button onClick={closePopup} className="text-black p-0 mx-2 shadow-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,7 +124,7 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
                 {reportId !== -1 ? 
                     <div className="fixed-height overflow-y-scroll pr-3"> 
                         {renderedNotes.length === 0 ?
-                            <h2 className="text-gray-400 mt-4 text-center">There isn't any notes for this image</h2>
+                            <h2 className="text-gray-400 mt-4 text-center">{propConst.thereIsNoNotes}</h2>
                             :
                             renderedNotes
                         }
@@ -115,11 +132,7 @@ function ImageNotes({imageId, imageSrc, reportId, orderId, closePopup}) {
                     :
                     <div className="fixed-height overflow-y-scroll pr-3"> 
                         {renderedNotes.length === 0 ?
-                            <h2 className="text-gray-400 mt-4 text-center flex justify-center">You can add notes by clicking 
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                             icon</h2>
+                            propConst.youCanAddNotesGuide
                             :
                             renderedNotes
                         }
