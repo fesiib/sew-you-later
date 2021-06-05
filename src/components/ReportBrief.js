@@ -11,6 +11,12 @@ const propConst = {
     noImageInReport: "Posted without image",
 }
 
+const propConst = {
+    report: "Report",
+    posted: "Posted",
+    noImageInReport: "Posted without image",
+}
+
 const propVars = {
     reportTitle: "Report 1 Lorem ipsum  Lorem ipsum",
     reportDate: new Date(), //returns the current date
@@ -19,6 +25,9 @@ const propVars = {
 };
 
 function ReportBrief({ id, report, orderId }) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+    
     const images = useSelector(state => state.reportImages.filter(image => (image.parentReportId === id && image.orderId === orderId)));
     const n = images.length;
 

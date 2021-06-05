@@ -27,8 +27,7 @@ const propConstTR = {
       tıklayarak istediğiniz zaman tartışma sayfasına herhangi bir not ekleyebilirsiniz.`,
 
     curStepDesc4: "Üretim altında",
-    nextStepDesc4: `Any updates on the product? Click the arrow above to start sending progress report 
-    to the customer.`
+    nextStepDesc4: `Ürüne dair herhangi bir güncelleme var mı? Müşteriye ilerleme raporu göndermek için yukarıdaki oka tıklayın.`
 };
 
 function OrderNextStep(props) {

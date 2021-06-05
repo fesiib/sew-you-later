@@ -4,9 +4,15 @@ import { CalendarIcon } from '@heroicons/react/outline';
 
 import ProgressBar from './ProgressBar';
 
-const propConst = {
+const propConstUS = {
     statusTitle: "Status: ",
     deadlineTitle: "Estimated Due: ",
+    notAvailable: "N/A",
+};
+
+const propConstTR = {
+    statusTitle: "Durum: ",
+    deadlineTitle: "Kalan Gün: ",
     notAvailable: "N/A",
 };
 

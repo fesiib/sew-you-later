@@ -5,9 +5,13 @@ import { storage } from '../services/firebase';
 import Popup from 'reactjs-popup';
 import ImageNotes from './ImageNotes';
 
-const propConst = {
+const propConstUS = {
     noImage: "There is no image",
     uploadImage: "Upload image",
+}
+const propConstTR = {
+    noImage: "Resim yok",
+    uploadImage: "Resim yükle",
 }
 
 const propVars = {
@@ -21,6 +25,9 @@ const propVars = {
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function ReportImages({reportId, orderId}) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const images = useSelector(state => state.reportImages.filter((image) => (image.parentReportId === reportId && image.orderId === orderId)));
     const dispatch = useDispatch();
 
