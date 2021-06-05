@@ -56,28 +56,31 @@ function ReportImages({reportId, orderId}) {
         return Math.floor(Math.random() * max);
     }
 
+    function uploadImageAsPromise (imageFile) {
+        return new Promise(function (resolve, reject) {
+            var storageRef = storage.ref(`report_images/${imageFile.name}`);
+            var task = storageRef.put(imageFile);
+
+            task.on('state_changed',
+                function progress(snapshot){
+
+                },
+                function error(err){
+    
+                },
+                function complete(){
+                    task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        dispatch(addImage(downloadURL, reportId, orderId));
+                    });
+                }
+            );
+        });
+    }
+
     const uploadImage = e => {
         for(var i = 0; i < e.target.files.length; i++) {
             var image = e.target.files[i];
-            const uploadTask = storage.ref(`report_images/${image.name}`).put(image);
-            uploadTask.on(
-                "state_changed",
-                snapshot => {
-
-                },
-                error => {
-                    console.log(error);
-                },
-                () => {
-                    storage
-                    .ref("report_images")
-                    .child(image.name)
-                    .getDownloadURL()
-                    .then(url => {
-                        dispatch(addImage(url, reportId, orderId));
-                    });
-                }
-            )
+            uploadImageAsPromise(image);
         }
     }
 

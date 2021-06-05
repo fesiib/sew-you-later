@@ -43,10 +43,12 @@ function SingleNote({id, imageId, reportId}) {
         <div>
             {(() => {
                 if(reportId !== -1) {
-                    return (<div className="card mt-3 p-3 pr-0 grid grid-cols-12 w-full">
+                    return (<div className="card mt-3 p-3 pr-0 grid grid-cols-12 divide-x w-full">
                                 <div className="col-span-11">
                                     <input value={note ? note.title : title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-5/6 text-black font-bold h2"/>
                                     <textarea value={note ? note.body: body} rows="2" className="resize-none shadow-md appearance-none rounded py-1 px-3 w-5/6 text-black"/>
+                                </div>
+                                <div className="py-8">
                                 </div>
                             </div>);
                 }

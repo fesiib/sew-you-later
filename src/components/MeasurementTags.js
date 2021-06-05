@@ -158,7 +158,7 @@ function MeasurementTags(props) {
             value={selectedBP}
             onChange={onChange}
             isClearable={true}
-            isDisabled={(status == IMMUTABLE)}
+            isDisabled={(status == IMMUTABLE || props.isPrevOrder)}
             className="max-w-xl m-10"
             noOptionsMessage={propUtils.measurementTagsNoOptions}
             components={propUtils.animatedComponents}

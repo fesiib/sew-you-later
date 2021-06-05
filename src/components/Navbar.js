@@ -34,7 +34,7 @@ const propConst = {
 const navigation = [
     { name: propConst.newOrders, href: '/new-orders', current: activeWindow[0], cntNotifications: 0 },
     { name: propConst.currentOrders, href: '/current-orders', current: activeWindow[1], cntNotifications: 0 },
-    { name: propConst.previousOrders, href: '#', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
+    { name: propConst.previousOrders, href: '/previous-orders', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
 ]
 
 function classNames(...classes) {
