@@ -5,6 +5,11 @@ import { storage } from '../services/firebase';
 import Popup from 'reactjs-popup';
 import ImageNotes from './ImageNotes';
 
+const propConst = {
+    noImage: "There is no image",
+    uploadImage: "Upload image",
+}
+
 const propVars = {
     reportTitle: "Please type a report title.",
     reportBody: "Dear Customer, I completed the production of the arms and the pockets. You can check the attached images. Also ... Dear Customer, I completed the production of the arms and the pockets. You can check the attached images.",
@@ -83,14 +88,13 @@ function ReportImages({reportId, orderId}) {
         <div className="card max-w-3xl p-5 flex-grow">
             <h2 className="text-black">Images</h2>
             {(images.length === 0 && reportId !== -1) ?
-                <h2 className="text-gray-400 text-center">There is no image</h2> 
-                : 
-                
+                <h2 className="text-gray-400 text-center">{propConst.noImage}</h2> 
+                :
                 <div className="gallery-small">
                     <input type="file" onChange={uploadImage} id="upload-button" accept="image/*" multiple hidden/>
                     {reportId === -1 ?
                         <label htmlFor="upload-button" className="h-36 w-36 cursor-pointer flex flex-col justify-center thumbnail border border-dashed mx-4 mt-5 p-0">
-                            <h2 className="text-gray-400 mx-auto">Upload image</h2>
+                            <h2 className="text-gray-400 mx-auto">{propConst.uploadImage}</h2>
                             <div className="mx-auto text-gray-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />

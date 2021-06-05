@@ -9,6 +9,20 @@ import Notification from '../components/Notification';
 import SingleNoteDiscussionImage from './SingleNoteDiscussionImage';
 import ConfirmCard from './ConfirmCard';
 
+const propConst = {
+    notesTitle: "Notes",
+    popupTitle: "Delete Notes?",
+    popupBody: "This will permanently delete all the notes taken for this image and will close the pop-up.",
+    popupDecline: "Cancel",
+    popupConfirm: "Delete",
+    youCanAddNotesGuide: <h2 className="text-gray-400 mt-4 text-center flex justify-center">You can add notes by clicking 
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        icon</h2>,
+
+};
+
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpState, status}) {
@@ -156,11 +170,7 @@ function NotesDiscussionImage({imageId, imageSrc, closePopup, orderId, setPopUpS
                     <div className="fixed-height overflow-y-scroll pr-3"> 
                         {renderedNotes.length === 0 ?
                             !isPrevOrder ?
-                            <h2 className="text-gray-400 mt-4 text-center flex justify-center">You can add notes by clicking 
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            icon</h2>
+                            propConst.youCanAddNotesGuide
                             :
                             <h2 className="text-gray-400 mt-4 text-center flex justify-center">There are no notes for this image</h2>
                             :

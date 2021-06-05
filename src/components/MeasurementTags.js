@@ -10,8 +10,12 @@ const colorSelected = "blue";
 
 const propConst = {
     measurementTagsPlaceholder: "Choose Body Parts from left figure",
+    noMatchingBodyPart: "Could not find matching Body Part",
+};
+
+const propUtils = {
     measurementTagsNoOptions: (inputValue) => {
-        return "Could not find matching Body Part";
+        return propConst.noMatchingBodyPart;
     },
     animatedComponents: makeAnimated(),
     options: [
@@ -156,9 +160,9 @@ function MeasurementTags(props) {
             isClearable={true}
             isDisabled={(status == IMMUTABLE || props.isPrevOrder)}
             className="max-w-xl m-10"
-            noOptionsMessage={propConst.measurementTagsNoOptions}
-            components={propConst.animatedComponents}
-            styles={propConst.styles}
+            noOptionsMessage={propUtils.measurementTagsNoOptions}
+            components={propUtils.animatedComponents}
+            styles={propUtils.styles}
 
         />
     );

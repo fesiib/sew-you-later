@@ -11,6 +11,12 @@ const propConst = {
     discussionNotes: "Discussion Notes",
     measurements: "Measurements",
     reports: "Reports",
+
+    curStepDesc: "About to create a measurements form",
+    nextStepDesc:
+        `You will create a measurements form that will be sent to the customer by choosing 
+        the body parts that you need the measurements. Feel free to add any additional
+        notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
 };
 
 function Sidebar(props) {
@@ -65,11 +71,8 @@ function Sidebar(props) {
                         ...curOrder,
                         curStepIndex: nextStepIndex,
                         curStepStatus: "ongoing",
-                        curStepDesc: "About to create a measurements form",
-                        nextStepDesc:
-                            `You will create a measurements form that will be sent to the customer by choosing 
-                            the body parts that you need the measurements. Feel free to add any additional
-                            notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+                        curStepDesc: propConst.curStepDesc,
+                        nextStepDesc: propConst.nextStepDesc,
                         nextStepPage: "order-measurements",
                     }
                 }

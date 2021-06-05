@@ -25,6 +25,10 @@ const propConst = {
                  reason below.`,
     reportDecline: "Decline",
     reportDelete: "Report & Delete",
+    steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
+    nextStepDesc: "You will have a discussion with the customer and might want to take notes with so that you can come back to view the notes at anytime.",
+    curStepDesc: "Start a discussion with the customer",
+    
 };
 
 function NewOrderDetails(props) {
@@ -49,11 +53,11 @@ function NewOrderDetails(props) {
         return {
             ...props.vars,
             estimatedDue: "2021-06-29", // YYYY-MM-DD Now it is a default value, fix it later
-            steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production", // Removed Delivery
+            steps: propConst.steps,
             curStepIndex: 1,
             curStepStatus: "ongoing", // It will be either "incomplete", "ongoing", "complete". Also, the previous steps are always assumed to be "complete"!
-            nextStepDesc: "You will have a discussion with the customer and might want to take notes with so that you can come back to view the notes at anytime.",
-            curStepDesc: "Start a discussion with the customer",
+            nextStepDesc: propConst.nextStepDesc,
+            curStepDesc: propConst.curStepDesc,
             notificationPage: "X", // another possible options: "Measurements", "Order Details" (depending on) also "" if no notification
             nextStepPage: "discussion-search",
         }

@@ -7,13 +7,16 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 
 const propConst = {
     nextStepTitle: "Next Step",
+
+    curStepDesc1: "About to create a measurements form",
+    nextStepDesc1: `You will create a measurements form that will be sent to the customer by choosing 
+    the body parts that you need the measurements. Feel free to add any additional
+    notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+
+    curStepDesc4: "Under production",
+    nextStepDesc4: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`
 };
-
-// const propVars = {
-//     stepTitle: "Discussion",
-//     stepDesc: "You will discuss stuff with the customer",
-// };
-
 
 function OrderNextStep(props) {
     const orderId = new URLSearchParams(window.location.search).get('orderId');
@@ -28,17 +31,13 @@ function OrderNextStep(props) {
     };
 
     const updateProgress = () => {
-        // const curStepPage = props.vars.nextStepPage;
         const curStep = props.vars.curStepIndex;
-
         const descArray = {
             // Discussion -> Measurement Record
             // Measurement Record -> Customer's Response
             1: [
-                "About to create a measurements form",
-                `You will create a measurements form that will be sent to the customer by choosing 
-                the body parts that you need the measurements. Feel free to add any additional
-                notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+                propConst.curStepDesc1,
+                propConst.nextStepDesc1,
                 curStep + 1,
                 "order-measurements"
             ],
@@ -60,13 +59,13 @@ function OrderNextStep(props) {
             // Not supposed to be here
             // Customer's Response -> Production
             4: [
-                "Under production",
-                `Any updates on the product? Click the arrow above to start sending progress report 
-                to the customer.`,
+                propConst.curStepDesc4,
+                propConst.nextStepDesc4,
                 curStep,
                 "order-reports"
             ],
         }
+
         return {
             ...props.vars,
             curStepStatus: "ongoing",

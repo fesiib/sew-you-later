@@ -12,7 +12,10 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 const propsConst = {
     send: "Send",
     resend: "Resend",
-    orderTitle: "Order: "
+    orderTitle: "Order: ",
+    waitingCustomerResponse: "Waiting for measurements from the customer's response",
+    formSent: `You have already sent a form to the customer. Right now there is nothing
+    much to do. You may want to re-check form if you like.`,
 }
 
 function OrderMeasurementsPage(props) {
@@ -35,10 +38,9 @@ function OrderMeasurementsPage(props) {
             ...curOrder,
             curStepIndex: nextStepIndex,
             curStepStatus: "ongoing",
-            curStepDesc: "Waiting for measurements from the customer's response",
+            curStepDesc: propsConst.waitingCustomerResponse,
             nextStepDesc:
-                `You have already sent a form to the customer. Right now there is nothing
-                much to do. You may want to re-check form if you like.`,
+                propsConst.formSent,
         }
     }
 

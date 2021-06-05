@@ -16,7 +16,7 @@ const propConst = {
 // };
 
 function OrderProgress(props) {
-
+  
     // console.log(props.vars);
     const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
     

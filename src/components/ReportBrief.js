@@ -5,6 +5,12 @@ import ReportMessage from '../components/ReportMessage';
 import ReportImages from '../components/ReportImages';
 import PopupWidget from '../components/PopupWidget';
 
+const propConst = {
+    report: "Report",
+    posted: "Posted",
+    noImageInReport: "Posted without image",
+}
+
 const propVars = {
     reportTitle: "Report 1 Lorem ipsum  Lorem ipsum",
     reportDate: new Date(), //returns the current date
@@ -18,7 +24,7 @@ function ReportBrief({ id, report, orderId }) {
 
     var imgRendered = [];
     if (n == 0)
-        imgRendered.push(<h2 className="text-gray-400">Posted without image</h2>);
+        imgRendered.push(<h2 className="text-gray-400">{propConst.noImageInReport}</h2>);
     if (n >= 1)
         imgRendered.push(<img key={0} className="thumbnail w-36 h-36" src={images[0].src} />);
     if (n === 2)
@@ -32,7 +38,7 @@ function ReportBrief({ id, report, orderId }) {
     return (
         <div className="card w-84 shadow-lg">
             <div className="flex p-4 mt-2 mb-2">
-                <h1 className="w-64 line-clamp-2 ml-4 mt-2">{report.title === "" ? "Report " + report.id.toString() : report.title}</h1>
+                <h1 className="w-64 line-clamp-2 ml-4 mt-2">{report.title === "" ? (propConst.report + " ") + report.id.toString() : report.title}</h1>
                 <PopupWidget
                     popupButton={
                         <button className="w-16 h-16 rounded-full green text-4xl">
@@ -51,7 +57,7 @@ function ReportBrief({ id, report, orderId }) {
             </div>
             <div className="ml-8">
                 <div className="mb-4">
-                    <h2>{"Posted: " + report.postDate}</h2>
+                    <h2>{(propConst.posted + ": ") + report.postDate}</h2>
                 </div>
                 <div className="mb-4 h-32">
                     <p className="line-clamp-5">{report.body}</p>

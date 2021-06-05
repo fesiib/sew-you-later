@@ -6,7 +6,11 @@ import { resetApp } from '../reducers';
 import { receiveRq } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
+
 export const propsConst = {
+    curStepDesc: "Under production",
+    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`,
     measurements: {
         unit: "cm",
         values: [
@@ -113,10 +117,8 @@ function TestNewOrdersPage(props) {
             ...curOrder,
             curStepIndex: nextStepIndex,
             curStepStatus: "ongoing",
-            curStepDesc: "Under production",
-            nextStepDesc:
-                `Any updates on the product? Click the arrow above to start sending progress report 
-                to the customer.`,
+            curStepDesc: propsConst.curStepDesc,
+            nextStepDesc: propsConst.nextStepDesc,
             nextStepPage: "order-reports",
             notificationPage: "Measurements",
         }

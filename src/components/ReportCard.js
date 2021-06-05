@@ -1,3 +1,7 @@
+const propConst = {
+    reason: "Reason",
+}
+
 function ReportCard(props) {
     return (
         <div className="flex items-center justify-center h-screen">
@@ -10,7 +14,7 @@ function ReportCard(props) {
                         <p>{props.body}</p>
                     </div>
                     <div id="cardTextField" className="py-4">
-                        <p className="mb-2">Reason:</p>
+                        <p className="mb-2">{propConst.reason + ":"}</p>
                         <textarea className="w-full p-2"></textarea>
                     </div>
                     <div id="cardButton" className="flex justify-between space-x-4">
