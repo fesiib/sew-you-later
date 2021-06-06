@@ -1,3 +1,5 @@
+import {useSelector} from 'react-redux';
+
 function ConfirmCard(props) {
     return (
         <div className="flex items-center justify-center h-screen">

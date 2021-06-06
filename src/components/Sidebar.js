@@ -6,14 +6,36 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 
 import "./Sidebar.css"
 
-const propConst = {
+const propConstUS = {
     orderDetails: "Order Details",
     discussionNotes: "Discussion Notes",
     measurements: "Measurements",
     reports: "Reports",
+
+    curStepDesc: "About to create a measurements form",
+    nextStepDesc:
+        `You will create a measurements form that will be sent to the customer by choosing 
+        the body parts that you need the measurements. Feel free to add any additional
+        notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+};
+
+const propConstTR = {
+    orderDetails: "Sipariş Detayı",
+    discussionNotes: "Görüşme Notları",
+    measurements: "Ölçüler",
+    reports: "Raporlar",
+
+    curStepDesc: "Ölçü alımı oluştur",
+    nextStepDesc:
+        `Ölçüler için ihtiyacınız olan vücut kısımlarını seçerek müşteriye
+        gönderilecek bir ölçü formu oluşturacaksınız. Sol paneldeki "Tartışma Notları"nı
+         tıklayarak istediğiniz zaman tartışma sayfasına herhangi bir not ekleyebilirsiniz.`,
 };
 
 function Sidebar(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const dispatch = useDispatch();
 
@@ -28,8 +50,8 @@ function Sidebar(props) {
     const [measurementsNotification, setMeasurementsNotification] = useState(false);
 
     useEffect(() => {
-        const notifyOrderDetailsPage = curOrder.notificationPage == propConst.orderDetails;
-        const notifyMeasuementsPage = curOrder.notificationPage == propConst.measurements;
+        const notifyOrderDetailsPage = curOrder.notificationPage == propConstUS.orderDetails;
+        const notifyMeasuementsPage = curOrder.notificationPage == propConstUS.measurements;
         const updateNotificationPage =
             ((notifyOrderDetailsPage || notifyMeasuementsPage) && pathName == "/order-details") ||
             (notifyMeasuementsPage && pathName == "/order-measurements");
@@ -65,11 +87,8 @@ function Sidebar(props) {
                         ...curOrder,
                         curStepIndex: nextStepIndex,
                         curStepStatus: "ongoing",
-                        curStepDesc: "About to create a measurements form",
-                        nextStepDesc:
-                            `You will create a measurements form that will be sent to the customer by choosing 
-                            the body parts that you need the measurements. Feel free to add any additional
-                            notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+                        curStepDesc: propConst.curStepDesc,
+                        nextStepDesc: propConst.nextStepDesc,
                         nextStepPage: "order-measurements",
                     }
                 }

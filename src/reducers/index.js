@@ -14,6 +14,7 @@ import curOrdersId from './curOrdersId';
 import curRefImages from './curRefImages';
 import discussionImages from './discussionImages';
 import discussionImageNotes from './discussionImageNotes';
+import langReducer from './language';
 
 const RESET_APP = "RESET_APP";
 
@@ -31,6 +32,7 @@ const appReducer = combineReducers({
     curRefImages: curRefImages,
     discussionImages: discussionImages,
     discussionImageNotes: discussionImageNotes,
+    langReducer: langReducer,
 });
 
 export const resetApp = () => ({

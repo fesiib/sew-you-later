@@ -1,4 +1,16 @@
+import {useSelector} from 'react-redux';
+const propConstUS = {
+    reason: "Reason",
+}
+
+const propConstTR = {
+    reason: "Sebep",
+}
+
 function ReportCard(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="w-96 rounded-lg bg-white p-4 divide-y-2 space-y-2">
@@ -10,7 +22,7 @@ function ReportCard(props) {
                         <p>{props.body}</p>
                     </div>
                     <div id="cardTextField" className="py-4">
-                        <p className="mb-2">Reason:</p>
+                        <p className="mb-2">{propConst.reason + ":"}</p>
                         <textarea className="w-full p-2"></textarea>
                     </div>
                     <div id="cardButton" className="flex justify-between space-x-4">

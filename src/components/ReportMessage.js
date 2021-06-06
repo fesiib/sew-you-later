@@ -2,14 +2,32 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addReport, addBlankReport, updateDraftReportTitle, updateDraftReportBody } from "../reducers/orderReports";
 
-const placeholder = {
+const propConstUS = {
+    report: "Report",
+    noDescription: "No description",
     reportTitle: "Please type your report title.",
     reportBody: "Please type your report description.",
+}
+
+const propConstTR = {
+    report: "Raport",
+    noDescription: "Herhangi Bir Açıklama Yok",
+    reportTitle: "Rapor Başlığını Yazınız",
+    reportBody: "Rapor Açıklamasını Yazınız",
+}
+
+
+const placeholder = {
+    
 };
 
 var editable = false;
 
 function ReportMessage({reportId, orderId}) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const report = useSelector(state => state.orderReports.find((report) => (report.id === reportId && report.orderId === orderId)));
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
@@ -41,9 +59,9 @@ function ReportMessage({reportId, orderId}) {
             {(() => {
                 if(reportId !== -1) {
                     return <div className="card max-w-xl p-5 my-auto">
-                                <input placeholder={"Report " + report.id} value={report ? report.title : title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
+                                <input placeholder={propConst.report + " " + report.id} value={report ? report.title : title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
                                 <hr className=" border-black"/>
-                                <textarea placeholder={"No description"} value={report ? report.body : body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
+                                <textarea placeholder={propConst.noDescription} value={report ? report.body : body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
                             </div>;
                 }
                     
@@ -54,9 +72,9 @@ function ReportMessage({reportId, orderId}) {
                         setBody(report.body);
                     }
                     return <div className="card max-w-xl p-5 my-auto">
-                                <input onChange={(e) => onChangeTitle(e)} placeholder={placeholder.reportTitle} value={title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
+                                <input onChange={(e) => onChangeTitle(e)} placeholder={propConst.reportTitle} value={title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-full text-black font-bold h2"/>
                                 <hr className=" border-black"/>
-                                <textarea onChange={(e) => onChangeBody(e)} placeholder={placeholder.reportBody} value={body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
+                                <textarea onChange={(e) => onChangeBody(e)} placeholder={propConst.reportBody} value={body} rows="15" className="resize-none shadow-md appearance-none rounded py-1 px-3 mt-3 w-full text-black"/>
                             </div>;
                 }
             })()}

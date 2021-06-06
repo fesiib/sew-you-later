@@ -8,10 +8,19 @@ import {useDispatch, useSelector } from 'react-redux';
 
 const colorSelected = "blue";
 
-const propConst = {
+const propConstUS = {
     measurementTagsPlaceholder: "Choose Body Parts from left figure",
+    noMatchingBodyPart: "Could not find matching Body Part",
+};
+
+const propConstTR = {
+    measurementTagsPlaceholder: "Soldaki şekilden ölçülecek vücut parçalarını seçin",
+    noMatchingBodyPart: "Eşleşen vücut parçası bulunamadı",
+};
+
+const propUtils = {
     measurementTagsNoOptions: (inputValue) => {
-        return "Could not find matching Body Part";
+        return propConst.noMatchingBodyPart;
     },
     animatedComponents: makeAnimated(),
     options: [
@@ -75,6 +84,9 @@ const propConst = {
 };
 
 function MeasurementTags(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const dispatch = useDispatch();
     
     const optionsBP = allBPs.slice(1).map((label, index) => {
@@ -156,9 +168,9 @@ function MeasurementTags(props) {
             isClearable={true}
             isDisabled={(status == IMMUTABLE || props.isPrevOrder)}
             className="max-w-xl m-10"
-            noOptionsMessage={propConst.measurementTagsNoOptions}
-            components={propConst.animatedComponents}
-            styles={propConst.styles}
+            noOptionsMessage={propUtils.measurementTagsNoOptions}
+            components={propUtils.animatedComponents}
+            styles={propUtils.styles}
 
         />
     );

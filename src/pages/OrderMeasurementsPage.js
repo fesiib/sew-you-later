@@ -9,13 +9,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resendRq, sendRq, setId } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
-const propsConst = {
+const propConstUS = {
     send: "Send",
     resend: "Resend",
-    orderTitle: "Order: "
+    orderTitle: "Order: ",
+    waitingCustomerResponse: "Waiting for measurements from the customer's response",
+    formSent: `You have already sent a form to the customer. Right now there is nothing
+    much to do. You may want to re-check form if you like.`,
+}
+
+const propConstTR = {
+    send: "Gönder",
+    resend: "Tekrar Gönder",
+    orderTitle: "Sipariş: ",
+    waitingCustomerResponse: "Müşterinin ölçüleri bekleniyor",
+    formSent: `Müşteriye ölçü formu gönderilmiştir. Şu anda yapacak pek bir şey bulunmamaktadır.
+    Dilerseniz formu tekrar kontrol edebilirsiniz.`,
 }
 
 function OrderMeasurementsPage(props) {
+
+    const language = useSelector(state => state.langReducer.language);
+    const propsConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const dispatch = useDispatch();
 
     const orderId = new URLSearchParams(window.location.search).get('orderId');
@@ -35,10 +51,9 @@ function OrderMeasurementsPage(props) {
             ...curOrder,
             curStepIndex: nextStepIndex,
             curStepStatus: "ongoing",
-            curStepDesc: "Waiting for measurements from the customer's response",
+            curStepDesc: propsConst.waitingCustomerResponse,
             nextStepDesc:
-                `You have already sent a form to the customer. Right now there is nothing
-                much to do. You may want to re-check form if you like.`,
+                propsConst.formSent,
         }
     }
 

@@ -4,13 +4,19 @@ import Notification from './Notification';
 import { CalendarIcon } from '@heroicons/react/outline';
 import {useSelector} from 'react-redux';
 
-const propConst = {
+const propConstUS = {
     estimatedDue: "Estimated Due:",
+    imagePlaceholderLink: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png",
+};
+const propConstTR = {
+    estimatedDue: "Kalan gün:",
     imagePlaceholderLink: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png",
 };
 
 
 function CurOrderItem(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const curRefImages = useSelector(state => state.curRefImages);
     const referenceImages = curRefImages.filter((refImage) => refImage.parentId === props.vars.id);
@@ -44,7 +50,7 @@ function CurOrderItem(props) {
                         <div className="text-right mt-2">
                             <div className="flex flex-row justify-end items-center font-bold text-blue-h2 cursor-default">
                                 <CalendarIcon className="h-6"/>
-                                <p className="text-sm">{propConst.estimatedDue + " " + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left"}</p>
+                                <p className="text-sm">{propConst.estimatedDue + " " + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + (language == "TUR"? " gün kaldı" : " days left")}</p>
                             </div>                           
                         </div>
                     </div>

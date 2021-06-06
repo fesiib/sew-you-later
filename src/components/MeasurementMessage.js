@@ -1,11 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { editMsg, IMMUTABLE } from "../reducers/measurements";
 
-const propVars = {
+const propVarsUS = {
     measurementNotesPlaceholder: "Enter Extra Notes if needed",
 };
 
+const propVarsTR = {
+    measurementNotesPlaceholder: "Gerekliyse ekstra not ekleyin",
+};
+
 function MeasurementMessage(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propVars = (language == "TUR" ? propVarsTR : propVarsUS);
+
     const dispatch = useDispatch();
     const {
         message,

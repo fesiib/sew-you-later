@@ -5,7 +5,7 @@ import { removeCurOrder } from '../reducers/curOrdersList';
 import Popup from 'reactjs-popup';
 import ReportCard from './ReportCard';
 
-const propConst = {
+const propConstUS = {
     refImagesTitle: "Reference Images",
     orderDescTitle: "Order Description",
     orderDetailsTitle: "Order Details",
@@ -18,6 +18,20 @@ const propConst = {
                  reason below.`,
     reportDecline: "Decline",
     reportDelete: "Report & Delete",
+};
+
+const propConstTR = {
+    refImagesTitle: "Referans Resimler",
+    orderDescTitle: "Sipariş Açıklaması",
+    orderDetailsTitle: "Sipariş Detayı",
+    customerInfoTitle: "Müşteri Bilgileri",
+    reportText: "Bildir",
+
+    reportTitle: "Kötüye kullanım bildir?",
+    reportBody: `Görünüşe göre bu sipariş uygunsuz. Bu siparişi bildirebilir
+    ve listenizden silebilirsiniz. Lütfen aşağıda nedenini belirtiniz.`,
+    reportDecline: "Reddet",
+    reportDelete: "Bildir ve Sil",
 };
 
 const propVars = {
@@ -36,6 +50,8 @@ const propVars = {
 };
 
 function OrderDetails(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const curRefImages = useSelector(state => state.curRefImages);
     const referenceImages = curRefImages.filter((refImage) => refImage.parentId == props.vars.id);

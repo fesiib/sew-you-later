@@ -1,12 +1,18 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { CalendarIcon } from '@heroicons/react/outline';
-
+import {useSelector} from 'react-redux';
 import ProgressBar from './ProgressBar';
 
-const propConst = {
+const propConstUS = {
     statusTitle: "Status: ",
     deadlineTitle: "Estimated Due: ",
+    notAvailable: "N/A",
+};
+
+const propConstTR = {
+    statusTitle: "Durum: ",
+    deadlineTitle: "Kalan Gün: ",
     notAvailable: "N/A",
 };
 
@@ -16,14 +22,16 @@ const propConst = {
 // };
 
 function OrderProgress(props) {
-
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+  
     // console.log(props.vars);
     const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
     
     const getEstimatedDueText = () => {
         if(isPrevOrder)
             return propConst.notAvailable;
-        return parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left";
+        return parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + (language == "TUR"? " gün kaldı" : " days left");
     };
 
     return (

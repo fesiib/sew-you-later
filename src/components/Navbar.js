@@ -2,7 +2,8 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Notification from './Notification';
-import {useSelector} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeLanguage } from '../reducers/language';
 
 function checkActiveWindow() {
     var active_path = window.location.pathname
@@ -16,20 +17,61 @@ function checkActiveWindow() {
 
 const activeWindow = checkActiveWindow()
 
-const navigation = [
-    { name: 'New Orders', href: '/new-orders', current: activeWindow[0], cntNotifications: 0},
-    { name: 'Current Orders', href: '/current-orders', current: activeWindow[1], cntNotifications: 0},
-    { name: 'Previous Orders', href: '/previous-orders', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
-]
+const propConstUS = {
+    newOrders: 'New Orders',
+    currentOrders: 'Current Orders',
+    previousOrders: 'Previous Orders',
+
+    language: "Language",
+    english: "English (ENG)",
+    turkish: "Türkçe (TUR)"
+}
+
+const propConstTR = {
+    newOrders: 'Yeni Siparişler',
+    currentOrders: 'Mevcut Siparişler',
+    previousOrders: 'Önceki Siparişler',
+
+    language: "Dil",
+    english: "English (ENG)",
+    turkish: "Türkçe (TUR)"
+}
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 function Navbar(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
-    const newOrdersList = useSelector(state => state.newOrdersList);    
-    const curOrdersList = useSelector(state => state.curOrdersList);    
+    const navigation = [
+        { name: propConst.newOrders, href: '/new-orders', current: activeWindow[0], cntNotifications: 0 },
+        { name: propConst.currentOrders, href: '/current-orders', current: activeWindow[1], cntNotifications: 0 },
+        { name: propConst.previousOrders, href: '/previous-orders', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
+    ]
+
+    const dispatch = useDispatch();
+
+    function changeLang(lang) {
+        return () => {
+            switch (lang) {
+                case "ENG": {
+                    dispatch(changeLanguage("ENG"));
+                    break;
+                }
+                case "TUR": {
+                    dispatch(changeLanguage("TUR"));
+                    break;
+                }
+                default: break;
+            }
+
+        }
+    };
+
+    const newOrdersList = useSelector(state => state.newOrdersList);
+    const curOrdersList = useSelector(state => state.curOrdersList);
 
     navigation[0].cntNotifications = newOrdersList.reduce((acc, ord) => acc + (ord.unseen === true ? 1 : 0), 0);
     navigation[1].cntNotifications = curOrdersList.reduce((acc, ord) => acc + (ord.notificationPage !== "X" ? 1 : 0), 0);
@@ -43,7 +85,7 @@ function Navbar(props) {
                             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                 {/* Mobile menu button*/}
                                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-indigo-400 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                                    <span className="sr-only">Open main menu</span>
+                                    <span className="sr-only">{propConst.language}</span>
                                     {open ? (
                                         <XIcon className="block h-6 w-6" aria-hidden="true" />
                                     ) : (
@@ -84,13 +126,14 @@ function Navbar(props) {
                                     {({ open }) => (
                                         <>
                                             <div>
-                                                <Menu.Button className="bg-indigo-900 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-800 focus:ring-white">
-                                                    <span className="sr-only">Open user menu</span>
-                                                    <img
-                                                        className="h-12 w-12 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                        alt=""
-                                                    />
+                                                <Menu.Button className="bg-indigo-900 flex text-sm rounded-full focus:outline-none">
+                                                    <span className="sr-only">{propConst.language}</span>
+                                                    <div className="flex flex-row space-x-2">
+                                                        <p>{language}</p>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                                        </svg>
+                                                    </div>
                                                 </Menu.Button>
                                             </div>
                                             <Transition
@@ -110,39 +153,26 @@ function Navbar(props) {
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="/"
+                                                                onClick={changeLang("ENG")}
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
                                                                 )}
                                                             >
-                                                                Your Profile
+                                                                {propConst.english}
                                                             </a>
                                                         )}
                                                     </Menu.Item>
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
-                                                                href="/"
+                                                                onClick={changeLang("TUR")}
                                                                 className={classNames(
                                                                     active ? 'bg-indigo-100' : '',
                                                                     'block px-4 py-2 text-sm text-indigo-700'
                                                                 )}
                                                             >
-                                                                Settings
-                                                            </a>
-                                                        )}
-                                                    </Menu.Item>
-                                                    <Menu.Item>
-                                                        {({ active }) => (
-                                                            <a
-                                                                href="/"
-                                                                className={classNames(
-                                                                    active ? 'bg-indigo-100' : '',
-                                                                    'block px-4 py-2 text-sm text-indigo-700'
-                                                                )}
-                                                            >
-                                                                Sign out
+                                                                {propConst.turkish}
                                                             </a>
                                                         )}
                                                     </Menu.Item>

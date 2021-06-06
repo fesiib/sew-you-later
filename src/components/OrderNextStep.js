@@ -5,17 +5,35 @@ import { ArrowCircleRightIcon, ExclamationCircleIcon } from '@heroicons/react/so
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
 
-const propConst = {
+const propConstUS = {
     nextStepTitle: "Next Step",
+
+    curStepDesc1: "About to create a measurements form",
+    nextStepDesc1: `You will create a measurements form that will be sent to the customer by choosing 
+    the body parts that you need the measurements. Feel free to add any additional
+    notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+
+    curStepDesc4: "Under production",
+    nextStepDesc4: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`
 };
 
-// const propVars = {
-//     stepTitle: "Discussion",
-//     stepDesc: "You will discuss stuff with the customer",
-// };
+const propConstTR = {
+    nextStepTitle: "Sonraki Adım",
 
+    curStepDesc1: "Ölçü alımı oluştur",
+    nextStepDesc1: `Ölçüler için ihtiyacınız olan vücut kısımlarını seçerek müşteriye
+     gönderilecek bir ölçü formu oluşturacaksınız. Sol paneldeki "Tartışma Notları"nı
+      tıklayarak istediğiniz zaman tartışma sayfasına herhangi bir not ekleyebilirsiniz.`,
+
+    curStepDesc4: "Üretim altında",
+    nextStepDesc4: `Ürüne dair herhangi bir güncelleme var mı? Müşteriye ilerleme raporu göndermek için yukarıdaki oka tıklayın.`
+};
 
 function OrderNextStep(props) {
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const orderId = new URLSearchParams(window.location.search).get('orderId');
     const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
 
@@ -28,17 +46,13 @@ function OrderNextStep(props) {
     };
 
     const updateProgress = () => {
-        // const curStepPage = props.vars.nextStepPage;
         const curStep = props.vars.curStepIndex;
-
         const descArray = {
             // Discussion -> Measurement Record
             // Measurement Record -> Customer's Response
             1: [
-                "About to create a measurements form",
-                `You will create a measurements form that will be sent to the customer by choosing 
-                the body parts that you need the measurements. Feel free to add any additional
-                notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
+                propConst.curStepDesc1,
+                propConst.nextStepDesc1,
                 curStep + 1,
                 "order-measurements"
             ],
@@ -60,13 +74,13 @@ function OrderNextStep(props) {
             // Not supposed to be here
             // Customer's Response -> Production
             4: [
-                "Under production",
-                `Any updates on the product? Click the arrow above to start sending progress report 
-                to the customer.`,
+                propConst.curStepDesc4,
+                propConst.nextStepDesc4,
                 curStep,
                 "order-reports"
             ],
         }
+
         return {
             ...props.vars,
             curStepStatus: "ongoing",

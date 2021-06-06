@@ -9,14 +9,21 @@ import Popup from 'reactjs-popup';
 import { useEffect, useState } from 'react';
 import {addImage, deleteImage} from '../reducers/discussionImages';
 
-const propConst = {
+const propConstUS = {
     viewNotesHeader: "View Notes",
     searchImagesButtonText: "Search Images",
 };
 
+const propConstTR = {
+    viewNotesHeader: "Notları Görüntüle",
+    searchImagesButtonText: "Resimleri Ara",
+};
+
 function DiscussionNotesPage(props) {
 
-    
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const dispatch = useDispatch();
     
     const orderId = new URLSearchParams(window.location.search).get('orderId');

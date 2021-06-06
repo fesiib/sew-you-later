@@ -2,14 +2,27 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addNote, deleteNote, updateDiscussionNoteTitle, updateDiscussionNoteBody } from '../reducers/discussionImageNotes';
 
-const placeholder = {
+
+
+const propConstUS = {
     noteTitle: "Please type your note title.",
     noteBody: "Please type your note description.",
 };
 
+const propConstTR = {
+
+    noteTitle: "Not Başlığını Giriniz",
+    noteBody: "Not Açıklamasını Giriniz",
+}
+
 var editable = false;
 
 function SingleNoteDiscussionImage({id, imageId, isPrevOrder}) {
+
+
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const note = useSelector(state => state.discussionImageNotes.find((note) => note.id === id));
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
@@ -51,9 +64,9 @@ function SingleNoteDiscussionImage({id, imageId, isPrevOrder}) {
                 }
                 return (<div className="card mt-3 p-3 pr-0 grid grid-cols-12 divide-x w-full">
                             <div className="col-span-11">
-                                <input onChange={(e) => onChangeTitle(e)} placeholder={placeholder.noteTitle} value={title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-5/6 text-black font-bold h2"/>
-                                <textarea onChange={(e) => onChangeBody(e)} placeholder={placeholder.noteBody} value={body} rows="2" className="resize-none shadow-md appearance-none rounded py-1 px-3 w-5/6 text-black"/>
-                            </div>                            
+                                <input onChange={(e) => onChangeTitle(e)} placeholder={propConst.noteTitle} value={title} className="shadow-md appearance-none rounded py-1 px-3 mb-3 w-5/6 text-black font-bold h2"/>
+                                <textarea onChange={(e) => onChangeBody(e)} placeholder={propConst.noteBody} value={body} rows="2" className="resize-none shadow-md appearance-none rounded py-1 px-3 w-5/6 text-black"/>
+                            </div>
                             <div className="py-8">
                                 {!isPrevOrder &&
                                     <button onClick={_deleteNote} className="text-red-500 p-0 mx-2 shadow-none">

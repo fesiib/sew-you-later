@@ -1,4 +1,5 @@
 import Popup from 'reactjs-popup';
+import {useSelector} from 'react-redux';
 
 function PopupWidget(props) {
     // this is to check whether clicked outside the popup widget.

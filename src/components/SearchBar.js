@@ -1,18 +1,31 @@
 import {SearchIcon} from '@heroicons/react/solid';
 import { useState } from 'react';
+import {useSelector} from 'react-redux';
 
+const propConstUS = {
+    defaultPlaceholder: "Search for images here",
+    errorPlaceholder: "Error: Problem Occured While Fetching Images :(",
+    searching: "Searching...",
+}
+
+const propConstTR = {
+    defaultPlaceholder: "Buradan Resimleri Arayın",
+    errorPlaceholder: "Hata: Resimleri Ararken Bir Sorun Oluştu :(",
+    searching: "Aranıyor...",
+}
 
 function SearchBar(props) {
 
-    const defaultPlaceholder = "Search for images here";
-    const errorPlaceholder = "Error: Problem Occured While Fetching Images :(";
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const [textInput, setTextInput] = useState("");
-    const [placeholder, setPlaceHolder] = useState(defaultPlaceholder);
+    const [placeholder, setPlaceHolder] = useState(propConst.defaultPlaceholder);
     var searchButton;
 
     const handleEvent = (e) => {
-        if(placeholder == errorPlaceholder) {
-            setPlaceHolder(defaultPlaceholder);
+        if(placeholder == propConst.errorPlaceholder) {
+            setPlaceHolder(propConst.defaultPlaceholder);
         }
         setTextInput(e.target.value);
     };
@@ -28,18 +41,18 @@ function SearchBar(props) {
         const url = `https://pilgrim.wtf:25565/?search=${textInput} clothes`;
         fetch(url).then(response => {
             response.json().then(data => {
-                setPlaceHolder(defaultPlaceholder);
+                setPlaceHolder(propConst.defaultPlaceholder);
                 props.setSearchResults(data.filter((val, index) => index < 20));
             }).catch(reason => {
-                setPlaceHolder(errorPlaceholder);
+                setPlaceHolder(propConst.errorPlaceholder);
                 console.log(reason);
             });
         }).catch(reason => {
-            setPlaceHolder(errorPlaceholder);
+            setPlaceHolder(propConst.errorPlaceholder);
             console.log(reason);
         });
         setTextInput("");
-        setPlaceHolder("Searching...");
+        setPlaceHolder(propConst.searching);
     };
 
     const makeSearch = () => {

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 
 /// Simulation
-import {referenceImages, propVars, propsConst} from './TestNewOrdersPage';
+import {referenceImages, propVarsTR, propVarsUS} from './TestNewOrdersPage';
 import { useDispatch} from 'react-redux';
 import { addNewOrder } from '../reducers/newOrdersList';
 import { makeNewOrderAvId } from '../reducers/newOrdersId';
@@ -17,12 +17,25 @@ import { updateCurOrder } from '../reducers/curOrdersList';
 const SIMULATION_DELAY = 1000;
 // End of Simulation
 
-const propConst = {
+const propConstUS = {
     header: "New Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Customer", "Location"],
     noNeworders: "No New Orders",
+    underProduction: "Under production",
+    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`,
+
 };
 
+const propConstTR = {
+    header: "Yeni Siparişler",
+    sortByOptions: ["Yeniden Eskiye", "A-Z", "Müşteri", "Konum"],
+    noNeworders: "Yeni Sipariş Bulunmamaktadır",
+    underProduction: "Üretim Altında",
+    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`,
+
+};
 
 const propUtils = {
     getCmpArr: (v1, v2) => {
@@ -61,6 +74,9 @@ const propUtils = {
 
 function NewOrdersPage(props) {
 
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
     const newOrdersList = useSelector(state => state.newOrdersList);    
     const [newOrdersOrganization, setNewOrdersOrganization] = useState(newOrdersList);
 
@@ -80,7 +96,10 @@ function NewOrdersPage(props) {
 
     const _addNewOrder = () => {
         shuffleArray(referenceImages);
-        dispatch(addNewOrder(propVars, newOrdersId.avId));
+        if(language == "TUR")
+            dispatch(addNewOrder(propVarsTR, newOrdersId.avId));
+        else
+            dispatch(addNewOrder(propVarsUS, newOrdersId.avId));
         referenceImages.forEach((src, index) => {
             if (index < 3) {
                 dispatch(addNewRefImage(src, newOrdersId.avId))
@@ -113,24 +132,22 @@ function NewOrdersPage(props) {
             ...curOrder,
             curStepIndex: nextStepIndex,
             curStepStatus: "ongoing",
-            curStepDesc: "Under production",
-            nextStepDesc:
-                `Any updates on the product? Click the arrow above to start sending progress report 
-                to the customer.`,
+            curStepDesc: propConst.underProduction,
+            nextStepDesc: propConst.nextStepDesc,
             nextStepPage: "order-reports",
             notificationPage: "Measurements",
         }
     }
 
-    const _receiveMeasurements = () => {
-        dispatch(receiveRq({
-            unit: propsConst.measurements.unit,
-            values: requestedBodyParts.map((value, index) => {
-                return propsConst.measurements.values[value];
-            }),
-        }));
-        updateTheOrder();
-    }
+    // const _receiveMeasurements = () => {
+    //     dispatch(receiveRq({
+    //         unit: propsConst.measurements.unit,
+    //         values: requestedBodyParts.map((value, index) => {
+    //             return propsConst.measurements.values[value];
+    //         }),
+    //     }));
+    //     updateTheOrder();
+    // }
 
     /// End of Simulation
 
