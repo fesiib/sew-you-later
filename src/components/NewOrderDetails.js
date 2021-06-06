@@ -36,7 +36,7 @@ const propConstTR = {
     orderDescTitle: "Sipariş Açıklaması",
     orderDetailsTitle: "Sipariş Detayı",
     customerInfoTitle: "Müşteri Bilgileri",
-    reportText: "Kötüye Kullanımı Bildir",
+    reportText: "Bildir",
     acceptText: "Kabul et",
     declineText: "Reddet",
 

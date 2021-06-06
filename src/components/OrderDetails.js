@@ -25,7 +25,7 @@ const propConstTR = {
     orderDescTitle: "Sipariş Açıklaması",
     orderDetailsTitle: "Sipariş Detayı",
     customerInfoTitle: "Müşteri Bilgileri",
-    reportText: "Kötüye Kullanımı Bildir",
+    reportText: "Bildir",
 
     reportTitle: "Kötüye kullanım bildir?",
     reportBody: `Görünüşe göre bu sipariş uygunsuz. Bu siparişi bildirebilir

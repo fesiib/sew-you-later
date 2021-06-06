@@ -17,7 +17,7 @@ const propConstUS = {
     reportDelete: "Report & Delete",
 };
 const propConstTR = {
-    reportText: "Kötüye kullanım bildir?",
+    reportText: "Bildir",
 
     reportTitle: "Kötüye kullanım bildir?",
     reportBody: `Görünüşe göre bu sipariş uygunsuz. Bu siparişi bildirebilir
