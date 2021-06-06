@@ -31,7 +31,7 @@ function OrderProgress(props) {
     const getEstimatedDueText = () => {
         if(isPrevOrder)
             return propConst.notAvailable;
-        return parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + " days left";
+        return parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + (language == "TUR"? " gün kaldı" : " days left");
     };
 
     return (
