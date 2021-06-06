@@ -1,4 +1,5 @@
 import CheckIcon from '@heroicons/react/solid/CheckIcon';
+import {useSelector} from 'react-redux';
 
 function Notification(props) {
 

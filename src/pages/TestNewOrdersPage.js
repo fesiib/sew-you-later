@@ -5,8 +5,10 @@ import { addNewRefImage } from '../reducers/newRefImages';
 import { resetApp } from '../reducers';
 import { receiveRq } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
+import { changeLanguage } from '../reducers/language';
+import { useEffect } from 'react';
 
-export const propsConst = {
+export const propsConstUS = {
     orderTitle: "T-shirt with Pocket",
     orderDesc: `Hello! I want to order a gray T-Shirt with a pocket. I have attached images as references. 
     The collar should be like in the first image. The color of the T-shirt can be  
@@ -45,12 +47,60 @@ export const propsConst = {
     }
 };
 
-export const propVars = {
-    orderTitle: propsConst.orderTitle,
-    orderDesc: propsConst.orderDesc,
+export const propsConstTR = {
+    orderTitle: "Cepli Tişört",
+    orderDesc: `Merhaba! Önünde cebi olan gri bir tişört sipariş vermek istiyorum. Referans olarak birkaç resim ekledim.
+    Yakasını birinci resimdeki gibi istiyorum. Tişörtün rengi üçüncü resimdeki tişörtün rengine benzer olabilir fakat tonu konusunda hala
+    emin değilim. Bu siparişi 3 hafta içerisinde tamamlamanız mümkün müdür?`,
+    customerInfo: "Erkek, 19",
+    curStepDesc: "Üretim altında",
+    nextStepDesc: `Ürüne dair herhangi bir güncelleme var mı? Müşteriye ilerleme raporu göndermek için yukarıdaki oka tıklayın.`,
+    customerLocation: "Kore/Daejeon",
+    reset: "Yenile",
+    goToNewOrders: "Yeni Siparişlere Git",
+    receiveMeasurements: "Ölçüleri Gönder",
+    measurements: {
+        unit: "cm",
+        values: [
+            -1,
+            22.2,
+            70.3,
+            60.0,
+            65,
+            45.5,
+            20.8,
+            10.1,
+            95.4,
+            10,
+            100.1,
+            52,
+            //propsConst.waistBackLabel,
+            75,
+            //propsConst.neckBackLabel,
+            91,
+            5,
+            110.2,
+            25.1,
+        ],
+    }
+};
+
+export const propVarsUS = {
+    orderTitle: propsConstUS.orderTitle,
+    orderDesc: propsConstUS.orderDesc,
     customerName: "Mehmet Hamza Erol",
-    customerInfo: propsConst.customerInfo,
-    customerLocation: propsConst.customerLocation,
+    customerInfo: propsConstUS.customerInfo,
+    customerLocation: propsConstUS.customerLocation,
+    customerEmail: "beyaldiz@kaist.ac.kr",
+    unseen: true,
+};
+
+export const propVarsTR = {
+    orderTitle: propsConstTR.orderTitle,
+    orderDesc: propsConstTR.orderDesc,
+    customerName: "Mehmet Hamza Erol",
+    customerInfo: propsConstTR.customerInfo,
+    customerLocation: propsConstTR.customerLocation,
     customerEmail: "beyaldiz@kaist.ac.kr",
     unseen: true,
 };
@@ -66,25 +116,8 @@ const BUTTON_STYLE = "m-10 flex-end right-0 -mr-4 green cursor-pointer";
 function TestNewOrdersPage(props) {
 
     const language = useSelector(state => state.langReducer.language);
-    
-    if(language == "TUR") {
-        propsConst.orderTitle = "Cepli Tişört",
-        propsConst.orderDesc = `Merhaba! Önünde cebi olan gri bir tişört sipariş vermek istiyorum. Referans olarak birkaç resim ekledim.
-        Yakasını birinci resimdeki gibi istiyorum. Tişörtün rengi üçüncü resimdeki tişörtün rengine benzer olabilir fakat tonu konusunda hala
-        emin değilim. Bu siparişi 3 hafta içerisinde tamamlamanız mümkün müdür?`,
-        propsConst.customerInfo = "Erkek, 19",
-        propsConst.curStepDesc = "Üretim altında",
-        propsConst.nextStepDesc = `Ürüne dair herhangi bir güncelleme var mı? Müşteriye ilerleme raporu göndermek için yukarıdaki oka tıklayın.`,
-        propsConst.customerLocation = "Kore/Daejeon",
-        propsConst.reset = "Yenile",
-        propsConst.goToNewOrders = "Yeni Siparişlere Git",
-        propsConst.receiveMeasurements = "Ölçüleri Gönder";
-
-        propVars.orderTitle = propsConst.orderTitle,
-        propVars.orderDesc = propsConst.orderDesc,
-        propVars.customerInfo = propsConst.customerInfo,
-        propVars.customerLocation = propsConst.customerLocation;
-    }
+    const propsConst = (language == "TUR" ? propsConstTR : propsConstUS);
+    const propVars = (language == "TUR" ? propVarsTR : propVarsUS);
 
     const dispatch = useDispatch();
     const newOrdersId = useSelector(state => state.newOrdersId);
@@ -111,7 +144,9 @@ function TestNewOrdersPage(props) {
     };
 
     const _resetApp = () => {
+        let prevLang = language;
         dispatch(resetApp());
+        dispatch(changeLanguage(prevLang));
     }
 
     const _gotoNewOrder = () => {

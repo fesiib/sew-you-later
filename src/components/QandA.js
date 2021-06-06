@@ -1,5 +1,5 @@
 import { Disclosure } from '@headlessui/react'
-
+import {useSelector} from 'react-redux';
 const propConst = {
     question: "QUESTION",
     answer: "ANSWER"

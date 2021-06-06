@@ -11,7 +11,7 @@ const propVarsTR = {
 
 function MeasurementMessage(props) {
     const language = useSelector(state => state.langReducer.language);
-    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+    const propVars = (language == "TUR" ? propVarsTR : propVarsUS);
 
     const dispatch = useDispatch();
     const {

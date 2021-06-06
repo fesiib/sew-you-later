@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import QandA from '../components/QandA';
+import {useSelector} from 'react-redux';
 
 const propConst = {
     questions: [

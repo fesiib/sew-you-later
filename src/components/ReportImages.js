@@ -8,19 +8,21 @@ import ImageNotes from './ImageNotes';
 const propConstUS = {
     noImage: "There is no image",
     uploadImage: "Upload image",
+    images: "Images",
 }
 const propConstTR = {
     noImage: "Resim yok",
     uploadImage: "Resim yükle",
+    images: "Resimler",
 }
 
-const propVars = {
-    reportTitle: "Please type a report title.",
-    reportBody: "Dear Customer, I completed the production of the arms and the pockets. You can check the attached images. Also ... Dear Customer, I completed the production of the arms and the pockets. You can check the attached images.",
-    imgLinks: [
-        "https://v1.tailwindcss.com/img/card-top.jpg"
-    ]
-};
+// const propVars = {
+//     reportTitle: "Please type a report title.",
+//     reportBody: "Dear Customer, I completed the production of the arms and the pockets. You can check the attached images. Also ... Dear Customer, I completed the production of the arms and the pockets. You can check the attached images.",
+//     imgLinks: [
+//         "https://v1.tailwindcss.com/img/card-top.jpg"
+//     ]
+// };
 
 const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
@@ -93,7 +95,7 @@ function ReportImages({reportId, orderId}) {
 
     return (
         <div className="card max-w-3xl p-5 flex-grow">
-            <h2 className="text-black">Images</h2>
+            <h2 className="text-black">{propConst.images}</h2>
             {(images.length === 0 && reportId !== -1) ?
                 <h2 className="text-gray-400 text-center">{propConst.noImage}</h2> 
                 :

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 /// Simulation
-import { propsConst} from './TestNewOrdersPage';
+import { propsConstTR, propsConstUS} from './TestNewOrdersPage';
 import { useDispatch} from 'react-redux';
 import { receiveRq } from '../reducers/measurements';
 import { updateCurOrder } from '../reducers/curOrdersList';
@@ -110,9 +110,9 @@ function CurrentOrderspage(props) {
 
     const _receiveMeasurements = () => {
         dispatch(receiveRq({
-            unit: propsConst.measurements.unit,
+            unit: (language == "TUR" ? propsConstTR.measurements.unit : propsConstUS.measurements.unit),
             values: requestedBodyParts.map((value, index) => {
-                return propsConst.measurements.values[value];
+                return (language == "TUR" ? propsConstTR.measurements.values[value] : propsConstUS.measurements.values[value]);
             }),
         }));
         updateTheOrder();

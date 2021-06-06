@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 
 /// Simulation
-import {referenceImages, propVars, propsConst} from './TestNewOrdersPage';
+import {referenceImages, propVarsTR, propVarsUS} from './TestNewOrdersPage';
 import { useDispatch} from 'react-redux';
 import { addNewOrder } from '../reducers/newOrdersList';
 import { makeNewOrderAvId } from '../reducers/newOrdersId';
@@ -32,7 +32,8 @@ const propConstTR = {
     sortByOptions: ["Yeniden Eskiye", "A-Z", "Müşteri", "Konum"],
     noNeworders: "Yeni Sipariş Bulunmamaktadır",
     underProduction: "Üretim Altında",
-    nextStepDesc: `Ürüne dair herhangi bir güncelleme var mı? Müşteriye ilerleme raporu göndermek için yukarıdaki oka tıklayın.`,
+    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    to the customer.`,
 
 };
 
@@ -95,7 +96,10 @@ function NewOrdersPage(props) {
 
     const _addNewOrder = () => {
         shuffleArray(referenceImages);
-        dispatch(addNewOrder(propVars, newOrdersId.avId));
+        if(language == "TUR")
+            dispatch(addNewOrder(propVarsTR, newOrdersId.avId));
+        else
+            dispatch(addNewOrder(propVarsUS, newOrdersId.avId));
         referenceImages.forEach((src, index) => {
             if (index < 3) {
                 dispatch(addNewRefImage(src, newOrdersId.avId))
@@ -135,15 +139,15 @@ function NewOrdersPage(props) {
         }
     }
 
-    const _receiveMeasurements = () => {
-        dispatch(receiveRq({
-            unit: propsConst.measurements.unit,
-            values: requestedBodyParts.map((value, index) => {
-                return propsConst.measurements.values[value];
-            }),
-        }));
-        updateTheOrder();
-    }
+    // const _receiveMeasurements = () => {
+    //     dispatch(receiveRq({
+    //         unit: propsConst.measurements.unit,
+    //         values: requestedBodyParts.map((value, index) => {
+    //             return propsConst.measurements.values[value];
+    //         }),
+    //     }));
+    //     updateTheOrder();
+    // }
 
     /// End of Simulation
 

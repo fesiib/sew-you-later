@@ -1,3 +1,4 @@
+import {useSelector} from 'react-redux';
 const progressBarColorMapping = {
     'complete': "bg-green-400",
     "incomplete": "bg-gray-400",

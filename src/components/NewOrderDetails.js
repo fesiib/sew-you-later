@@ -25,7 +25,7 @@ const propConstUS = {
                  reason below.`,
     reportDecline: "Decline",
     reportDelete: "Report & Delete",
-    steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
+    steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production",
     nextStepDesc: "You will have a discussion with the customer and might want to come back to view the notes at anytime.",
     curStepDesc: "Start a discussion with the customer",
     
@@ -45,7 +45,7 @@ const propConstTR = {
      ve listenizden silebilirsiniz. Lütfen aşağıda nedenini belirtiniz.`,
     reportDecline: "Reddet",
     reportDelete: "Bildir ve Sil",
-    steps: "Order Confirmation-Discussion-Measurement Record-Customer's Response-Production-Delivery",
+    steps: "Sipariş Onayı-Görüşme-Ölçü Formu-Müşterinin Dönütü-Üretim",
     nextStepDesc: "Müşteriyle görüşme yapılacak. İstediğiniz zaman alınan notları görüntülemek için gelebilirsiniz.",
     curStepDesc: "Müşteri ile görüşmeyi başlat",
     

@@ -50,8 +50,8 @@ function Sidebar(props) {
     const [measurementsNotification, setMeasurementsNotification] = useState(false);
 
     useEffect(() => {
-        const notifyOrderDetailsPage = curOrder.notificationPage == propConst.orderDetails;
-        const notifyMeasuementsPage = curOrder.notificationPage == propConst.measurements;
+        const notifyOrderDetailsPage = curOrder.notificationPage == propConstUS.orderDetails;
+        const notifyMeasuementsPage = curOrder.notificationPage == propConstUS.measurements;
         const updateNotificationPage =
             ((notifyOrderDetailsPage || notifyMeasuementsPage) && pathName == "/order-details") ||
             (notifyMeasuementsPage && pathName == "/order-measurements");

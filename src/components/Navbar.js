@@ -30,19 +30,12 @@ const propConstUS = {
 const propConstTR = {
     newOrders: 'Yeni Siparişler',
     currentOrders: 'Mevcut Siparişler',
-    previousOrders: 'Geçmiş Siparişler',
+    previousOrders: 'Önceki Siparişler',
 
     language: "Dil",
     english: "English (ENG)",
     turkish: "Türkçe (TUR)"
 }
-
-
-const navigation = [
-    { name: propConst.newOrders, href: '/new-orders', current: activeWindow[0], cntNotifications: 0 },
-    { name: propConst.currentOrders, href: '/current-orders', current: activeWindow[1], cntNotifications: 0 },
-    { name: propConst.previousOrders, href: '/previous-orders', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
-]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -51,6 +44,12 @@ function classNames(...classes) {
 function Navbar(props) {
     const language = useSelector(state => state.langReducer.language);
     const propConst = (language == "TUR" ? propConstTR : propConstUS);
+
+    const navigation = [
+        { name: propConst.newOrders, href: '/new-orders', current: activeWindow[0], cntNotifications: 0 },
+        { name: propConst.currentOrders, href: '/current-orders', current: activeWindow[1], cntNotifications: 0 },
+        { name: propConst.previousOrders, href: '/previous-orders', current: activeWindow[2], cntNotifications: 0 }, // this should always have 0 notficiations
+    ]
 
     const dispatch = useDispatch();
 
@@ -71,7 +70,6 @@ function Navbar(props) {
         }
     };
 
-    const language = useSelector(state => state.langReducer.language);
     const newOrdersList = useSelector(state => state.newOrdersList);
     const curOrdersList = useSelector(state => state.curOrdersList);
 

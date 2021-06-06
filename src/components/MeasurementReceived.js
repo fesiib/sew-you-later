@@ -14,7 +14,7 @@ const propsConstTR = {
 
 function MeasurementReceived(props) {
     const language = useSelector(state => state.langReducer.language);
-    const propsConst = (language == "TUR" ? propConstTR : propConstUS);
+    const propsConst = (language == "TUR" ? propsConstTR : propsConstUS);
 
     const {
         requestedBodyParts,

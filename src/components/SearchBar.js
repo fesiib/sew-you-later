@@ -1,5 +1,6 @@
 import {SearchIcon} from '@heroicons/react/solid';
 import { useState } from 'react';
+import {useSelector} from 'react-redux';
 
 const propConstUS = {
     defaultPlaceholder: "Search for images here",

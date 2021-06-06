@@ -26,9 +26,9 @@ const propConstUS = {
 };
 
 const propConstTR = {
-    orderReports: "Order Reports",
-    sendToCustomer: "Send to the customer",
-    thereIsNoReport: "There is no reports.",
+    orderReports: "Sipariş Raporları",
+    sendToCustomer: "Müşteriye Gönder",
+    thereIsNoReport: "Herhangi Bir Rapor Bulunmamaktadır.",
     clickToAddReport: <div className="flex justify-center w-full mx-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

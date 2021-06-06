@@ -1,6 +1,7 @@
 import SearchBar from './SearchBar';
 import SortBy from './SortBy';
 import SizeBar from './SizeBar';
+import {useSelector} from 'react-redux';
 
 const propConstUS = {
     viewNotesButtonText: "View Notes",

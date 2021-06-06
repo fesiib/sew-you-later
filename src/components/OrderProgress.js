@@ -1,7 +1,7 @@
 import ImageWithText from './ImageWithText';
 import { ExclamationCircleIcon } from '@heroicons/react/solid'
 import { CalendarIcon } from '@heroicons/react/outline';
-
+import {useSelector} from 'react-redux';
 import ProgressBar from './ProgressBar';
 
 const propConstUS = {
