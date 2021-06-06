@@ -9,12 +9,17 @@ const propConstUS = {
     nextStepTitle: "Next Step",
     finishDesc: `If this order is already completed, please click the button below so that we will
     move the order to "Previous Orders" tab.`,
-    finishTitle: "Finish", 
+    finishTitle: "Finish",
+    curStepDesc: "This order is already completed!",
+    nextStepDesc: `You have already completed this order. You can browse throughout the order by using
+    the left panel menu if you want to.`,
 };
 const propConstTR = {
     nextStepTitle: "Sonraki Adım",
     finishDesc: `Bu sipariş tamamlandıysa, siparişi "Önceki Siparişler" sekmesine taşımamız için lütfen aşağıdaki düğmeyi tıklayın.`,
     finishTitle: "Tamamlandı", 
+    curStepDesc: "Bu sipariş çoktan tamamlandı.",
+    nextStepDesc: `Siparişi çoktan tamamladınız. Dilerseniz soldaki menüden siparişin tamamına göz atabilirsiniz.`,
 };
 
 // const propVars = {
@@ -44,10 +49,8 @@ function OrderFinish(props) {
             ...curOrder,
             curStepIndex: curOrder.curStepIndex,
             curStepStatus: "complete",
-            curStepDesc: "This order is already completed!",
-            nextStepDesc:
-                `You have already completed this order. You can browse throughout the order by using
-                the left panel menu if you want to.`,
+            curStepDesc: propConst.curStepDesc,
+            nextStepDesc: propConst.nextStepDesc,
             nextStepPage: "order-reports",
         }
     }
