@@ -8,7 +8,7 @@ export const changeLanguage = (language) => ({
 });
 
 const initialState = {
-    language: "TUR",
+    language: "ENG",
 };
 
 const langReducer = (state = initialState, action) => {
