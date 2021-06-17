@@ -126,12 +126,12 @@ function Navbar(props) {
                                     {({ open }) => (
                                         <>
                                             <div>
-                                                <Menu.Button className="bg-indigo-900 flex text-sm rounded-full focus:outline-none">
+                                                <Menu.Button className="bg-indigo-900 flex text-sm rounded-full hover:bg-white hover:text-indigo-900 focus:outline-none">
                                                     <span className="sr-only">{propConst.language}</span>
                                                     <div className="flex flex-row space-x-2">
                                                         <p>{language}</p>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                                                         </svg>
                                                     </div>
                                                 </Menu.Button>
