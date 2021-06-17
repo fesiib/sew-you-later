@@ -20,7 +20,7 @@ const activeWindow = checkActiveWindow()
 const propConstUS = {
     newOrders: 'New Orders',
     currentOrders: 'Current Orders',
-    previousOrders: 'Previous Orders',
+    previousOrders: 'Completed Orders',
 
     language: "Language",
     english: "English (ENG)",
