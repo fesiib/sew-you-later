@@ -51,7 +51,9 @@ const propsConst = {
     backLengthLabel: "Back Length",
     wristLabel: "Wrist",
     sleeveLengthLabel: "Sleeve Length",
-    shoulderLabel: "Shoulder",
+    shoulderLabel: "Shoulder Length",
+    upperArmLengthLabel: "Upper Arm Length",
+    upperArmGirthLabel: "Upper Arm Girth",
 };
 
 export const allBPs = [
@@ -73,7 +75,9 @@ export const allBPs = [
     propsConst.backLengthLabel,
     propsConst.wristLabel,
     propsConst.sleeveLengthLabel,
-    propsConst.shoulderLabel
+    propsConst.shoulderLabel,
+    propsConst.upperArmLengthLabel,
+    propsConst.upperArmGirthLabel,
 ];
 
 export const addBP = (payload) => ({
