@@ -28,11 +28,26 @@ function OrderProgress(props) {
     // console.log(props.vars);
     const isPrevOrder = (props.vars.curStepIndex === 4 && props.vars.curStepStatus == "complete");
     
+    const getEstimatedDue = () => {
+        if (isPrevOrder) {
+            return 100;
+        }
+        return parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24)));
+    }
+
     const getEstimatedDueText = () => {
         if(isPrevOrder)
             return propConst.notAvailable;
-        return parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + (language == "TUR"? " gün kaldı" : " days left");
+        return getEstimatedDue() + (language == "TUR"? " gün kaldı" : " days left");
     };
+
+    const getCalendarColor = () => {
+        console.log(getEstimatedDue());
+        if (getEstimatedDue() < 8) {
+            return " text-red-500 ";
+        }
+        return " text-blue-h2 ";
+    }
 
     return (
         <div className="m-10 flex flex-col bg-white rounded-xl">
@@ -41,9 +56,9 @@ function OrderProgress(props) {
                 <ProgressBar vars={props.vars}/>
             </div>
             <div className="mb-4 mr-6 -mt-4 flex justify-end">
-                <div href="#" className="flex flex-row justify-end items-center font-bold text-blue-h2 cursor-default mt-2">
-                    <CalendarIcon className="h-10 text-blue-h2"/>
-                    <h2 className="text-base ml-2">{propConst.deadlineTitle + getEstimatedDueText()}</h2>
+                <div href="#" className="flex flex-row justify-end items-center font-bold cursor-default mt-2">
+                    <CalendarIcon className={"h-10" + getCalendarColor()}/>
+                    <h2 className={"text-base ml-2" + getCalendarColor()}>{propConst.deadlineTitle + getEstimatedDueText()}</h2>
                 </div>
             </div>
         </div>
