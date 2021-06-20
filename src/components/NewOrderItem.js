@@ -34,10 +34,17 @@ function NewOrderItem(props) {
     const referenceImages = newRefImages.filter((refImage) => refImage.parentId == props.vars.id);
 
     const moveTo = (href, params) => {
-        return () => {
-            window.location = "/" + href + "?" + new URLSearchParams(params);
-        }
+        window.location = "/" + href + "?" + new URLSearchParams(params);
     }
+
+    const handleClick = (e) => {
+        if(e.target.id == "report-button") {
+            // Nothing   
+        }
+        else {
+            moveTo('new-order-details', { orderId: props.vars.id })
+        }
+    };
 
     // Report
     const dispatch = useDispatch();
@@ -58,9 +65,9 @@ function NewOrderItem(props) {
 
     return (
         <Notification size="h-6 w-6" position="top-left" data={props.vars.unseen}>
-            <div className="inline-flex bg-white rounded-xl hover:bg-gray-300 pb-1">
-                <div className="cursor-pointer" onClick={moveTo('new-order-details', { orderId: props.vars.id })}>
-                    <div className="ml-4 mb-4 mt-4 w-128 h-36 cursor-pointer">
+            <div className="inline-flex bg-white rounded-xl hover:bg-gray-300 pb-1 cursor-pointer" onClick={(e) => handleClick(e)}>
+                <div>
+                    <div className="ml-4 mb-4 mt-4 w-128 h-36">
                         <h1 className="mb-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{props.vars.orderTitle}</h1>
                         <p className="line-clamp-4 text-black">
                             {props.vars.orderDesc}
@@ -75,7 +82,7 @@ function NewOrderItem(props) {
                             <p>{props.vars.customerLocation}</p>
                         </div>
                     </div>
-                    <div className="flex justify-end">
+                    <div id="report-button" className="flex justify-end">
                         <Popup
                             // key={index}
                             // open={popUpState.imgSrc == img.src}
@@ -108,7 +115,7 @@ function NewOrderItem(props) {
                     </div>
                 </div>
                 <div className="m-4">
-                    <ImageWithText vars={{ referenceImage: referenceImages[0].src, text: referenceImages.length - 1 }} />
+                    <ImageWithText vars={{ referenceImage: referenceImages[0].src, text: referenceImages.length }} />
                 </div>
             </div>
         </Notification>
