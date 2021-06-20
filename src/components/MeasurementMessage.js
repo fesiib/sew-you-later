@@ -36,7 +36,7 @@ function MeasurementMessage(props) {
                 value={message}
                 onChange={onChange}
                 placeholder={propVars.measurementNotesPlaceholder}
-                rows="15"
+                rows="10"
                 className="card p-3 resize-none w-full border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
         </div>
     );
