@@ -4,6 +4,7 @@ import { ArrowCircleRightIcon, ExclamationCircleIcon } from '@heroicons/react/so
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
+import OrderNextStepIcon from './OrderNextStepIcon';
 
 const propConstUS = {
     nextStepTitle: "Next Step",
@@ -100,7 +101,7 @@ function OrderNextStep(props) {
                 {!isPrevOrder &&
                     <div className="flex cursor-pointer">
                         <a onClick={() => updateTheOrder()} className="text-green-500 hover:text-green-600">
-                            <ArrowCircleRightIcon className="h-16 mt-3" />
+                            <OrderNextStepIcon vars = {props.vars}/>
                         </a>
                     </div>
                 }

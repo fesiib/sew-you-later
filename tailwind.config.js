@@ -22,6 +22,9 @@ module.exports = {
       fontFamily: {
         'sans': 'Work Sans, Work Sans, sans-serif',
       },
+      scale: {
+        '200': '2',
+      }
     },
     variants: {
       width: ["responsive", "hover", "focus"],
