@@ -1,8 +1,19 @@
 import {useSelector} from 'react-redux';
 import {PhotographIcon} from '@heroicons/react/outline';
 
+const propConstUS = {
+    imageText: 'images',
+};
+
+const propConstTR = {
+    imageText: 'resim',  
+};
+
 function ImageWithText(props) {
 
+    const language = useSelector(state => state.langReducer.language);
+    const propConst = (language == "TUR" ? propConstTR : propConstUS);
+    
     return (
         <div className="relative max-w-max"> {/* Image box with over text */}
             {
@@ -17,7 +28,7 @@ function ImageWithText(props) {
                             <div className="flex flex-row justify-center items-center">
                                 <h3 className="mr-0.5">{props.vars.text}</h3> 
                                 {/* <PhotographIcon className="h-5 ml-0.5"/> */}
-                                <h3 className="ml-0.5">images</h3>
+                                <h3 className="ml-0.5">{propConst.imageText}</h3>
                             </div> 
                         </div>
                     </div>
