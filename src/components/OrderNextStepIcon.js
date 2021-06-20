@@ -18,7 +18,7 @@ function OrderNextStepIcon(props) {
         alert("could not match" + nextStepPage);
     }
 
-    return <div class="transform scale-200 mt-3 mr-3">{getNextStep(props.vars.nextStepPage)}</div>;
+    return <div className="transform scale-200 mt-3 mr-3">{getNextStep(props.vars.nextStepPage)}</div>;
 }
 
 export default OrderNextStepIcon;
