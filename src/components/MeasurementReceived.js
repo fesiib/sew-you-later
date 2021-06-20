@@ -52,7 +52,7 @@ function MeasurementReceived(props) {
                 );
             }
             return (
-                <p className={(status == 0 ? "invisible" : "")}> {propsConst.measurementsPlaceholderSent} </p>
+                <p className={(status === 0 ? "invisible" : "")}> {propsConst.measurementsPlaceholderSent} </p>
             );
         }
         return indexes.map((index, id) => {
@@ -65,7 +65,7 @@ function MeasurementReceived(props) {
     };
 
     if (props != undefined && props.vars == "orderDetails") {
-        if (status == 0) {
+        if (status === 0) {
             return <div></div>
         }
         return (
