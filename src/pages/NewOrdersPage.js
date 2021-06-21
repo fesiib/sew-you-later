@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import FAQButton from '../components/FAQButton';
 import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 /// Simulation
@@ -79,6 +80,10 @@ function NewOrdersPage(props) {
 
     const newOrdersList = useSelector(state => state.newOrdersList);    
     const [newOrdersOrganization, setNewOrdersOrganization] = useState(newOrdersList);
+
+    useEffect(() => {
+        setNewOrdersOrganization(newOrdersList);
+    }, [newOrdersList]);
 
     /// Simulation
     const dispatch = useDispatch();
