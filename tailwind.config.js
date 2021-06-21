@@ -24,6 +24,8 @@ module.exports = {
       },
       scale: {
         '200': '2',
+        '50': '.5',
+        '90': '.9',
       }
     },
     variants: {

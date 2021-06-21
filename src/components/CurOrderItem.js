@@ -1,6 +1,7 @@
 import ImageWithText from './ImageWithText';
 import ProgressBar from './ProgressBar';
 import Notification from './Notification';
+import EstimatedDue from './EstimatedDue';
 import { CalendarIcon } from '@heroicons/react/outline';
 import {useSelector} from 'react-redux';
 
@@ -55,9 +56,10 @@ function CurOrderItem(props) {
                             </div>
                         </div>
                         <div className="text-right mt-2">
-                            <div id="calender-icon" className="flex flex-row justify-end items-center font-bold text-blue-h2">
-                                <CalendarIcon className="h-6"/>
-                                <p className="text-sm">{propConst.estimatedDue + " " + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + (language == "TUR"? " gün kaldı" : " days left")}</p>
+                            <div id="calender-icon" className="flex flex-row justify-end items-center">
+                                <div className="transform scale-90">
+                                    <EstimatedDue vars={props.vars}/>
+                                </div>
                             </div>                           
                         </div>
                     </div>
