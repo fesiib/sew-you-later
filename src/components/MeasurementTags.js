@@ -37,6 +37,7 @@ const propUtils = {
             minHeight: '10em',
             display: 'flex',
             alignItems: 'flex-start',
+            cursor: 'pointer',
         }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
             const color = chroma(colorSelected);
@@ -56,7 +57,7 @@ const propUtils = {
                         ? 'white'
                         : 'black'
                     : colorSelected,
-                    cursor: isDisabled ? 'not-allowed' : 'default',
+                    cursor: isDisabled ? 'not-allowed' : 'pointer',
                     ':active': {
                     ...styles[':active'],
                 backgroundColor:

@@ -72,7 +72,7 @@ const PLACEHOLDER_SHADOW_STYLE = {
     strokeWidth: "40px",
 };
 
-const PLACEHOLDER_SHADOW_STYLE_CSS = "stroke: green; stroke-width: 40px; opacity:0.3;";
+const PLACEHOLDER_SHADOW_STYLE_CSS = "stroke: green; stroke-width: 40px; opacity:0.3; cursor: pointer;";
 const ON_SHADOW_STYLE_CSS = "stroke: green; fill: rgba(216, 216, 216, 0); stroke-width: 50px; opacity: 0.5;";
 const SELECTED_SHADOW_STYLE_CSS = "stroke: blue; fill: rgba(216, 216, 216, 0); stroke-width: 50px; opacity: 0.7;";
 
