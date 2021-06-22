@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import FAQButton from '../components/FAQButton';
 import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 /// Simulation
@@ -22,7 +23,7 @@ const propConstUS = {
     sortByOptions: ["Newest to Oldest", "A-Z", "Customer", "Location"],
     noNeworders: "No New Orders",
     underProduction: "Under production",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
 
 };
@@ -32,7 +33,7 @@ const propConstTR = {
     sortByOptions: ["Yeniden Eskiye", "A-Z", "Müşteri", "Konum"],
     noNeworders: "Yeni Sipariş Bulunmamaktadır",
     underProduction: "Üretim Altında",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
 
 };
@@ -79,6 +80,10 @@ function NewOrdersPage(props) {
 
     const newOrdersList = useSelector(state => state.newOrdersList);    
     const [newOrdersOrganization, setNewOrdersOrganization] = useState(newOrdersList);
+
+    useEffect(() => {
+        setNewOrdersOrganization(newOrdersList);
+    }, [newOrdersList]);
 
     /// Simulation
     const dispatch = useDispatch();

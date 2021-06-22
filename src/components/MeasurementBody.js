@@ -72,10 +72,9 @@ const PLACEHOLDER_SHADOW_STYLE = {
     strokeWidth: "40px",
 };
 
-const PLACEHOLDER_SHADOW_STYLE_CSS = "stroke: green; stroke-width: 40px; opacity:0.3;";
+const PLACEHOLDER_SHADOW_STYLE_CSS = "stroke: green; stroke-width: 40px; opacity:0.3; cursor: pointer;";
 const ON_SHADOW_STYLE_CSS = "stroke: green; fill: rgba(216, 216, 216, 0); stroke-width: 50px; opacity: 0.5;";
 const SELECTED_SHADOW_STYLE_CSS = "stroke: blue; fill: rgba(216, 216, 216, 0); stroke-width: 50px; opacity: 0.7;";
-
 
 const LINE_STYLE = {
     stroke: "rgb(0, 0, 0)",
@@ -158,13 +157,8 @@ function MeasurementBody(props) {
         }
     };
 
-    let highlightLeaveTimeout = null;
-
     const highlightBP = (event, show, value) => {
         event.stopPropagation();
-        if (highlightLeaveTimeout != null)
-            clearTimeout(highlightLeaveTimeout);
-
         if (show) {
             selectionRef.current.innerHTML = allBPs[value];
             selectionRef.current.className = propConst.selectedClassName;
@@ -174,17 +168,14 @@ function MeasurementBody(props) {
             }
         }
         else {
-            highlightLeaveTimeout = setTimeout(() => {
-                if (selectionRef.current != null) {
-                    selectionRef.current.innerHTML = allBPs[0];
-                    selectionRef.current.className = propConst.placeholderClassName;
-                }
-                if (status !== IMMUTABLE && !containsObject(value, bodyParts)) {
-                    event.target.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
-                    //BPRefs[value].current.setAttribute('style', PLACEHOLDER_ELLIPSE_STYLE_CSS);
-                }
-            }, 0);
-            highlightLeaveTimeout = null;
+            if (selectionRef.current != null) {
+                selectionRef.current.innerHTML = allBPs[0];
+                selectionRef.current.className = propConst.placeholderClassName;
+            }
+            if (status !== IMMUTABLE && !containsObject(value, bodyParts)) {
+                event.target.setAttribute('style', PLACEHOLDER_SHADOW_STYLE_CSS);
+                //BPRefs[value].current.setAttribute('style', PLACEHOLDER_ELLIPSE_STYLE_CSS);
+            }
         }
     };
 
@@ -317,12 +308,30 @@ function MeasurementBody(props) {
                             <line style={LINE_STYLE} x1="863.363" y1="822.78" x2="883.008" y2="822.78" />
                             <line style={LINE_STYLE} x1="862.437" y1="1078.371" x2="882.082" y2="1078.371" />
                         </g>
-                        <g ref={BPRefsAct[16]} transform="matrix(0.000001, 1, -0.75028, -0.000001, 1585.595703, -620.930603)">
+                        {/* <g ref={BPRefsAct[16]} transform="matrix(0.000001, 1, -0.75028, -0.000001, 1585.595703, -620.930603)">
                             <title>{propConst.shoulder}</title>
                             <line style={LINE_STYLE} x1="860.137" y1="913.787" x2="858.951" y2="1078.371" />
                             <line style={LINE_STYLE} x1="850.405" y1="913.787" x2="870.05" y2="913.787" />
                             <line style={LINE_STYLE} x1="849.417" y1="1078.371" x2="869.062" y2="1078.371" />
+                        </g> */}
+
+                        <g ref={BPRefsAct[16]} transform="matrix(0, 1.1, -2.1, 0, 2292, -624)">
+                            <title>{propConst.shoulder}</title>
+                            <line style={LINE_STYLE} x1="860.137" y1="913.787" x2="858.951" y2="1078.371" />
+                            <line style={{strokeWidth: '2px', stroke: 'black'}} x1="850.405" y1="913.787" x2="870.05" y2="913.787" />
+                            <line style={{strokeWidth: '2px', stroke: 'black'}} x1="849.417" y1="1078.371" x2="869.062" y2="1078.371" />    
                         </g>
+                        
+                        <g ref={BPRefsAct[17]} transform="matrix(1, 0, 0, 0.25, -210, 100)">
+                            <title>{propConst.upperArmLengthLabel}</title>
+                            <line style={LINE_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737" />
+                            <line style={{strokeWidth: '17px', stroke: 'black'}} x1="708.328" y1="824.792" x2="727.973" y2="824.792" />
+                            <line style={{strokeWidth: '17px', stroke: 'black'}} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237" />
+                        </g>
+
+                        <ellipse ref={BPRefsAct[18]} style={ELLIPSE_STYLE} cx="570" cy="451" rx="31" ry="5">
+                            <title>{propConst.upperArmGirthLabel}</title>
+                        </ellipse>
 
                         <title>{propConst.shadows}</title>
                         <ellipse ref={BPRefsShadow[1]}
@@ -389,6 +398,14 @@ function MeasurementBody(props) {
                             <title>{propConst.ankle}</title>
                         </ellipse>
 
+                        <ellipse ref={BPRefsShadow[18]}
+                            onClick={(event) => onClick(event, 18)}
+                            onMouseEnter={(event) => highlightBP(event, true, 18)}
+                            onMouseLeave={(event) => highlightBP(event, false, 18)}
+                            style={PLACEHOLDER_SHADOW_STYLE} cx="570" cy="451" rx="31" ry="5">
+                            <title>{propConst.upperArmGirthLabel}</title>
+                        </ellipse>
+
                         <g>
                             <title>{propConst.waistToKnee}</title>
                             <line style={SHADOW_LINE_DASH_STYLE} x1="308.904" y1="635.727" x2="443.429" y2="636.67" />
@@ -401,8 +418,6 @@ function MeasurementBody(props) {
                                     onMouseLeave={(event) => highlightBP(event, false, 8)}
                                     style={PLACEHOLDER_SHADOW_STYLE}
                                     x1="947.874" y1="748.392" x2="946.616" y2="1327.349" />
-                                <line x1="938.388" y1="750.404" x2="958.033" y2="750.404" />
-                                <line x1="936.731" y1="1326.849" x2="956.376" y2="1326.849" />
                             </g>
                         </g>
                         <g>
@@ -412,8 +427,6 @@ function MeasurementBody(props) {
                                 onMouseEnter={(event) => highlightBP(event, true, 10)}
                                 onMouseLeave={(event) => highlightBP(event, false, 10)}
                                 style={PLACEHOLDER_SHADOW_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737" />
-                            <line x1="708.328" y1="824.792" x2="727.973" y2="824.792" />
-                            <line x1="706.671" y1="1401.237" x2="726.316" y2="1401.237" />
                         </g>
                         <g>
                             <title>{propConst.outseam}</title>
@@ -427,8 +440,6 @@ function MeasurementBody(props) {
                                 <line x1="938.388" y1="750.404" x2="958.033" y2="750.404" />
                                 <line x1="936.731" y1="1326.849" x2="956.376" y2="1326.849" />
                             </g>
-                            <line style={SHADOW_LINE_DASH_STYLE} x1="827.495" y1="641.548" x2="962.02" y2="642.491" />
-                            <line style={SHADOW_LINE_DASH_STYLE} x1="797.906" y1="1400.388" x2="996.157" y2="1401.331" />
                         </g>
                         <g transform="matrix(1, 0, 0, 0.7825, 226.241714, -348.25293)">
                             <title>{propConst.sleeveLength}</title>
@@ -437,8 +448,6 @@ function MeasurementBody(props) {
                                 onMouseEnter={(event) => highlightBP(event, true, 15)}
                                 onMouseLeave={(event) => highlightBP(event, false, 15)}
                                 style={PLACEHOLDER_SHADOW_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737" />
-                            <line style={LINE_STYLE} x1="708.328" y1="824.792" x2="727.973" y2="824.792" />
-                            <line style={LINE_STYLE} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237" />
                         </g>
                         <g transform="matrix(1, 0, 0, 0.718637, 2.729032, -369.910614)">
                             <title>{propConst.backLength}</title>
@@ -447,8 +456,6 @@ function MeasurementBody(props) {
                                 onMouseEnter={(event) => highlightBP(event, true, 13)}
                                 onMouseLeave={(event) => highlightBP(event, false, 13)}
                                 style={PLACEHOLDER_SHADOW_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737" />
-                            <line style={LINE_STYLE} x1="708.328" y1="824.792" x2="727.973" y2="824.792" />
-                            <line style={LINE_STYLE} x1="706.671" y1="1401.237" x2="726.316" y2="1401.237" />
                         </g>
                         <g transform="matrix(1, 0, 0, 0.686668, -153.819855, 77.642952)">
                             <title>{propConst.rise}</title>
@@ -457,10 +464,8 @@ function MeasurementBody(props) {
                                 onMouseEnter={(event) => highlightBP(event, true, 11)}
                                 onMouseLeave={(event) => highlightBP(event, false, 11)}
                                 style={PLACEHOLDER_SHADOW_STYLE} x1="873.171" y1="822.78" x2="871.971" y2="1078.371" />
-                            <line style={LINE_STYLE} x1="863.363" y1="822.78" x2="883.008" y2="822.78" />
-                            <line style={LINE_STYLE} x1="862.437" y1="1078.371" x2="882.082" y2="1078.371" />
-                        </g>
-                        <g transform="matrix(0.000001, 1, -0.75028, -0.000001, 1585.595703, -620.930603)">
+                            </g>
+                        {/* <g transform="matrix(0.000001, 1, -0.75028, -0.000001, 1585.595703, -620.930603)">
                             <title>{propConst.shoulder}</title>
                             <line ref={BPRefsShadow[16]}
                                 onClick={(event) => onClick(event, 16)}
@@ -469,6 +474,22 @@ function MeasurementBody(props) {
                                 style={PLACEHOLDER_SHADOW_STYLE} x1="860.137" y1="913.787" x2="858.951" y2="1078.371" />
                             <line style={LINE_STYLE} x1="850.405" y1="913.787" x2="870.05" y2="913.787" />
                             <line style={LINE_STYLE} x1="849.417" y1="1078.371" x2="869.062" y2="1078.371" />
+                        </g> */}
+                        <g transform="matrix(0, 1.1, -2.1, 0, 2292, -624)">
+                            <title>{propConst.shoulder}</title>
+                            <line ref={BPRefsShadow[16]}
+                                onClick={(event) => onClick(event, 16)}
+                                onMouseEnter={(event) => highlightBP(event, true, 16)}
+                                onMouseLeave={(event) => highlightBP(event, false, 16)}
+                                style={PLACEHOLDER_SHADOW_STYLE} x1="860.137" y1="913.787" x2="858.951" y2="1078.371" />
+                        </g>
+                        <g transform="matrix(1, 0, 0, 0.25, -210, 100)">
+                            <title>{propConst.upperArmLengthLabel}</title>
+                            <line ref={BPRefsShadow[17]}
+                                onClick={(event) => onClick(event, 17)}
+                                onMouseEnter={(event) => highlightBP(event, true, 17)}
+                                onMouseLeave={(event) => highlightBP(event, false, 17)}
+                                style={PLACEHOLDER_SHADOW_STYLE} x1="717.814" y1="822.78" x2="716.556" y2="1401.737" />
                         </g>
                     </g>
                 </svg>

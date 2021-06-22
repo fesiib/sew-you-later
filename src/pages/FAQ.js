@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import QandA from '../components/QandA';
+import YouTube from 'react-youtube';
 import {useSelector} from 'react-redux';
 
 const propConst = {
@@ -50,11 +51,21 @@ const propConst = {
 }
 
 function FAQ() {
+    const yt_opts = {
+        height: '480',
+        width: '1200',
+        playerVars: {
+          // https://developers.google.com/youtube/player_parameters
+          autoplay: 0,
+        },
+      };
     return (
         <div>
             <Navbar />
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-                <h1 className="my-8">Frequently Asked Questions</h1>
+                <h1 className="my-8">Tutorial Video</h1>
+                <YouTube className="mx-auto w-full" videoId="SUFoUH95LYo" opts={yt_opts}/>
+                <h1 className="my-8 mt-16">Frequently Asked Questions</h1>
                 {propConst.questions.map(function (question) {
                     return <QandA question={question[0]} answer={question[1]} />;
                 })}

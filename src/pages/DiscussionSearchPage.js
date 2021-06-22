@@ -165,6 +165,20 @@ function DiscussionSearchPage(props) {
                                                     >
                                                         {close => (
                                                                 <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                                                    <div className="float-left flex p-3">
+                                                                    <h3 className="text-white mx-1">Progress saved</h3>
+                                                                        <div className="relative">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" className="text-white fixed h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                                                            </svg>
+                                                                            <div className="bg-black rounded-full absolute left-3 top-3">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" className="text-white h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                                                </svg>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
                                                                     <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
                                                                         <NotesDiscussionImage imageId={undefined} imageSrc={img.src} closePopup={close} orderId={orderId} setPopUpState={setPopUpState} status={popUpState.status}/>
                                                                     </div>
@@ -210,6 +224,20 @@ function DiscussionSearchPage(props) {
                                                 >
                                                     {close => (
                                                             <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                                                <div className="float-left flex p-3">
+                                                                    <h3 className="text-white mx-1">Progress saved</h3>
+                                                                    <div className="relative">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" className="text-white fixed h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                                                        </svg>
+                                                                        <div className="bg-black rounded-full absolute left-3 top-3">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" className="text-white h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
                                                                 <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
                                                                     <NotesDiscussionImage imageId={undefined} imageSrc={src} closePopup={close} orderId={orderId} setPopUpState={setPopUpState} status={popUpState.status}/>
                                                                 </div>
@@ -247,6 +275,20 @@ function DiscussionSearchPage(props) {
                             >
                                 {close => (
                                         <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                            <div className="float-left flex p-3">
+                                                <h3 className="text-white mx-1">Progress saved</h3>
+                                                <div className="relative">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-white fixed h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                                    </svg>
+                                                    <div className="bg-black rounded-full absolute left-3 top-3">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="text-white h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
                                             <div className="w-full absolute top-1/2 transform -translate-y-1/2 flex justify-evenly flex-wrap back">
                                                 <NotesDiscussionImage imageId={img.id} imageSrc={img.src} closePopup={close} orderId={orderId} setPopUpState={setPopUpState} status={popUpState.status}/>
                                             </div>

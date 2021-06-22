@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import FAQButton from '../components/FAQButton';
 import SortBy from '../components/SortBy';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /// Simulation
 import { propsConstTR, propsConstUS} from './TestNewOrdersPage';
@@ -18,7 +18,7 @@ const propConstUS = {
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
     noCurrentOrders: "No Current Orders",
     underProduction: "Under production",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
 };
 
@@ -72,8 +72,26 @@ function CurrentOrderspage(props) {
     const language = useSelector(state => state.langReducer.language);
     const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
-    const curOrdersList = useSelector(state => state.curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")));   
-    const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList);
+    const curOrdersList = useSelector(state => state.curOrdersList);   
+    const [curOrdersOrganization, setCurOrdersOrganization] = useState(curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")));
+
+    const updateOrganization = (option) => {
+        setTimeout(() => {
+            if (status == 1 || status == 2) {
+                _receiveMeasurements();
+            }
+        }, SIMULATION_DELAY);
+        for (let i = 0; i < propConst.sortByOptions.length; i++) {
+            if (option === propConst.sortByOptions[i]) {
+                setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
+                break;
+            }
+        }
+    };
+
+    useEffect(() => {
+        setCurOrdersOrganization(curOrdersList.filter((val) => !(val.curStepIndex === 4 && val.curStepStatus == "complete")).sort(propUtils.sortByCmps[0])); 
+    }, [curOrdersList]);
 
     /// Simulation
     const dispatch = useDispatch();
@@ -119,20 +137,6 @@ function CurrentOrderspage(props) {
         
     }
     /// End of Simulation
-
-    const updateOrganization = (option) => {
-        setTimeout(() => {
-            if (status == 1 || status == 2) {
-                _receiveMeasurements();
-            }
-        }, SIMULATION_DELAY);
-        for (let i = 0; i < propConst.sortByOptions.length; i++) {
-            if (option === propConst.sortByOptions[i]) {
-                setCurOrdersOrganization([...curOrdersOrganization].sort(propUtils.sortByCmps[i]));
-                break;
-            }
-        }
-    };
 
     return (
         <div className="relative">

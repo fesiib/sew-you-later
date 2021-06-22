@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 const propConstUS = {
-    header: "Previous Orders",
+    header: "Completed Orders",
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
-    noPreviousOrders: "No Previous Orders",
+    noPreviousOrders: "No Completed Orders",
 };
 
 const propConstTR = {

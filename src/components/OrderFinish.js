@@ -4,6 +4,8 @@ import { ArrowCircleRightIcon, ExclamationCircleIcon } from '@heroicons/react/so
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCurOrder } from '../reducers/curOrdersList';
+import Popup from 'reactjs-popup';
+import ConfirmCard from './ConfirmCard';
 
 const propConstUS = {
     nextStepTitle: "Next Step",
@@ -13,27 +15,33 @@ const propConstUS = {
     curStepDesc: "This order is already completed!",
     nextStepDesc: `You have already completed this order. You can browse throughout the order by using
     the left panel menu if you want to.`,
+
+    popUpTitle: "Finish the Order?",
+    popUpBody: "By clicking this, the order will be moved to \"Complete Order\" tab and it cannot be undone.",
+    popUpDecline: "Cancel", 
+    popUpConfirm: "Finish", 
 };
 const propConstTR = {
     nextStepTitle: "Sonraki Adım",
     finishDesc: `Bu sipariş tamamlandıysa, siparişi "Önceki Siparişler" sekmesine taşımamız için lütfen aşağıdaki düğmeyi tıklayın.`,
-    finishTitle: "Tamamlandı", 
+    finishTitle: "Tamamlandı",
     curStepDesc: "Bu sipariş çoktan tamamlandı.",
     nextStepDesc: `Siparişi çoktan tamamladınız. Dilerseniz soldaki menüden siparişin tamamına göz atabilirsiniz.`,
+
+    popUpTitle: "",
+    popUpBody: "",
+    popUpDecline: "", 
+    popUpConfirm: "", 
 };
 
-// const propVars = {
-//     stepTitle: "Discussion",
-//     stepDesc: "You will discuss stuff with the customer",
-// };
-
+const popupStyle = {width: "100%", height: "100%", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", backgroundColor: "rgba(0,0,0,0.5)"}
 
 function OrderFinish(props) {
     const language = useSelector(state => state.langReducer.language);
     const propConst = (language == "TUR" ? propConstTR : propConstUS);
 
     const orderId = props.orderId;
-    const curOrdersList = useSelector(state => state.curOrdersList);  
+    const curOrdersList = useSelector(state => state.curOrdersList);
     const curOrder = curOrdersList.find(order => (order.id == orderId));
 
     const dispatch = useDispatch();
@@ -54,6 +62,13 @@ function OrderFinish(props) {
             nextStepPage: "order-reports",
         }
     }
+    
+    function popupClick(e, close) {
+        if(typeof e.target.className.includes === "function")
+            if(e.target.className.includes("back")) {
+                close();
+            }
+    };
 
     return (
         <div className="my-10 bg-white rounded-xl space-y-4">
@@ -62,9 +77,34 @@ function OrderFinish(props) {
                     <p className="">{propConst.finishDesc}</p>
                 </div>
                 <div className="relative py-4 cursor-pointer">
-                    <button onClick={() => updateTheOrder()} className="green w-full">
-                        {propConst.finishTitle}
-                    </button>
+
+                    <div>
+                        <Popup
+                            trigger={
+                                <button className="green w-full">
+                                    {propConst.finishTitle}
+                                </button>
+                            }
+                            modal
+                            nested
+                            position="center center"
+                            contentStyle={popupStyle}
+                        >
+                            {close => (
+                                <div onClick={(e) => popupClick(e, close)} className="w-full h-full back">
+                                    <ConfirmCard
+                                        onConfirm={() => updateTheOrder()}
+                                        onDecline={close}
+                                        title={propConst.popUpTitle}
+                                        body={propConst.popUpBody}
+                                        decline={propConst.popUpDecline}
+                                        confirm={propConst.popUpConfirm}
+                                    />
+                                </div>
+                            )
+                            }
+                        </Popup>
+                    </div>
                 </div>
             </div>
         </div>

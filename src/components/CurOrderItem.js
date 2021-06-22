@@ -1,6 +1,7 @@
 import ImageWithText from './ImageWithText';
 import ProgressBar from './ProgressBar';
 import Notification from './Notification';
+import EstimatedDue from './EstimatedDue';
 import { CalendarIcon } from '@heroicons/react/outline';
 import {useSelector} from 'react-redux';
 
@@ -22,17 +23,24 @@ function CurOrderItem(props) {
     const referenceImages = curRefImages.filter((refImage) => refImage.parentId === props.vars.id);
 
     const moveTo = (href, params) => {
-        return () => {
-            window.location = "/" + href + "?" + new URLSearchParams(params);
+        window.location = "/" + href + "?" + new URLSearchParams(params);
+    }
+
+    const handleClick = (e) => {
+        if(e.target.id == "calendar-icon") {
+            // TODO
+        }
+        else {
+            moveTo('order-details', { orderId: props.vars.id });
         }
     }
 
     return (
         <Notification position="top-left" size="h-6 w-6" data={props.vars.notificationPage}>
-            <div className="inline-flex bg-white rounded-xl hover:bg-gray-300">
+            <div className="inline-flex bg-white rounded-xl hover:bg-gray-300 cursor-pointer" onClick={(e) => handleClick(e)}>
                 <div className="text-black ml-4 mt-4 mr-4">
                     <div className="flex flex-col h-44">
-                        <div className="cursor-pointer" onClick={moveTo('order-details', { orderId: props.vars.id })}>
+                        <div>
                             <div className="inline-flex">
                                 <h1 className="w-128 overflow-hidden overflow-ellipsis whitespace-nowrap">{props.vars.orderTitle}</h1>
                                 <div className="w-56 text-right mt-1">
@@ -48,9 +56,10 @@ function CurOrderItem(props) {
                             </div>
                         </div>
                         <div className="text-right mt-2">
-                            <div className="flex flex-row justify-end items-center font-bold text-blue-h2 cursor-default">
-                                <CalendarIcon className="h-6"/>
-                                <p className="text-sm">{propConst.estimatedDue + " " + parseInt(((new Date(props.vars.estimatedDue).getTime() - new Date().getTime()) / (1000*60*60*24))) + (language == "TUR"? " gün kaldı" : " days left")}</p>
+                            <div id="calender-icon" className="flex flex-row justify-end items-center">
+                                <div className="transform scale-90">
+                                    <EstimatedDue vars={props.vars}/>
+                                </div>
                             </div>                           
                         </div>
                     </div>
@@ -61,7 +70,7 @@ function CurOrderItem(props) {
                         ?
                         <ImageWithText vars={{referenceImage: propConst.imagePlaceholderLink, text: 0}}/>
                         :
-                        <ImageWithText vars={{referenceImage: referenceImages[0].src, text: referenceImages.length - 1}}/>
+                        <ImageWithText vars={{referenceImage: referenceImages[0].src, text: referenceImages.length}}/>
                     }
                 </div>
             </div>

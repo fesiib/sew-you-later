@@ -22,7 +22,10 @@ const propUtils = {
     measurementTagsNoOptions: (inputValue) => {
         return propConst.noMatchingBodyPart;
     },
-    animatedComponents: makeAnimated(),
+    components: {
+        DropdownIndicator: () => null,
+        IndicatorSeparator: () => null,
+    },
     options: [
         {value: 'chocoalte', label: 'choco'},
         {value: 'vanilla', label: 'vanilla'},
@@ -34,6 +37,7 @@ const propUtils = {
             minHeight: '10em',
             display: 'flex',
             alignItems: 'flex-start',
+            cursor: 'pointer',
         }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
             const color = chroma(colorSelected);
@@ -53,7 +57,7 @@ const propUtils = {
                         ? 'white'
                         : 'black'
                     : colorSelected,
-                    cursor: isDisabled ? 'not-allowed' : 'default',
+                    cursor: isDisabled ? 'not-allowed' : 'pointer',
                     ':active': {
                     ...styles[':active'],
                 backgroundColor:
@@ -169,7 +173,7 @@ function MeasurementTags(props) {
             isDisabled={(status == IMMUTABLE || props.isPrevOrder)}
             className="max-w-xl m-10"
             noOptionsMessage={propUtils.measurementTagsNoOptions}
-            components={propUtils.animatedComponents}
+            components={propUtils.components}
             styles={propUtils.styles}
 
         />
