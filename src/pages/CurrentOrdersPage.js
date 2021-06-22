@@ -18,7 +18,7 @@ const propConstUS = {
     sortByOptions: ["Newest to Oldest", "A-Z", "Due Date", "Customer", "Location"],
     noCurrentOrders: "No Current Orders",
     underProduction: "Under production",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
 };
 

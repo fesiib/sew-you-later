@@ -15,7 +15,7 @@ const propConstUS = {
     notes to the discussion page anytime by clicking "Discussion Notes" on the left panel.`,
 
     curStepDesc4: "Under production",
-    nextStepDesc4: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc4: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`
 };
 

@@ -23,7 +23,7 @@ const propConstUS = {
     sortByOptions: ["Newest to Oldest", "A-Z", "Customer", "Location"],
     noNeworders: "No New Orders",
     underProduction: "Under production",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
 
 };
@@ -33,7 +33,7 @@ const propConstTR = {
     sortByOptions: ["Yeniden Eskiye", "A-Z", "Müşteri", "Konum"],
     noNeworders: "Yeni Sipariş Bulunmamaktadır",
     underProduction: "Üretim Altında",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
 
 };
