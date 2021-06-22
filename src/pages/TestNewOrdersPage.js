@@ -15,7 +15,7 @@ export const propsConstUS = {
     similar to the third picture but not sure about its tone yet. Can you finish it in two weeks?`,
     customerInfo: "Male, 19",
     curStepDesc: "Under production",
-    nextStepDesc: `Any updates on the product? Click the arrow above to start sending progress report 
+    nextStepDesc: `Any updates on the product? Click the icon above to start sending progress report 
     to the customer.`,
     customerLocation: "Korea/Daejeon",
     reset: "Reset",
